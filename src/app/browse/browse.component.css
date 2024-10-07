@@ -1,0 +1,33 @@
+.filter {
+  margin-bottom: 20px;
+}
+
+.movies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.movie-tile {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+.movie-tile img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.movie-tile h3 {
+  font-size: 1.2em;
+  margin: 10px 0 5px;
+}
+
+.movie-tile p {
+  margin: 5px 0;
+}

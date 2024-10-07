@@ -1,1 +1,15 @@
-<p>browse works!</p>
+<div class="filter">
+  <label for="genre">Filter by Genre:</label>
+  <select id="genre" [(ngModel)]="selectedGenre" (change)="filterMovies()">
+    <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+  </select>
+</div>
+
+<div class="movies-grid">
+  <div class="movie-tile" *ngFor="let movie of filteredMovies ">
+    <img [src]="movie.imageUrl" alt="{{movie.title}}">
+    <h3>{{ movie.title }}</h3>
+    <p>{{ movie.genre }} | {{ movie.year }}</p>
+    <p>Rating: {{ movie.rating }}</p>
+  </div>
+</div>
