@@ -8,7 +8,9 @@
 <div class="movies-grid">
   <div class="movie-tile" *ngFor="let movie of filteredMovies ">
     <img [src]="movie.imageUrl" alt="{{movie.title}}">
-    <h3>{{ movie.title }}</h3>
+    <h3>
+      <a [routerLink]="['/movie', movie.id]">{{ movie.title }}</a>
+    </h3>
     <p>{{ movie.genre }} | {{ movie.year }}</p>
     <p>Rating: {{ movie.rating }}</p>
   </div>
