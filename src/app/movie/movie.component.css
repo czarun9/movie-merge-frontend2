@@ -1,0 +1,58 @@
+/* Styl głównego kontenera */
+.movie-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styl dla sekcji z informacjami */
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Styl dla obrazka filmu */
+.movie-poster img {
+  width: 150px;
+  height: 225px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Styl dla tytułu filmu */
+.movie-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Styl dla szczegółów filmu */
+.movie-info {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+/* Styl dla gatunku i roku */
+.movie-genre, .movie-year {
+  font-style: italic;
+}
+
+/* Styl dla oceny filmu */
+.movie-rating {
+  font-weight: bold;
+  color: #ff9800; /* Kolor złoty dla oceny */
+}
+
+/* Styl dla całej sekcji z informacjami */
+.movie-details > * {
+  margin-bottom: 10px;
+}
