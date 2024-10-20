@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Movie} from '../movies';
+import {Movie} from '../../movies';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
-import {MovieService} from '../services/movie/movie.service';
+import {MovieService} from '../../services/movie/movie.service';
 import {RouterLink} from '@angular/router';
 
 @Component({

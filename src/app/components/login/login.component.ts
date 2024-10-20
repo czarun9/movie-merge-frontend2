@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {LoginService} from '../services/login/login.service';
+import {LoginService} from '../../services/login/login.service';
 import {NgIf} from '@angular/common';
 
 @Component({

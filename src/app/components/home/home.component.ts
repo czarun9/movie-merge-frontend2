@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {MovieService} from '../services/movie/movie.service';
+import {MovieService} from '../../services/movie/movie.service';
 import {RouterLink} from '@angular/router';
-import {Movie} from '../movies';
+import {Movie} from '../../movies';
 import {NgForOf} from '@angular/common';
 
 @Component({
