@@ -1,17 +1,54 @@
-<div class="filter">
-  <label for="genre">Filter by Genre:</label>
-  <select id="genre" [(ngModel)]="selectedGenre" (change)="filterMovies()">
-    <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
-  </select>
-</div>
+<div class="container mt-4">
+  <h3 class="mb-4">Przeglądaj Filmy</h3>
 
-<div class="movies-grid">
-  <div class="movie-tile" *ngFor="let movie of filteredMovies ">
-    <img [src]="movie.imageUrl" alt="{{movie.title}}">
-    <h3>
-      <a [routerLink]="['/movie', movie.id]">{{ movie.title }}</a>
-    </h3>
-    <p>{{ movie.genre }} | {{ movie.year }}</p>
-    <p>Rating: {{ movie.rating }}</p>
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <label for="genre" class="form-label">Filtruj według Gatunku:</label>
+      <select id="genre" [(ngModel)]="selectedGenre" class="form-select" (change)="filterMovies()">
+        <option value="">Wszystkie</option>
+        <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="yearRange">Filtruj po roku:</label>
+      <input type="range" min="1950" max="2024" [(ngModel)]="minYear" (input)="filterMovies()" class="form-range" id="minYearRange">
+      <input type="range" min="1950" max="2024" [(ngModel)]="maxYear" (input)="filterMovies()" class="form-range" id="maxYearRange">
+
+      <div class="d-flex justify-content-between">
+        <span>{{ minYear }}</span>
+        <span>{{ maxYear }}</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="rating" class="form-label">Filtruj według Oceny:</label>
+      <select id="rating" [(ngModel)]="selectedRating" class="form-select" (change)="filterMovies()">
+        <option value="">Wszystkie</option>
+        <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}+</option>
+      </select>
+    </div>
+
+    <div class="col-md-3 d-flex align-items-end">
+      <button class="btn btn-secondary w-100" (click)="resetFilters()">Resetuj Filtry</button>
+    </div>
+  </div>
+
+  <!-- Siatka filmów w postaci kart -->
+  <div class="row">
+    <div class="col-md-2 mb-4" *ngFor="let movie of filteredMovies">
+      <div class="card shadow-sm small-card">
+        <img [src]="movie.imageUrl" class="card-img-top" [alt]="movie.title">
+        <div class="card-body">
+          <h5 class="card-title">{{ movie.title }}</h5>
+          <p class="card-text">
+            <strong>Gatunek:</strong> {{ movie.genre }}<br>
+            <strong>Rok:</strong> {{ movie.year }}<br>
+            <strong>Ocena:</strong> {{ movie.rating }}
+          </p>
+          <a [routerLink]="['/movie', movie.id]" class="btn btn-primary">Zobacz więcej</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

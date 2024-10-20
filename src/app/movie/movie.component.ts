@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {MovieService} from '../services/movie.service';
+import {MovieService} from '../services/movie/movie.service';
 import {NgIf} from '@angular/common';
 
 @Component({
@@ -26,7 +26,6 @@ export class MovieComponent implements OnInit {
     });
   }
 
-  // Metoda ładowania danych na podstawie ID filmu
   loadMovieData() {
     this.movieService.getMovie(this.movieId).subscribe(data => {
       this.movieData = data;

@@ -1,1 +1,33 @@
-<p>register works!</p>
+<div class="register-container">
+  <h2>Rejestracja</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" placeholder="Wprowadź email" />
+      <div *ngIf="submitted && formControls['email'].errors" class="error-message">
+        <span *ngIf="formControls['email'].errors?.['required']">Email jest wymagany.</span>
+        <span *ngIf="formControls['email'].errors?.['email']">Wprowadź prawidłowy email.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Hasło:</label>
+      <input id="password" formControlName="password" type="password" placeholder="Wprowadź hasło" />
+      <div *ngIf="submitted && formControls['password'].errors" class="error-message">
+        <span *ngIf="formControls['password'].errors?.['required']">Hasło jest wymagane.</span>
+        <span *ngIf="formControls['password'].errors?.['minlength']">Hasło musi mieć co najmniej 6 znaków.</span>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Zarejestruj</button>
+
+    <div *ngIf="registrationError" class="error-message">
+      {{ registrationError }}
+    </div>
+  </form>
+
+  <div class="login-redirect">
+    <p>Masz już konto? <a (click)="onLoginRedirect()">Zaloguj się</a></p>
+  </div>
+</div>

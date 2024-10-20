@@ -1,9 +1,21 @@
 footer {
-  background-color: #333;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+  padding: 20px 0;
+}
+
+footer h5 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+footer p, footer a {
+  font-size: 14px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .bg-dark {
+  padding: 15px 0;
 }

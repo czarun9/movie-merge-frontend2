@@ -1,1 +1,30 @@
-<p>home works!</p>
+<div class="container mt-5">
+  <div class="jumbotron text-center bg-white p-4 rounded shadow-sm">
+    <h1 class="display-4">Witamy na Movie Merge!</h1>
+    <p class="lead">Twoje ulubione filmy w jednym miejscu.</p>
+    <hr class="my-4">
+    <p>Dołącz do naszej społeczności i odkryj najlepsze filmy oraz seriale.</p>
+    <a class="btn btn-primary btn-lg" href="/browse" role="button">Przeglądaj filmy</a>
+  </div>
+
+  <h3 class="mb-4">Popularne Filmy</h3>
+
+  <div class="movie-carousel">
+    <div class="movie-list">
+      <div class="movie-card" *ngFor="let movie of movies">
+        <div class="card shadow-sm">
+          <img [src]="movie.imageUrl" class="card-img-top" [alt]="movie.title">
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }}</h5>
+            <p class="card-text">
+              <strong>Gatunek:</strong> {{ movie.genre }}<br>
+              <strong>Rok:</strong> {{ movie.year }}<br>
+              <strong>Ocena:</strong> {{ movie.rating }}
+            </p>
+            <a [routerLink]="['/movie', movie.id]" class="btn btn-primary">Zobacz więcej</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

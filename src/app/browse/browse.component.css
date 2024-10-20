@@ -1,33 +1,26 @@
-.filter {
-  margin-bottom: 20px;
+.small-card {
+  width: 100%; /* Dostosuj szerokość, aby dopasować do kolumny */
+  max-width: 150px; /* Zmniejsz maksymalną szerokość karty */
+  height: auto; /* Umożliwia automatyczne dostosowanie wysokości */
 }
 
-.movies-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+.card-img-top {
+  height: 100px; /* Ustaw wysokość obrazu */
+  object-fit: cover; /* Utrzymuj proporcje obrazu */
 }
 
-.movie-tile {
-  background-color: #f4f4f4;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  width: 200px;
-  text-align: center;
+.card-body {
+  padding: 0.5rem; /* Zmniejsz padding w ciele karty */
 }
 
-.movie-tile img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
+.card-title {
+  font-size: 1rem; /* Zmniejsz rozmiar czcionki tytułu */
 }
 
-.movie-tile h3 {
-  font-size: 1.2em;
-  margin: 10px 0 5px;
+.card-text {
+  font-size: 0.8rem; /* Zmniejsz rozmiar czcionki tekstu */
 }
 
-.movie-tile p {
-  margin: 5px 0;
+.btn-sm {
+  padding: 0.25rem 0.5rem; /* Zmniejsz padding przycisku */
 }
