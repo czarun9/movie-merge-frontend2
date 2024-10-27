@@ -5,8 +5,6 @@ import { environment } from '../../../environments/environment';
 import { LoginService } from '../login/login.service';
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  console.log('Interceptor został wywołany');
-
   const authToken = localStorage.getItem('authToken');
   const isApiUrl = req.url.startsWith(environment.apiUrl);
 
@@ -18,7 +16,7 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
         Authorization: `Bearer ${authToken}`,
       },
     });
-    console.log('Dodano nagłówek Authorization:', authToken);
+    console.debug('Dodano nagłówek Authorization:', authToken);
   }
 
   return next(req).pipe(
