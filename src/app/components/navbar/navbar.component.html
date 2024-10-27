@@ -1,13 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/">Home</a>
+  <div class="container-fluid">
+    <ul class="navbar-nav me-auto"> <!-- Elementy po lewej stronie -->
+      <li class="nav-item">
+        <a class="nav-link btn btn-outline-primary" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn btn-outline-primary" routerLink="/browse">Przeglądaj</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <button class="btn btn-primary" routerLink="/register">Zarejestruj się</button>
+      </li>
+      <li class="nav-item dropdown" *ngIf="isLoggedIn">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        Profil
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" routerLink="/edit-profile">Moje Konto</a></li>
+        <li><a class="dropdown-item" (click)="logout()">Wyloguj się</a></li>
+      </ul>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/browse">Browse</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/register">Register</a>
-    </li>
-  </ul>
+
+
+    </ul>
+  </div>
 </nav>
