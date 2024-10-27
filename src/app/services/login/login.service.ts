@@ -15,6 +15,11 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
+  getAuthToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
+
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(this.apiUrl, {email, password}, {
         headers: {'Content-Type': 'application/json'}

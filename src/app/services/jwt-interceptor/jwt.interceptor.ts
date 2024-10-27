@@ -5,10 +5,9 @@ import { environment } from '../../../environments/environment';
 import { LoginService } from '../login/login.service';
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  const authToken = localStorage.getItem('authToken');
-  const isApiUrl = req.url.startsWith(environment.apiUrl);
-
   const loginService = inject(LoginService);
+  const authToken = loginService.getAuthToken();
+  const isApiUrl = req.url.startsWith(environment.apiUrl);
 
   if (authToken && isApiUrl && loginService.isTokenValid(authToken)) {
     req = req.clone({
