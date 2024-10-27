@@ -31,8 +31,3 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
     })
   );
 }
-
-// Rejestracja interceptora
-export const interceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useValue: authInterceptor, multi: true },
-];
