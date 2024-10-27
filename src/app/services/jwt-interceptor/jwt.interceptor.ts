@@ -16,7 +16,7 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
         Authorization: `Bearer ${authToken}`,
       },
     });
-    console.debug('Dodano nagłówek Authorization:', authToken);
+    console.log('Dodano nagłówek Authorization:', authToken);
   }
 
   return next(req).pipe(
