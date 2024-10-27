@@ -17,18 +17,19 @@ import {RouterLink} from '@angular/router';
   styleUrl: './browse.component.css'
 })
 export class BrowseComponent implements OnInit {
-  movies: Movie[] = [];       // Lista wszystkich filmów
-  filteredMovies: Movie[] = []; // Lista przefiltrowanych filmów
-  genres: string[] = ['Action', 'Sci-Fi', 'Drama', 'Comedy']; // Przykładowe gatunki
-  ratings: number[] = [5, 6, 7, 8, 9]; // Przykładowe oceny
-  minYear: number = 1950; // Minimalny rok
-  maxYear: number = 2024; // Maksymalny rok
+  movies: Movie[] | undefined = [];
+  filteredMovies: Movie[] | undefined = [];
+  genres: string[] = ['Action', 'Sci-Fi', 'Drama', 'Comedy'];
+  ratings: number[] = [5, 6, 7, 8, 9];
+  minYear: number = 1950;
+  maxYear: number = 2024;
 
   selectedGenre: string = '';
   selectedYear: string = '';
   selectedRating: string = '';
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieService: MovieService) {
+  }
 
   ngOnInit(): void {
     this.movieService.getMovies().subscribe(movies => {
@@ -38,11 +39,13 @@ export class BrowseComponent implements OnInit {
   }
 
   filterMovies(): void {
-    this.filteredMovies = this.movies.filter(movie => {
-      const isWithinYearRange = movie.year >= this.minYear && movie.year <= this.maxYear;
-      const isGenreMatch = this.selectedGenre ? movie.genre === this.selectedGenre : true;
-      return isWithinYearRange && isGenreMatch;
-    });
+    if (this.movies) {
+      this.filteredMovies = this.movies.filter(movie => {
+        const isWithinYearRange = movie.year >= this.minYear && movie.year <= this.maxYear;
+        const isGenreMatch = this.selectedGenre ? movie.genre === this.selectedGenre : true;
+        return isWithinYearRange && isGenreMatch;
+      });
+    }
   }
 
   // filterMovies(): void {

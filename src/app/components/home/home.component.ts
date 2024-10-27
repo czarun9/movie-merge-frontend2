@@ -15,7 +15,7 @@ import {NgForOf} from '@angular/common';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  movies: Movie[] = [];
+  movies: Movie[] | undefined = [];
 
   constructor(private movieService: MovieService) { }
 

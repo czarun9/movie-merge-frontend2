@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {Movie, MOVIES} from '../../movies';
+import {catchError, map, Observable, of} from 'rxjs';
+import {Movie} from '../../movies';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
+  private apiUrl = `${environment.apiUrl}/api/v1/movies`;
+
   constructor(private http: HttpClient) { }
 
-  // getMovie(id: string): Observable<any> {
-  //   return this.http.get(`https://api.example.com/movies/${id}`);
-  // }
   getMovie(id: string): Observable<Movie | undefined> {
-    const movie = MOVIES.find(m => m.id === Number(id));
-    return of(movie);
+    return this.http.get<Movie>(`${this.apiUrl}/${id}`).pipe(
+      map(response => response),
+      catchError(() => of(undefined))
+    );
   }
 
-  getMovies(): Observable<Movie[]> {
-    return of(MOVIES); // 'of' zamienia statyczne dane na Observable
+  getMovies(): Observable<Movie[] | undefined> {
+    return this.http.get<Movie[]>(`${this.apiUrl}`).pipe(
+      map(response => response),
+      catchError(() => of(undefined))
+    );
   }
+
+  // getMovie(id: string): Observable<Movie | undefined> {
+  //   const movie = MOVIES.find(m => m.id === Number(id));
+  //   return of(movie);
+  // }
+
+  // getMovies(): Observable<Movie[]> {
+  //   return of(MOVIES); // 'of' zamienia statyczne dane na Observable
+  // }
 }
