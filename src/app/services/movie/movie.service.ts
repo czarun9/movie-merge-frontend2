@@ -1,26 +1,33 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
-import {Movie} from '../../movies';
+import {Movie, TmdbMovie} from '../../movies';
 import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  private apiUrl = `${environment.apiUrl}/api/v1/movies`;
+  private apiUrl = `${environment.apiUrl}/api/v1`;
 
   constructor(private http: HttpClient) { }
 
   getMovie(id: string): Observable<Movie | undefined> {
-    return this.http.get<Movie>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.get<Movie>(`${this.apiUrl}/movies/${id}`).pipe(
       map(response => response),
       catchError(() => of(undefined))
     );
   }
 
   getMovies(): Observable<Movie[] | undefined> {
-    return this.http.get<Movie[]>(`${this.apiUrl}`).pipe(
+    return this.http.get<Movie[]>(`${this.apiUrl}/movies`).pipe(
+      map(response => response),
+      catchError(() => of(undefined))
+    );
+  }
+
+  discoverMovies(): Observable<TmdbMovie[] | undefined> {
+    return this.http.get<TmdbMovie[]>(`${this.apiUrl}/tmdb/discover`).pipe(
       map(response => response),
       catchError(() => of(undefined))
     );

@@ -7,6 +7,27 @@ export interface Movie {
   imageUrl: string;
 }
 
+export interface TmdbMovie {
+  id: number;
+  popularity: number;
+  adult: boolean;
+  title: string;
+  video: boolean;
+  rating: number;
+  overview: string;
+  revenue: number;
+  media_type: string;
+  backdrop_path: string;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+  _id: number | null;
+  original_title: string;
+  release_date: string;
+  genre_ids: number[];
+  original_language: string;
+}
+
 export const MOVIES: Movie[] = [
   {
     id: 1,

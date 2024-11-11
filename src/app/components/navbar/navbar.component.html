@@ -13,15 +13,14 @@
         <button class="btn btn-primary" routerLink="/register">Zarejestruj się</button>
       </li>
       <li class="nav-item dropdown" *ngIf="isLoggedIn">
-      <button class="btn btn-primary dropdown-toggle" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        Profil
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" routerLink="/edit-profile">Moje Konto</a></li>
-        <li><a class="dropdown-item" (click)="logout()">Wyloguj się</a></li>
-      </ul>
-    </li>
-
+        <a class="nav-link dropdown-toggle btn btn-outline-primary" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img ngSrc="profile.svg" alt="Profil" style="width: 24px; height: 24px;" height="18" width="18"/>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" routerLink="/edit-profile">Moje Konto</a></li>
+          <li><a class="dropdown-item" (click)="logout()">Wyloguj się</a></li>
+        </ul>
+      </li>
 
     </ul>
   </div>

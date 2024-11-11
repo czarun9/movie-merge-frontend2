@@ -4,19 +4,19 @@
 }
 
 .movie-carousel {
-  overflow-x: auto;    /* Pozwala na przewijanie w poziomie */
-  white-space: nowrap; /* Ustawia elementy w jednym rzędzie */
+  overflow-x: auto;
+  white-space: nowrap;
   padding-bottom: 10px;
 }
 
 .movie-list {
-  display: flex;        /* Flexbox do ułożenia kart w poziomie */
+  display: flex;
 }
 
 .movie-card {
-  flex: 0 0 auto;       /* Ustawia każdą kartę tak, aby nie zmieniała rozmiaru */
-  margin-right: 20px;   /* Odstępy między kartami */
-  width: 200px;         /* Ustalony rozmiar kart */
+  flex: 0 0 auto;
+  margin-right: 20px;
+  width: 200px;
 }
 
 .card {
@@ -24,8 +24,22 @@
 }
 
 .card-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
+  line-height: 1.2;
+  height: 2.4em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .card-text {
