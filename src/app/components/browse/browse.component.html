@@ -10,17 +10,6 @@
       </select>
     </div>
 
-    <div class="col-md-4">
-      <label for="yearRange">Filtruj po roku:</label>
-      <input type="range" min="1950" max="2024" [(ngModel)]="minYear" (input)="filterMovies()" class="form-range" id="minYearRange">
-      <input type="range" min="1950" max="2024" [(ngModel)]="maxYear" (input)="filterMovies()" class="form-range" id="maxYearRange">
-
-      <div class="d-flex justify-content-between">
-        <span>{{ minYear }}</span>
-        <span>{{ maxYear }}</span>
-      </div>
-    </div>
-
     <div class="col-md-3">
       <label for="rating" class="form-label">Filtruj według Oceny:</label>
       <select id="rating" [(ngModel)]="selectedRating" class="form-select" (change)="filterMovies()">
@@ -34,21 +23,9 @@
     </div>
   </div>
 
-  <!-- Siatka filmów w postaci kart -->
   <div class="row">
     <div class="col-md-2 mb-4" *ngFor="let movie of filteredMovies">
-      <div class="card shadow-sm small-card">
-        <img [src]="movie.imageUrl" class="card-img-top" [alt]="movie.title">
-        <div class="card-body">
-          <h5 class="card-title">{{ movie.title }}</h5>
-          <p class="card-text">
-            <strong>Gatunek:</strong> {{ movie.genre }}<br>
-            <strong>Rok:</strong> {{ movie.year }}<br>
-            <strong>Ocena:</strong> {{ movie.rating }}
-          </p>
-          <a [routerLink]="['/movie', movie.id]" class="btn btn-primary">Zobacz więcej</a>
-        </div>
-      </div>
+      <app-movie-card [movie]="movie" [imageBaseUrl]="imageBaseUrl"></app-movie-card>
     </div>
   </div>
 </div>

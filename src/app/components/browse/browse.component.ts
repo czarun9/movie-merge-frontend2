@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Movie} from '../../movies';
+import {TmdbMovie} from '../../movies';
 import {FormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import {DecimalPipe, NgForOf} from '@angular/common';
 import {MovieService} from '../../services/movie/movie.service';
 import {RouterLink} from '@angular/router';
+import {environment} from '../../../environments/environment';
+import {MovieCardComponent} from '../movie-card/movie-card.component';
 
 @Component({
   selector: 'app-browse',
@@ -11,14 +13,17 @@ import {RouterLink} from '@angular/router';
   imports: [
     FormsModule,
     NgForOf,
-    RouterLink
+    RouterLink,
+    DecimalPipe,
+    MovieCardComponent
   ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css'
 })
 export class BrowseComponent implements OnInit {
-  movies: Movie[] | undefined = [];
-  filteredMovies: Movie[] | undefined = [];
+  movies: TmdbMovie[] | undefined = [];
+  filteredMovies: TmdbMovie[] | undefined = [];
+  protected imageBaseUrl = environment.imageBaseUrl;
   genres: string[] = ['Action', 'Sci-Fi', 'Drama', 'Comedy'];
   ratings: number[] = [5, 6, 7, 8, 9];
   minYear: number = 1950;
@@ -32,36 +37,15 @@ export class BrowseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.movieService.getMovies().subscribe(movies => {
+    this.movieService.discoverMovies().subscribe(movies => {
       this.movies = movies;
       this.filteredMovies = movies; // Początkowo pokazujemy wszystkie filmy
     });
   }
 
-  filterMovies(): void {
-    if (this.movies) {
-      this.filteredMovies = this.movies.filter(movie => {
-        const isWithinYearRange = movie.year >= this.minYear && movie.year <= this.maxYear;
-        const isGenreMatch = this.selectedGenre ? movie.genre === this.selectedGenre : true;
-        return isWithinYearRange && isGenreMatch;
-      });
-    }
+  filterMovies(): TmdbMovie[] | undefined {
+    return this.filteredMovies;
   }
 
-  // filterMovies(): void {
-  //   this.filteredMovies = this.movies.filter(movie => {
-  //     return (
-  //       (!this.selectedGenre || movie.genre === this.selectedGenre) &&
-  //       (!this.selectedYear || movie.year === +this.selectedYear) &&
-  //       (!this.selectedRating || movie.rating >= +this.selectedRating)
-  //     );
-  //   });
-  // }
-
-  resetFilters(): void {
-    this.selectedGenre = '';
-    this.selectedYear = '';
-    this.selectedRating = '';
-    this.filteredMovies = this.movies; // Resetuj do początkowej listy filmów
-  }
+  resetFilters(): void {}
 }

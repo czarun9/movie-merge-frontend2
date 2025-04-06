@@ -2,13 +2,13 @@
 
 <div *ngIf="movieData" class="movie-container">
   <div class="movie-poster">
-    <img [src]="movieData.imageUrl" alt="Movie Poster">
+    <img [src]="imageBaseUrl + movieData.poster_path" alt="Movie Poster">
   </div>
 
   <div class="movie-details">
     <h2 class="movie-title">{{ movieData.title }}</h2>
-    <p class="movie-info movie-genre">Genre: {{ movieData.genre }}</p>
-    <p class="movie-info movie-year">Year: {{ movieData.year }}</p>
-    <p class="movie-info movie-rating">Rating: {{ movieData.rating }}</p>
+    <p class="movie-info movie-genre">Gatunki: {{ movieData.genre_ids }}</p>
+    <p class="movie-info movie-year">Data wydania: {{ movieData.release_date }}</p>
+    <p class="movie-info movie-rating">Rating: {{ movieData.vote_average | number   }}</p>
   </div>
 </div>

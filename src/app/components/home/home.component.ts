@@ -4,6 +4,7 @@ import {RouterLink} from '@angular/router';
 import {TmdbMovie} from '../../movies';
 import {DecimalPipe, NgForOf} from '@angular/common';
 import {environment} from '../../../environments/environment';
+import {MovieCardComponent} from '../movie-card/movie-card.component';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ import {environment} from '../../../environments/environment';
   imports: [
     NgForOf,
     RouterLink,
-    DecimalPipe
+    DecimalPipe,
+    MovieCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

@@ -1,0 +1,16 @@
+<div class="card shadow-sm">
+  <img [src]="imageBaseUrl + movie.poster_path" class="card-img-top" [alt]="movie.title">
+  <div class="card-body">
+    <div class="details-bar">
+      <h5 class="card-title">{{ movie.title }}</h5>
+      <p class="card-text">
+        <strong>Gatunek:</strong> {{ movie.genre_ids }}<br>
+        <strong>Data wydania:</strong> {{ movie.release_date }}<br>
+        <strong>Ocena:</strong> {{ movie.vote_average | number }}
+      </p>
+    </div>
+    <div class="button-bar">
+      <a [routerLink]="['/movie', movie.id]" class="btn btn-primary">Zobacz więcej</a>
+    </div>
+  </div>
+</div>

@@ -12,8 +12,8 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
-  getMovie(id: string): Observable<Movie | undefined> {
-    return this.http.get<Movie>(`${this.apiUrl}/movies/${id}`).pipe(
+  getMovie(id: string): Observable<TmdbMovie | undefined> {
+    return this.http.get<TmdbMovie>(`${this.apiUrl}/tmdb/${id}`).pipe(
       map(response => response),
       catchError(() => of(undefined))
     );
