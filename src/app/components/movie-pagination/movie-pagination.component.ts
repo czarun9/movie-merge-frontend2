@@ -1,0 +1,48 @@
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {NgForOf, NgIf} from '@angular/common';
+import {MovieService} from '../../services/movie/movie.service';
+
+@Component({
+  selector: 'app-movie-pagination',
+  standalone: true,
+  imports: [
+    NgForOf,
+    NgIf
+  ],
+  templateUrl: './movie-pagination.component.html',
+  styleUrl: './movie-pagination.component.css'
+})
+export class MoviePaginationComponent{
+  @Input() currentPage: number = 1;
+  @Input() totalPages: number = 1;
+  @Output() pageChanged = new EventEmitter<number>();
+
+  visiblePages: number[] = [];
+
+  ngOnChanges(): void {
+    this.updateVisiblePages();
+  }
+
+  updateVisiblePages(): void {
+    const pages: number[] = [];
+
+    const start = Math.max(1, this.currentPage - 1);
+    const end = Math.min(this.totalPages, start + 2);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    while (pages.length < 3 && pages[0] > 1) {
+      pages.unshift(pages[0] - 1);
+    }
+
+    this.visiblePages = pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
+      this.pageChanged.emit(page);
+    }
+  }
+}
