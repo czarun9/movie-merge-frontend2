@@ -1,22 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {TmdbMovie} from '../../movies';
-import {FormsModule} from '@angular/forms';
-import {DecimalPipe, NgForOf} from '@angular/common';
-import {MovieService} from '../../services/movie/movie.service';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {environment} from '../../../environments/environment';
-import {MovieCardComponent} from '../movie-card/movie-card.component';
-import {MoviePaginationComponent} from '../movie-pagination/movie-pagination.component';
-import {MovieFilterComponent} from '../movie-filter/movie-filter.component';
+import { Component, OnInit } from '@angular/core';
+import {Genre, TmdbMovie} from '../../movies';
+import { MovieService } from '../../services/movie/movie.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { MovieCardComponent } from '../movie-card/movie-card.component';
+import { MoviePaginationComponent } from '../movie-pagination/movie-pagination.component';
+import { MovieFilterComponent } from '../movie-filter/movie-filter.component';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-browse',
   standalone: true,
   imports: [
-    FormsModule,
     NgForOf,
-    RouterLink,
-    DecimalPipe,
     MovieCardComponent,
     MoviePaginationComponent,
     MovieFilterComponent
@@ -25,42 +21,28 @@ import {MovieFilterComponent} from '../movie-filter/movie-filter.component';
   styleUrl: './browse.component.css'
 })
 export class BrowseComponent implements OnInit {
-  movies: TmdbMovie[] | undefined = [];
-  filteredMovies: TmdbMovie[] | undefined = [];
+  movies: TmdbMovie[] = [];
+  genres: Genre[] = [];
+  filteredMovies: TmdbMovie[] = [];
   protected imageBaseUrl = environment.imageBaseUrl;
-  genres: string[] = ['Action', 'Sci-Fi', 'Drama', 'Comedy'];
-  ratings: number[] = [5, 6, 7, 8, 9];
 
-  selectedGenre: string = '';
-  selectedYear: string = '';
-  selectedRating: string = '';
   page = 1;
-  protected totalPages: number | undefined;
+  protected totalPages: number = 1;
 
-  constructor(private movieService: MovieService,
-              private route: ActivatedRoute,
-              private router: Router) {
-  }
+  constructor(
+    private movieService: MovieService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.page = parseInt(params['page'], 10) || 1;
       this.loadMovies();
     });
-  }
 
-  filterMovies(): TmdbMovie[] | undefined {
-    return this.filteredMovies;
-  }
-
-  resetFilters(): void {
-  }
-
-  onPageChanged(newPage: number): void {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: newPage },
-      queryParamsHandling: 'merge'
+    this.movieService.getGenres().subscribe(response => {
+      this.genres = response?.genres ?? [];
     });
   }
 
@@ -74,16 +56,16 @@ export class BrowseComponent implements OnInit {
     });
   }
 
-  onGenreChanged(genre: string): void {
-    this.selectedGenre = genre;
-    this.filterMovies();
+  onPageChanged(newPage: number): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: newPage },
+      queryParamsHandling: 'merge'
+    });
   }
 
-  onRatingChanged(rating: string): void {
-    this.selectedRating = rating;
-    this.filterMovies();
+  onMoviesFiltered(filtered: TmdbMovie[]): void {
+    this.filteredMovies = filtered;
   }
-
 
 }
-

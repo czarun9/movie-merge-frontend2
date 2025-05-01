@@ -1,34 +1,36 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Genre, TmdbMovie } from '../../movies';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-movie-filter',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './movie-filter.component.html',
-  styleUrl: './movie-filter.component.css'
+  styleUrls: ['./movie-filter.component.css']
 })
-export class MovieFilterComponent {
-  @Input() genres: string[] = [];
-  @Input() ratings: number[] = [];
+export class MovieFilterComponent{
+  @Input() movies: TmdbMovie[] = [];
+  @Input() genres: Genre[] = [];
+  @Output() filtered = new EventEmitter<TmdbMovie[]>();
+  @Output() searchRequested = new EventEmitter<{ genre?: string, rating?: number }>();
 
-  @Input() selectedGenre: string = '';
-  @Input() selectedRating: string = '';
+  selectedGenre: string = '';
+  selectedRating: string = '';
+  ratings: number[] = [5, 6, 7, 8, 9];
 
-  @Output() genreChanged = new EventEmitter<string>();
-  @Output() ratingChanged = new EventEmitter<string>();
-  @Output() resetFilters = new EventEmitter<void>();
-
-  onGenreChange(value: string): void {
-    this.genreChanged.emit(value);
+  triggerSearch(): void {
+    this.searchRequested.emit({
+      genre: this.selectedGenre || undefined,
+      rating: this.selectedRating ? +this.selectedRating : undefined
+    });
   }
 
-  onRatingChange(value: string): void {
-    this.ratingChanged.emit(value);
+  resetFilters(): void {
+    this.selectedGenre = '';
+    this.selectedRating = '';
+    this.triggerSearch(); // automatycznie zresetuj także wyniki
   }
 
-  onReset(): void {
-    this.resetFilters.emit();
-  }
 }

@@ -28,6 +28,14 @@ export interface TmdbMovie {
   original_language: string;
 }
 
+export interface Genre {
+  id : number;
+  name : string;
+}
+export interface GenresResponse{
+  genres: Genre[];
+}
+
 export interface TmdbMoviePageResponse {
   movies: TmdbMovie[];
   totalPages: number;

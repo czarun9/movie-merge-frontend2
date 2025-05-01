@@ -2,20 +2,21 @@
   <h3 class="mb-4">Przeglądaj Filmy</h3>
 
   <app-movie-filter
+    [movies]="movies"
     [genres]="genres"
-    [ratings]="ratings"
-    [selectedGenre]="selectedGenre"
-    [selectedRating]="selectedRating"
-    (genreChanged)="onGenreChanged($event)"
-    (ratingChanged)="onRatingChanged($event)"
-    (resetFilters)="resetFilters()"
-  ></app-movie-filter>
+    (filtered)="onMoviesFiltered($event)">
+  </app-movie-filter>
 
   <div class="row">
     <div class="col-md-3 mb-4" *ngFor="let movie of filteredMovies">
-      <app-movie-card [movie]="movie" [imageBaseUrl]="imageBaseUrl"></app-movie-card>
+      <app-movie-card
+        [movie]="movie"
+        [genres]="genres"
+        [imageBaseUrl]="imageBaseUrl">
+      </app-movie-card>
     </div>
   </div>
+
   <app-movie-pagination
     [currentPage]="page"
     [totalPages]="totalPages || 1"
