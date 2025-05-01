@@ -7,6 +7,7 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {MovieCardComponent} from '../movie-card/movie-card.component';
 import {MoviePaginationComponent} from '../movie-pagination/movie-pagination.component';
+import {MovieFilterComponent} from '../movie-filter/movie-filter.component';
 
 @Component({
   selector: 'app-browse',
@@ -17,7 +18,8 @@ import {MoviePaginationComponent} from '../movie-pagination/movie-pagination.com
     RouterLink,
     DecimalPipe,
     MovieCardComponent,
-    MoviePaginationComponent
+    MoviePaginationComponent,
+    MovieFilterComponent
   ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css'
@@ -71,6 +73,17 @@ export class BrowseComponent implements OnInit {
       }
     });
   }
+
+  onGenreChanged(genre: string): void {
+    this.selectedGenre = genre;
+    this.filterMovies();
+  }
+
+  onRatingChanged(rating: string): void {
+    this.selectedRating = rating;
+    this.filterMovies();
+  }
+
 
 }
 

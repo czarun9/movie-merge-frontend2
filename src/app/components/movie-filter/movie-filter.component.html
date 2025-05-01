@@ -1,0 +1,21 @@
+<div class="row mb-4">
+  <div class="col-md-3">
+    <label for="genre" class="form-label">Filtruj według Gatunku:</label>
+    <select id="genre" [ngModel]="selectedGenre" (ngModelChange)="onGenreChange($event)" class="form-select">
+      <option value="">Wszystkie</option>
+      <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label for="rating" class="form-label">Filtruj według Oceny:</label>
+    <select id="rating" [ngModel]="selectedRating" (ngModelChange)="onRatingChange($event)" class="form-select">
+      <option value="">Wszystkie</option>
+      <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}+</option>
+    </select>
+  </div>
+
+  <div class="col-md-3 d-flex align-items-end">
+    <button class="btn btn-secondary w-100" (click)="onReset()">Resetuj Filtry</button>
+  </div>
+</div>

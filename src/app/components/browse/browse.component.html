@@ -1,27 +1,15 @@
 <div class="container mt-4">
   <h3 class="mb-4">Przeglądaj Filmy</h3>
 
-  <div class="row mb-4">
-    <div class="col-md-3">
-      <label for="genre" class="form-label">Filtruj według Gatunku:</label>
-      <select id="genre" [(ngModel)]="selectedGenre" class="form-select" (change)="filterMovies()">
-        <option value="">Wszystkie</option>
-        <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
-      </select>
-    </div>
-
-    <div class="col-md-3">
-      <label for="rating" class="form-label">Filtruj według Oceny:</label>
-      <select id="rating" [(ngModel)]="selectedRating" class="form-select" (change)="filterMovies()">
-        <option value="">Wszystkie</option>
-        <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}+</option>
-      </select>
-    </div>
-
-    <div class="col-md-3 d-flex align-items-end">
-      <button class="btn btn-secondary w-100" (click)="resetFilters()">Resetuj Filtry</button>
-    </div>
-  </div>
+  <app-movie-filter
+    [genres]="genres"
+    [ratings]="ratings"
+    [selectedGenre]="selectedGenre"
+    [selectedRating]="selectedRating"
+    (genreChanged)="onGenreChanged($event)"
+    (ratingChanged)="onRatingChanged($event)"
+    (resetFilters)="resetFilters()"
+  ></app-movie-filter>
 
   <div class="row">
     <div class="col-md-3 mb-4" *ngFor="let movie of filteredMovies">
