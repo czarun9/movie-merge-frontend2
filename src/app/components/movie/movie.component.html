@@ -1,14 +1,25 @@
-<h1>Movie Details</h1>
+<div class="movie-wrapper" *ngIf="movieData">
+  <div class="movie-backdrop">
+    <img [src]="imageBaseUrl + movieData.backdrop_path" alt="Backdrop"/>
+    <div class="movie-hero">
+      <img class="movie-poster" [src]="imageBaseUrl + movieData.poster_path" alt="Poster"/>
+    </div>
+    <div class="movie-actions">
+      <div class="movie-buttons">
+        <i class="fa fa-thumbs-up movie-btn" (click)="likeMovie()" title="Polub"></i>
+        <i class="fa fa-plus-square movie-btn" (click)="addToWatchlist()" title="Dodaj do Watchlisty"></i>
+        <i class="fa fa-play movie-btn" (click)="watchMovie()" title="Obejrzyj"></i>
+      </div>
 
-<div *ngIf="movieData" class="movie-container">
-  <div class="movie-poster">
-    <img [src]="imageBaseUrl + movieData.poster_path" alt="Movie Poster">
+      <div class="movie-rating">
+        <div class="stars">
+          <button *ngFor="let star of [1, 2, 3, 4, 5]" (click)="rateMovie(star)">
+            <span [class.filled]="star <= currentRating">★</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="movie-details">
-    <h2 class="movie-title">{{ movieData.title }}</h2>
-    <p class="movie-info movie-genre">Gatunki: {{ movieData.genre_ids }}</p>
-    <p class="movie-info movie-year">Data wydania: {{ movieData.release_date }}</p>
-    <p class="movie-info movie-rating">Rating: {{ movieData.vote_average | number   }}</p>
-  </div>
+  <app-movie-details [movieData]="movieData"></app-movie-details>
 </div>

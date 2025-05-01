@@ -28,6 +28,11 @@ export interface TmdbMovie {
   original_language: string;
 }
 
+export interface TmdbMoviePageResponse {
+  movies: TmdbMovie[];
+  totalPages: number;
+}
+
 export const MOVIES: Movie[] = [
   {
     id: 1,

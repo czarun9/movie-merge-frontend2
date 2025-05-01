@@ -3,9 +3,10 @@ import {TmdbMovie} from '../../movies';
 import {FormsModule} from '@angular/forms';
 import {DecimalPipe, NgForOf} from '@angular/common';
 import {MovieService} from '../../services/movie/movie.service';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {MovieCardComponent} from '../movie-card/movie-card.component';
+import {MoviePaginationComponent} from '../movie-pagination/movie-pagination.component';
 
 @Component({
   selector: 'app-browse',
@@ -15,7 +16,8 @@ import {MovieCardComponent} from '../movie-card/movie-card.component';
     NgForOf,
     RouterLink,
     DecimalPipe,
-    MovieCardComponent
+    MovieCardComponent,
+    MoviePaginationComponent
   ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css'
@@ -26,20 +28,22 @@ export class BrowseComponent implements OnInit {
   protected imageBaseUrl = environment.imageBaseUrl;
   genres: string[] = ['Action', 'Sci-Fi', 'Drama', 'Comedy'];
   ratings: number[] = [5, 6, 7, 8, 9];
-  minYear: number = 1950;
-  maxYear: number = 2024;
 
   selectedGenre: string = '';
   selectedYear: string = '';
   selectedRating: string = '';
+  page = 1;
+  protected totalPages: number | undefined;
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    this.movieService.discoverMovies().subscribe(movies => {
-      this.movies = movies;
-      this.filteredMovies = movies; // Początkowo pokazujemy wszystkie filmy
+    this.route.queryParams.subscribe(params => {
+      this.page = parseInt(params['page'], 10) || 1;
+      this.loadMovies();
     });
   }
 
@@ -47,5 +51,26 @@ export class BrowseComponent implements OnInit {
     return this.filteredMovies;
   }
 
-  resetFilters(): void {}
+  resetFilters(): void {
+  }
+
+  onPageChanged(newPage: number): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: newPage },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  loadMovies(): void {
+    this.movieService.discoverMovies(this.page).subscribe(response => {
+      if (response) {
+        this.movies = response.movies;
+        this.filteredMovies = response.movies;
+        this.totalPages = response.totalPages;
+      }
+    });
+  }
+
 }
+

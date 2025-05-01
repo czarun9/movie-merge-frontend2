@@ -24,8 +24,14 @@
   </div>
 
   <div class="row">
-    <div class="col-md-2 mb-4" *ngFor="let movie of filteredMovies">
+    <div class="col-md-3 mb-4" *ngFor="let movie of filteredMovies">
       <app-movie-card [movie]="movie" [imageBaseUrl]="imageBaseUrl"></app-movie-card>
     </div>
   </div>
+  <app-movie-pagination
+    [currentPage]="page"
+    [totalPages]="totalPages || 1"
+    (pageChanged)="onPageChanged($event)">
+  </app-movie-pagination>
+
 </div>

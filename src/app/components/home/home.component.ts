@@ -27,8 +27,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.movieService.discoverMovies().subscribe(movies => {
-      this.movies = movies;
+    this.loadMovies(1);
+  }
+
+  private loadMovies(page: number): void {
+    this.movieService.discoverMovies(page).subscribe(response => {
+      if (response) {
+        this.movies = response.movies;
+      }
     });
   }
 }
