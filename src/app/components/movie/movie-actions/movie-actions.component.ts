@@ -30,4 +30,15 @@ export class MovieActionsComponent {
   onRatingChanged(rating: number) {
     this.ratingChanged.emit(rating);
   }
+
+  getRatingTileClass(): string {
+    const rating = this.staticRating / 2;
+
+    if (rating >= 4.5) return 'rating-highest';
+    if (rating >= 3.5) return 'rating-high';
+    if (rating >= 2.5) return 'rating-medium';
+    if (rating >= 1.5) return 'rating-low';
+    return 'rating-lowest';
+  }
+
 }
