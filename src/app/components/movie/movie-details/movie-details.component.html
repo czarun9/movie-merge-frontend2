@@ -42,13 +42,9 @@
               {{ genre.name }}<span *ngIf="!last">, </span>
             </ng-container>
           </p>
-
-          <p class="movie-info"><strong>Rating:</strong> {{ movieData?.vote_average | number:'1.1-1' }}
-            ({{ movieData?.vote_count }} głosów)</p>
           <p class="movie-info"><strong>Dla dorosłych:</strong> {{ movieData?.adult ? 'Tak' : 'Nie' }}</p>
           <p class="movie-info"><strong>Popularność:</strong> {{ movieData?.popularity | number:'1.0-0' }}</p>
           <p class="movie-info"><strong>Dochód:</strong> {{ movieData?.revenue | currency:'USD' }}</p>
-          <p class="movie-info"><strong>Media Type:</strong> {{ movieData?.media_type }}</p>
           <p class="movie-info"><strong>Wideo dostępne:</strong> {{ movieData?.video ? 'Tak' : 'Nie' }}</p>
         </div>
         <div *ngSwitchCase="'crew'">
