@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {DecimalPipe} from '@angular/common';
+import {DatePipe, DecimalPipe} from '@angular/common';
 import {Genre} from '../../../movies';
 import {RatingTileComponent} from '../../movie/rating-tile/rating-tile.component';
 
@@ -10,7 +10,8 @@ import {RatingTileComponent} from '../../movie/rating-tile/rating-tile.component
   imports: [
     RouterLink,
     DecimalPipe,
-    RatingTileComponent
+    RatingTileComponent,
+    DatePipe
   ],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.css'
