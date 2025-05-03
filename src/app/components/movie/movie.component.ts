@@ -27,10 +27,16 @@ import {MovieActionsComponent} from './movie-actions/movie-actions.component';
 export class MovieComponent implements OnInit {
   movieId: string = '1';
   movieData: TmdbMovie | undefined;
-  protected imageBaseUrl : string = environment.imageBaseUrl;
+  protected imageBaseUrl: string = environment.imageBaseUrl;
 
   currentRating: number = 0;
-  constructor(private route: ActivatedRoute, private movieService: MovieService) { }
+  protected userRating: number;
+  protected staticRating: number;
+
+  constructor(private route: ActivatedRoute, private movieService: MovieService) {
+    this.userRating = 0;
+    this.staticRating = 0;
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -43,7 +49,7 @@ export class MovieComponent implements OnInit {
     this.movieService.getMovie(this.movieId).subscribe(data => {
       if (data) {
         this.movieData = data;
-        this.currentRating = data.vote_average ?? 0;
+        this.staticRating = data.vote_average ?? 0;
         console.log(this.movieData);
         console.log(this.currentRating);
       }
@@ -67,9 +73,6 @@ export class MovieComponent implements OnInit {
     console.log(rating);
     // this.movieService.rateMovie(rating)
   }
-
-
-
 
 
 }

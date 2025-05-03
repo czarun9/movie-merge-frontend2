@@ -7,10 +7,11 @@
 
   <div class="movie-rating">
     <app-movie-stars
-      [currentRating]="currentRating"
+      [userRating]="userRating"
+      [staticRating]="staticRating"
       (ratingChanged)="onRatingChanged($event)">
     </app-movie-stars>
 
-    <span class="rating-text">{{ currentRating.toFixed(1) }}/10</span>
+    <span class="rating-text">{{ staticRating.toFixed(1) }}/10</span>
   </div>
 </div>

@@ -3,7 +3,6 @@
   gap: 6px;
 }
 
-
 .star-wrapper {
   position: relative;
   font-size: 32px;
@@ -18,7 +17,8 @@
 }
 
 .star-bg,
-.star-fg {
+.star-fg,
+.user-rated {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,7 +26,6 @@
   height: 100%;
   font-size: 32px;
   line-height: 32px;
-  /*text-align: center;*/
   pointer-events: none;
 }
 
@@ -44,3 +43,6 @@
   transition: width 0.1s ease;
 }
 
+.star-fg.user-rated {
+  color: orange;
+}

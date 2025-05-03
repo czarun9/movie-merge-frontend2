@@ -10,7 +10,9 @@ import { MovieStarsComponent } from '../movie-stars/movie-stars.component';
   styleUrls: ['./movie-actions.component.css']
 })
 export class MovieActionsComponent {
-  @Input() currentRating: number = 0;
+  @Input() userRating: number = 0;
+  @Input() staticRating: number = 0;
+
   @Output() ratingChanged = new EventEmitter<number>();
 
   likeMovie() {

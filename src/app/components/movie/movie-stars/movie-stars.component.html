@@ -5,6 +5,8 @@
        (mouseleave)="onStarLeave()"
        (click)="rateMovie(hoverRating)">
     <div class="star-bg">★</div>
-    <div class="star-fg" [style.width.%]="getStarFillPercentage(i + 1)">★</div>
+    <div class="star-fg"
+         [ngClass]="{ 'user-rated': hasRated }"
+         [style.width.%]="getStarFillPercentage(i + 1)">★</div>
   </div>
 </div>
