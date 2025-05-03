@@ -5,8 +5,20 @@
   </h2>
 
   <div class="movie-overview">
-    <p>{{ movieData?.overview }}</p>
+    <div
+      class="movie-overview-text"
+      [ngClass]="{ 'expanded': isOverviewExpanded }">
+      <p #overviewRef>{{ movieData?.overview }}</p>
+    </div>
+    <button
+      *ngIf="isTruncatable"
+      class="read-more-btn"
+      (click)="toggleOverview()">
+      {{ isOverviewExpanded ? 'Zwiń' : 'Czytaj dalej' }}
+    </button>
   </div>
+
+
 
   <p class="movie-info"><strong>Data wydania:</strong> {{ movieData?.release_date }}</p>
   <p class="movie-info"><strong>Język oryginalny:</strong> {{ movieData?.original_language | uppercase }}</p>
