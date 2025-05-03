@@ -5,6 +5,7 @@ import {CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe} from '@angular/
 import {TmdbMovie} from '../../movies';
 import {environment} from '../../../environments/environment';
 import {MovieDetailsComponent} from './movie-details/movie-details.component';
+import {MovieStarsComponent} from './movie-stars/movie-stars.component';
 
 @Component({
   selector: 'app-movie',
@@ -15,7 +16,8 @@ import {MovieDetailsComponent} from './movie-details/movie-details.component';
     UpperCasePipe,
     CurrencyPipe,
     NgForOf,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    MovieStarsComponent
   ],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.css'
@@ -25,9 +27,7 @@ export class MovieComponent implements OnInit {
   movieData: TmdbMovie | undefined;
   protected imageBaseUrl : string = environment.imageBaseUrl;
 
-  stars = [1, 2, 3, 4, 5];
   currentRating: number = 0;
-  hoverRating = 0;
   constructor(private route: ActivatedRoute, private movieService: MovieService) { }
 
   ngOnInit(): void {
@@ -66,29 +66,7 @@ export class MovieComponent implements OnInit {
     // this.movieService.rateMovie(rating)
   }
 
-  onStarHover(event: MouseEvent, starIndex: number) {
-    const wrapper = event.currentTarget as HTMLElement;
-    const rect = wrapper.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left;
-    const width = rect.width;
 
-    const percentage = offsetX / width;
-
-    this.hoverRating = starIndex - 1 + (percentage <= 0.5 ? 0.5 : 1);
-  }
-
-  getStarFillPercentage(starIndex: number): number {
-    const rating = this.hoverRating || (this.currentRating / 2);
-
-    if (rating >= starIndex) return 100;
-    if (rating >= starIndex - 0.5) return 42;
-
-    return 0;
-  }
-
-  onStarLeave() {
-    this.hoverRating = 0;
-  }
 
 
 

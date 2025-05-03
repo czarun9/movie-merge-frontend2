@@ -12,14 +12,10 @@
       <i class="fa fa-plus-square movie-btn" (click)="addToWatchlist()" title="Dodaj do Watchlisty"></i>
       <i class="fa fa-play movie-btn" (click)="watchMovie()" title="Obejrzyj"></i>
     </div>
-    <div class="star-wrapper"
-         *ngFor="let star of stars; let i = index"
-         (mousemove)="onStarHover($event, i + 1)"
-         (mouseleave)="onStarLeave()"
-         (click)="rateMovie(hoverRating)">
-      <div class="star-bg">★</div>
-      <div class="star-fg" [style.width.%]="getStarFillPercentage(i + 1)">★</div>
-    </div>
+    <app-movie-stars
+      [currentRating]="currentRating"
+      (ratingChanged)="rateMovie($event)">
+    </app-movie-stars>
   </div>
 
   <app-movie-details [movieData]="movieData"></app-movie-details>

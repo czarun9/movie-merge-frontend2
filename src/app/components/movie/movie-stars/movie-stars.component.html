@@ -1,0 +1,10 @@
+<div class="star-rating-container">
+  <div class="star-wrapper"
+       *ngFor="let star of stars; let i = index"
+       (mousemove)="onStarHover($event, i + 1)"
+       (mouseleave)="onStarLeave()"
+       (click)="rateMovie(hoverRating)">
+    <div class="star-bg">★</div>
+    <div class="star-fg" [style.width.%]="getStarFillPercentage(i + 1)">★</div>
+  </div>
+</div>
