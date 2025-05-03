@@ -4,7 +4,9 @@
     <span class="movie-year">({{ movieData?.release_date | date:'yyyy' }})</span>
   </h2>
 
-  <p class="movie-original-title"><em>{{ movieData?.original_title }}</em></p>
+  <div class="movie-overview">
+    <p>{{ movieData?.overview }}</p>
+  </div>
 
   <p class="movie-info"><strong>Data wydania:</strong> {{ movieData?.release_date }}</p>
   <p class="movie-info"><strong>Język oryginalny:</strong> {{ movieData?.original_language | uppercase }}</p>
@@ -22,9 +24,4 @@
   <p class="movie-info"><strong>Dochód:</strong> {{ movieData?.revenue | currency:'USD' }}</p>
   <p class="movie-info"><strong>Media Type:</strong> {{ movieData?.media_type }}</p>
   <p class="movie-info"><strong>Wideo dostępne:</strong> {{ movieData?.video ? 'Tak' : 'Nie' }}</p>
-
-  <div class="movie-overview">
-    <h3>Opis:</h3>
-    <p>{{ movieData?.overview }}</p>
-  </div>
 </div>
