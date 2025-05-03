@@ -1,23 +1,69 @@
 .movie-details {
-  margin-top: 50px;
-  margin-left: 200px; /* Odstęp od plakatu */
+  margin: 0;
+  padding-left: 20px;
 }
+
 
 .movie-info {
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
+
 .movie-title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
+
 
 .movie-overview {
   margin-top: 20px;
 }
 
 .movie-overview h3 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.movie-overview p {
+  font-size: 16px;
+  line-height: 1.5;
+  max-height: 120px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+
+@media (max-width: 768px) {
+  .movie-details {
+    padding-left: 0;
+  }
+
+  .movie-info {
+    font-size: 14px;
+  }
+
+  .movie-title {
+    font-size: 22px;
+  }
+
+  .movie-overview h3 {
+    font-size: 18px;
+  }
+
+  .movie-overview p {
+    max-height: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-info {
+    font-size: 12px;
+  }
+
+  .movie-title {
+    font-size: 20px;
+  }
 }
