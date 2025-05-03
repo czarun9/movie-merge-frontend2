@@ -18,22 +18,46 @@
     </button>
   </div>
 
+  <div class="movie-tabs">
+    <div class="tabs">
+      <button
+        *ngFor="let tab of tabs"
+        [class.active]="selectedTab === tab"
+        (click)="selectTab(tab)">
+        {{ tab.label }}
+      </button>
+    </div>
 
+    <div class="tab-content">
+      <ng-container [ngSwitch]="selectedTab.value">
+        <div *ngSwitchCase="'cast'">
+          <p>Obsada (cast) będzie tutaj</p>
+        </div>
+        <div *ngSwitchCase="'details'">
+          <p class="movie-info"><strong>Data wydania:</strong> {{ movieData?.release_date }}</p>
+          <p class="movie-info"><strong>Język oryginalny:</strong> {{ movieData?.original_language | uppercase }}</p>
 
-  <p class="movie-info"><strong>Data wydania:</strong> {{ movieData?.release_date }}</p>
-  <p class="movie-info"><strong>Język oryginalny:</strong> {{ movieData?.original_language | uppercase }}</p>
+          <p class="movie-info"><strong>Gatunki:</strong>
+            <ng-container *ngFor="let genre of movieData?.genres; let last = last">
+              {{ genre.name }}<span *ngIf="!last">, </span>
+            </ng-container>
+          </p>
 
-  <p class="movie-info"><strong>Gatunki:</strong>
-    <ng-container *ngFor="let genre of movieData?.genres; let last = last">
-      {{ genre.name }}<span *ngIf="!last">, </span>
-    </ng-container>
-  </p>
-
-  <p class="movie-info"><strong>Rating:</strong> {{ movieData?.vote_average | number:'1.1-1' }}
-    ({{ movieData?.vote_count }} głosów)</p>
-  <p class="movie-info"><strong>Dla dorosłych:</strong> {{ movieData?.adult ? 'Tak' : 'Nie' }}</p>
-  <p class="movie-info"><strong>Popularność:</strong> {{ movieData?.popularity | number:'1.0-0' }}</p>
-  <p class="movie-info"><strong>Dochód:</strong> {{ movieData?.revenue | currency:'USD' }}</p>
-  <p class="movie-info"><strong>Media Type:</strong> {{ movieData?.media_type }}</p>
-  <p class="movie-info"><strong>Wideo dostępne:</strong> {{ movieData?.video ? 'Tak' : 'Nie' }}</p>
+          <p class="movie-info"><strong>Rating:</strong> {{ movieData?.vote_average | number:'1.1-1' }}
+            ({{ movieData?.vote_count }} głosów)</p>
+          <p class="movie-info"><strong>Dla dorosłych:</strong> {{ movieData?.adult ? 'Tak' : 'Nie' }}</p>
+          <p class="movie-info"><strong>Popularność:</strong> {{ movieData?.popularity | number:'1.0-0' }}</p>
+          <p class="movie-info"><strong>Dochód:</strong> {{ movieData?.revenue | currency:'USD' }}</p>
+          <p class="movie-info"><strong>Media Type:</strong> {{ movieData?.media_type }}</p>
+          <p class="movie-info"><strong>Wideo dostępne:</strong> {{ movieData?.video ? 'Tak' : 'Nie' }}</p>
+        </div>
+        <div *ngSwitchCase="'crew'">
+          <p>Ekipa (crew) będzie tutaj</p>
+        </div>
+        <div *ngSwitchCase="'reviews'">
+          <p>Ekipa (crew) będzie tutaj</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 </div>

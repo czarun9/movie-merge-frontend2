@@ -1,5 +1,15 @@
-import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgForOf, NgIf, UpperCasePipe} from '@angular/common';
+import {AfterViewInit, Component, ElementRef, Input, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+  UpperCasePipe
+} from '@angular/common';
 import {TmdbMovie} from '../../../movies';
 
 @Component({
@@ -12,7 +22,9 @@ import {TmdbMovie} from '../../../movies';
     NgIf,
     NgForOf,
     DatePipe,
-    NgClass
+    NgClass,
+    NgSwitch,
+    NgSwitchCase
   ],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
@@ -25,15 +37,32 @@ export class MovieDetailsComponent implements AfterViewInit {
 
   @ViewChild('overviewRef') overviewRef!: ElementRef;
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngAfterViewInit() {
     const paragraph = this.overviewRef.nativeElement;
     const lineHeight = parseFloat(getComputedStyle(paragraph).lineHeight);
     const lines = paragraph.scrollHeight / lineHeight;
 
     this.isTruncatable = lines > 4;
+    this.cdr.detectChanges();
   }
 
   toggleOverview() {
     this.isOverviewExpanded = !this.isOverviewExpanded;
   }
+
+  tabs = [
+    { label: 'Obsada', value: 'cast' },
+    { label: 'Szczegóły', value: 'details' },
+    { label: 'Ekipa', value: 'crew' },
+    { label: 'Recenzje', value: 'reviews' }
+  ];
+
+  selectedTab = this.tabs[0];
+
+  selectTab(tab: any) {
+    this.selectedTab = tab;
+  }
+
 }
