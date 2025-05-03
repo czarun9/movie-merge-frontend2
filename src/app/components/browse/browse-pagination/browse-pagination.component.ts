@@ -1,18 +1,18 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
-import {MovieService} from '../../services/movie/movie.service';
+import {MovieService} from '../../../services/movie/movie.service';
 
 @Component({
-  selector: 'app-movie-pagination',
+  selector: 'app-browse-pagination',
   standalone: true,
   imports: [
     NgForOf,
     NgIf
   ],
-  templateUrl: './movie-pagination.component.html',
-  styleUrl: './movie-pagination.component.css'
+  templateUrl: './browse-pagination.component.html',
+  styleUrl: './browse-pagination.component.css'
 })
-export class MoviePaginationComponent{
+export class BrowsePaginationComponent {
   @Input() currentPage: number = 1;
   @Input() totalPages: number = 1;
   @Output() pageChanged = new EventEmitter<number>();

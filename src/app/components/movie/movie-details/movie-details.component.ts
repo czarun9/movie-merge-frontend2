@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe} from '@angular/common';
-import {TmdbMovie} from '../../movies';
+import {TmdbMovie} from '../../../movies';
 
 @Component({
   selector: 'app-movie-details',

@@ -1,16 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Genre, TmdbMovie } from '../../movies';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Genre, TmdbMovie } from '../../../movies';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-movie-filter',
+  selector: 'app-browse-filter',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './movie-filter.component.html',
-  styleUrls: ['./movie-filter.component.css']
+  templateUrl: './browse-filter.component.html',
+  styleUrls: ['./browse-filter.component.css']
 })
-export class MovieFilterComponent{
+export class BrowseFilterComponent {
   @Input() movies: TmdbMovie[] = [];
   @Input() genres: Genre[] = [];
   @Output() filtered = new EventEmitter<TmdbMovie[]>();

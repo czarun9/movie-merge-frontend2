@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DecimalPipe} from '@angular/common';
-import {Genre} from '../../movies';
+import {Genre} from '../../../movies';
 
 @Component({
   selector: 'app-movie-card',

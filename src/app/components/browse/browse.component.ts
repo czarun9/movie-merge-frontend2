@@ -3,10 +3,10 @@ import {Genre, TmdbMovie} from '../../movies';
 import { MovieService } from '../../services/movie/movie.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { MovieCardComponent } from '../movie-card/movie-card.component';
-import { MoviePaginationComponent } from '../movie-pagination/movie-pagination.component';
-import { MovieFilterComponent } from '../movie-filter/movie-filter.component';
+import { MovieCardComponent } from './movie-card/movie-card.component';
 import { NgForOf } from '@angular/common';
+import {BrowsePaginationComponent} from './browse-pagination/browse-pagination.component';
+import {BrowseFilterComponent} from './browse-filter/browse-filter.component';
 
 @Component({
   selector: 'app-browse',
@@ -14,8 +14,8 @@ import { NgForOf } from '@angular/common';
   imports: [
     NgForOf,
     MovieCardComponent,
-    MoviePaginationComponent,
-    MovieFilterComponent
+    BrowsePaginationComponent,
+    BrowseFilterComponent
   ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css'

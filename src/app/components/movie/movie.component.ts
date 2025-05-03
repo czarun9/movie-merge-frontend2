@@ -4,7 +4,7 @@ import {MovieService} from '../../services/movie/movie.service';
 import {CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe} from '@angular/common';
 import {TmdbMovie} from '../../movies';
 import {environment} from '../../../environments/environment';
-import {MovieDetailsComponent} from '../movie-details/movie-details.component';
+import {MovieDetailsComponent} from './movie-details/movie-details.component';
 
 @Component({
   selector: 'app-movie',

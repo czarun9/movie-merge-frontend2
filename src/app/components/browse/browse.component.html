@@ -1,11 +1,11 @@
 <div class="container mt-4">
   <h3 class="mb-4">Przeglądaj Filmy</h3>
 
-  <app-movie-filter
+  <app-browse-filter
     [movies]="movies"
     [genres]="genres"
     (searchRequested)="onSearchRequested($event)">
-  </app-movie-filter>
+  </app-browse-filter>
 
   <div class="row">
     <div class="col-md-3 mb-4" *ngFor="let movie of filteredMovies">
@@ -17,10 +17,10 @@
     </div>
   </div>
 
-  <app-movie-pagination
+  <app-browse-pagination
     [currentPage]="page"
     [totalPages]="totalPages || 1"
     (pageChanged)="onPageChanged($event)">
-  </app-movie-pagination>
+  </app-browse-pagination>
 
 </div>

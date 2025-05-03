@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MoviePaginationComponent } from './movie-pagination.component';
+import { BrowseFilterComponent } from './browse-filter.component';
 
-describe('MoviePaginationComponent', () => {
-  let component: MoviePaginationComponent;
-  let fixture: ComponentFixture<MoviePaginationComponent>;
+describe('BrowseFilterComponent', () => {
+  let component: BrowseFilterComponent;
+  let fixture: ComponentFixture<BrowseFilterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MoviePaginationComponent]
+      imports: [BrowseFilterComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MoviePaginationComponent);
+    fixture = TestBed.createComponent(BrowseFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
