@@ -6,8 +6,8 @@
   <p class="movie-info"><strong>Język oryginalny:</strong> {{ movieData?.original_language | uppercase }}</p>
 
   <p class="movie-info"><strong>Gatunki:</strong>
-    <ng-container *ngFor="let genre of getGenreNames(movieData?.genre_ids); let last = last">
-      {{ genre }}<span *ngIf="!last">, </span>
+    <ng-container *ngFor="let genre of movieData?.genres; let last = last">
+      {{ genre.name }}<span *ngIf="!last">, </span>
     </ng-container>
   </p>
 

@@ -24,7 +24,7 @@ export interface TmdbMovie {
   _id: number | null;
   original_title: string;
   release_date: string;
-  genre_ids: number[];
+  genres: Genre[];
   original_language: string;
 }
 

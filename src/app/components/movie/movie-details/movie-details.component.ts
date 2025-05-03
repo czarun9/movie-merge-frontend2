@@ -17,8 +17,4 @@ import {TmdbMovie} from '../../../movies';
 })
 export class MovieDetailsComponent {
   @Input() movieData: TmdbMovie | undefined;
-
-  getGenreNames(genre_ids: any) {
-    return undefined;
-  }
 }
