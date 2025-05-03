@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NgIf, NgOptimizedImage} from '@angular/common';
-import {LoginService} from '../../services/login/login.service';
+import {LoginService} from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-navbar',
