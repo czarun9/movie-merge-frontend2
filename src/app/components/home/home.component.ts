@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieService} from '../../services/movie/movie.service';
 import {RouterLink} from '@angular/router';
-import {TmdbMovie} from '../../movies';
+import {Genre, TmdbMovie} from '../../movies';
 import {DecimalPipe, NgForOf} from '@angular/common';
 import {environment} from '../../../environments/environment';
 import {MovieCardComponent} from '../browse/movie-card/movie-card.component';
@@ -20,6 +20,8 @@ import {MovieCardComponent} from '../browse/movie-card/movie-card.component';
 })
 export class HomeComponent implements OnInit {
   movies: TmdbMovie[] | undefined = [];
+  genres: Genre[] = [];
+
 
   protected imageBaseUrl = `${environment.imageBaseUrl}`;
 
@@ -28,6 +30,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMovies(1);
+    this.movieService.getGenres().subscribe(response => {
+      this.genres = response?.genres ?? [];
+    });
   }
 
   private loadMovies(page: number): void {

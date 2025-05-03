@@ -12,7 +12,11 @@
   <div class="movie-carousel">
     <div class="movie-list">
       <div class="movie-card" *ngFor="let movie of movies">
-        <app-movie-card [movie]="movie" [imageBaseUrl]="imageBaseUrl"></app-movie-card>
+        <app-movie-card
+          [movie]="movie"
+          [genres]="genres"
+          [imageBaseUrl]="imageBaseUrl">
+        </app-movie-card>
       </div>
     </div>
   </div>
