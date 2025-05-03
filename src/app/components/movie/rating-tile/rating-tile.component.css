@@ -1,0 +1,30 @@
+.rating-tile {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  min-width: 42px;
+  text-align: center;
+}
+
+.rating-lowest {
+  background-color: #d32f2f;
+}
+
+.rating-low {
+  background-color: #f57c00;
+}
+
+.rating-medium {
+  background-color: #fbc02d;
+  color: black;
+}
+
+.rating-high {
+  background-color: #7cb342;
+}
+
+.rating-highest {
+  background-color: #388e3c;
+}

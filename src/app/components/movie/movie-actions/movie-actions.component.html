@@ -12,8 +12,6 @@
       (ratingChanged)="onRatingChanged($event)">
     </app-movie-stars>
 
-    <div class="rating-tile" [ngClass]="getRatingTileClass()">
-      {{ (staticRating / 2).toFixed(1) }}
-    </div>
+    <app-rating-tile [value]="staticRating / 2"></app-rating-tile>
   </div>
 </div>
