@@ -2,13 +2,15 @@ import {Component, Input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DecimalPipe} from '@angular/common';
 import {Genre} from '../../../movies';
+import {RatingTileComponent} from '../../movie/rating-tile/rating-tile.component';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
   imports: [
     RouterLink,
-    DecimalPipe
+    DecimalPipe,
+    RatingTileComponent
   ],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.css'

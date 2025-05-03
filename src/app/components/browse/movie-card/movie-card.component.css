@@ -29,12 +29,24 @@
   text-align: center;
 }
 
-.card-title {
-  font-size: 1rem;
-  white-space: normal;
-  word-wrap: break-word;
-}
-
 .card-text {
   font-size: 0.8rem;
 }
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  white-space: normal;
+  word-break: break-word;
+  flex: 1;
+}
+
+
