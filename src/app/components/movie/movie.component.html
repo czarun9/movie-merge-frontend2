@@ -4,20 +4,21 @@
     <div class="movie-hero">
       <img class="movie-poster" [src]="imageBaseUrl + movieData.poster_path" alt="Poster"/>
     </div>
-    <div class="movie-actions">
-      <div class="movie-buttons">
-        <i class="fa fa-thumbs-up movie-btn" (click)="likeMovie()" title="Polub"></i>
-        <i class="fa fa-plus-square movie-btn" (click)="addToWatchlist()" title="Dodaj do Watchlisty"></i>
-        <i class="fa fa-play movie-btn" (click)="watchMovie()" title="Obejrzyj"></i>
-      </div>
+  </div>
 
-      <div class="movie-rating">
-        <div class="stars">
-          <button *ngFor="let star of [1, 2, 3, 4, 5]" (click)="rateMovie(star)">
-            <span [class.filled]="star <= currentRating">★</span>
-          </button>
-        </div>
-      </div>
+  <div class="movie-actions-below">
+    <div class="movie-buttons">
+      <i class="fa fa-thumbs-up movie-btn" (click)="likeMovie()" title="Polub"></i>
+      <i class="fa fa-plus-square movie-btn" (click)="addToWatchlist()" title="Dodaj do Watchlisty"></i>
+      <i class="fa fa-play movie-btn" (click)="watchMovie()" title="Obejrzyj"></i>
+    </div>
+    <div class="star-wrapper"
+         *ngFor="let star of stars; let i = index"
+         (mousemove)="onStarHover($event, i + 1)"
+         (mouseleave)="onStarLeave()"
+         (click)="rateMovie(hoverRating)">
+      <div class="star-bg">★</div>
+      <div class="star-fg" [style.width.%]="getStarFillPercentage(i + 1)">★</div>
     </div>
   </div>
 

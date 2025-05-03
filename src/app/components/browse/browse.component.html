@@ -4,7 +4,7 @@
   <app-movie-filter
     [movies]="movies"
     [genres]="genres"
-    (filtered)="onMoviesFiltered($event)">
+    (searchRequested)="onSearchRequested($event)">
   </app-movie-filter>
 
   <div class="row">

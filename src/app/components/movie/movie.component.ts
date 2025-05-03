@@ -25,6 +25,9 @@ export class MovieComponent implements OnInit {
   movieData: TmdbMovie | undefined;
   protected imageBaseUrl : string = environment.imageBaseUrl;
 
+  stars = [1, 2, 3, 4, 5];
+  currentRating: number = 0;
+  hoverRating = 0;
   constructor(private route: ActivatedRoute, private movieService: MovieService) { }
 
   ngOnInit(): void {
@@ -36,42 +39,14 @@ export class MovieComponent implements OnInit {
 
   loadMovieData() {
     this.movieService.getMovie(this.movieId).subscribe(data => {
-      this.movieData = data;
-      console.log(this.movieData);
+      if (data) {
+        this.movieData = data;
+        this.currentRating = data.vote_average ?? 0;
+        console.log(this.movieData);
+        console.log(this.currentRating);
+      }
     });
   }
-
-  genreMap: Record<number, string> = {
-    28: 'Akcja',
-    12: 'Przygodowy',
-    16: 'Animacja',
-    35: 'Komedia',
-    80: 'Kryminalny',
-    99: 'Dokumentalny',
-    18: 'Dramat',
-    10751: 'Familijny',
-    14: 'Fantasy',
-    36: 'Historyczny',
-    27: 'Horror',
-    10402: 'Muzyczny',
-    9648: 'Mystery',
-    10749: 'Romans',
-    878: 'Sci-Fi',
-    10770: 'TV Movie',
-    53: 'Thriller',
-    10752: 'Wojenny',
-    37: 'Western',
-  };
-  currentRating: number = 5.0;
-
-  getGenreNames(genreIds: number[] | null | undefined): string[] {
-    if (!genreIds || genreIds.length === 0) {
-      return ['Brak informacji'];
-    }
-
-    return genreIds.map(id => this.genreMap[id] || 'Nieznany');
-  }
-
 
   likeMovie() {
 
@@ -85,7 +60,36 @@ export class MovieComponent implements OnInit {
 
   }
 
-  rateMovie(star: number) {
-
+  rateMovie(rating: number) {
+    this.currentRating = rating;
+    console.log(rating);
+    // this.movieService.rateMovie(rating)
   }
+
+  onStarHover(event: MouseEvent, starIndex: number) {
+    const wrapper = event.currentTarget as HTMLElement;
+    const rect = wrapper.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left;
+    const width = rect.width;
+
+    const percentage = offsetX / width;
+
+    this.hoverRating = starIndex - 1 + (percentage <= 0.5 ? 0.5 : 1);
+  }
+
+  getStarFillPercentage(starIndex: number): number {
+    const rating = this.hoverRating || (this.currentRating / 2);
+
+    if (rating >= starIndex) return 100;
+    if (rating >= starIndex - 0.5) return 42;
+
+    return 0;
+  }
+
+  onStarLeave() {
+    this.hoverRating = 0;
+  }
+
+
+
 }

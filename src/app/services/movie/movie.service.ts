@@ -27,14 +27,30 @@ export class MovieService {
     );
   }
 
-  discoverMovies(page: number = 1): Observable<TmdbMoviePageResponse | undefined> {
-    const params = new HttpParams().set('page', page.toString());
+  discoverMovies(
+    page: number = 1,
+    genre?: string,
+    rating?: number
+  ): Observable<TmdbMoviePageResponse | undefined> {
+    let params = new HttpParams()
+      .set('page', page.toString());
 
-    return this.http.get<TmdbMoviePageResponse>(`${this.apiUrl}/tmdb/discover`, {params}).pipe(
-      map(response => response),
-      catchError(() => of(undefined))
-    );
+    if (genre) {
+      params = params.set('genre', genre);
+    }
+
+    if (rating != null) {
+      params = params.set('rating', rating.toString());
+    }
+
+    return this.http
+      .get<TmdbMoviePageResponse>(`${this.apiUrl}/tmdb/discover`, { params })
+      .pipe(
+        map(response => response),
+        catchError(() => of(undefined))
+      );
   }
+
 
   getGenres(): Observable<GenresResponse | undefined>{
     return this.http.get<GenresResponse>(`${this.apiUrl}/tmdb/genres`).pipe(

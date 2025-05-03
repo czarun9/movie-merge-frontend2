@@ -29,6 +29,9 @@ export class BrowseComponent implements OnInit {
   page = 1;
   protected totalPages: number = 1;
 
+  selectedGenreId?: number;
+  selectedRating?: number;
+
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute,
@@ -47,13 +50,15 @@ export class BrowseComponent implements OnInit {
   }
 
   loadMovies(): void {
-    this.movieService.discoverMovies(this.page).subscribe(response => {
-      if (response) {
-        this.movies = response.movies;
-        this.filteredMovies = response.movies;
-        this.totalPages = response.totalPages;
-      }
-    });
+    this.movieService
+      .discoverMovies(this.page, this.selectedGenreId?.toString(), this.selectedRating)
+      .subscribe(response => {
+        if (response) {
+          this.movies      = response.movies;
+          this.filteredMovies = response.movies;
+          this.totalPages  = response.totalPages;
+        }
+      });
   }
 
   onPageChanged(newPage: number): void {
@@ -64,8 +69,13 @@ export class BrowseComponent implements OnInit {
     });
   }
 
-  onMoviesFiltered(filtered: TmdbMovie[]): void {
-    this.filteredMovies = filtered;
+  onSearchRequested(filters: { genre?: string; rating?: number }): void {
+    if (filters.genre) {
+      const genreObj = this.genres.find(g => g.name === filters.genre);
+      this.selectedGenreId = genreObj?.id;
+    } else {
+      this.selectedGenreId = undefined;
+    }
+    this.loadMovies();
   }
-
 }
