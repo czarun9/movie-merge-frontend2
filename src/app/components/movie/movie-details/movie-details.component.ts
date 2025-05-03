@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe} from '@angular/common';
+import {CurrencyPipe, DatePipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe} from '@angular/common';
 import {TmdbMovie} from '../../../movies';
 
 @Component({
@@ -10,7 +10,8 @@ import {TmdbMovie} from '../../../movies';
     DecimalPipe,
     CurrencyPipe,
     NgIf,
-    NgForOf
+    NgForOf,
+    DatePipe
   ],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'

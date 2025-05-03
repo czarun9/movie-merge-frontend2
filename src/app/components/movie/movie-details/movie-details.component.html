@@ -1,5 +1,9 @@
 <div class="movie-details">
-  <h2 class="movie-title">{{ movieData?.title }}</h2>
+  <h2 class="movie-title">
+    {{ movieData?.title }}
+    <span class="movie-year">({{ movieData?.release_date | date:'yyyy' }})</span>
+  </h2>
+
   <p class="movie-original-title"><em>{{ movieData?.original_title }}</em></p>
 
   <p class="movie-info"><strong>Data wydania:</strong> {{ movieData?.release_date }}</p>
