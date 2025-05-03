@@ -6,6 +6,7 @@ import {TmdbMovie} from '../../movies';
 import {environment} from '../../../environments/environment';
 import {MovieDetailsComponent} from './movie-details/movie-details.component';
 import {MovieStarsComponent} from './movie-stars/movie-stars.component';
+import {MovieActionsComponent} from './movie-actions/movie-actions.component';
 
 @Component({
   selector: 'app-movie',
@@ -17,7 +18,8 @@ import {MovieStarsComponent} from './movie-stars/movie-stars.component';
     CurrencyPipe,
     NgForOf,
     MovieDetailsComponent,
-    MovieStarsComponent
+    MovieStarsComponent,
+    MovieActionsComponent
   ],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.css'

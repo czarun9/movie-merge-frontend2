@@ -1,0 +1,16 @@
+<div class="movie-actions-wrapper">
+  <div class="movie-buttons">
+    <i class="fa fa-thumbs-up movie-btn" (click)="likeMovie()" title="Polub"></i>
+    <i class="fa fa-plus-square movie-btn" (click)="addToWatchlist()" title="Dodaj do Watchlisty"></i>
+    <i class="fa fa-play movie-btn" (click)="watchMovie()" title="Obejrzyj"></i>
+  </div>
+
+  <div class="movie-rating">
+    <app-movie-stars
+      [currentRating]="currentRating"
+      (ratingChanged)="onRatingChanged($event)">
+    </app-movie-stars>
+
+    <span class="rating-text">{{ currentRating.toFixed(1) }}/10</span>
+  </div>
+</div>

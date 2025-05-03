@@ -6,17 +6,11 @@
     </div>
   </div>
 
-  <div class="movie-actions-below">
-    <div class="movie-buttons">
-      <i class="fa fa-thumbs-up movie-btn" (click)="likeMovie()" title="Polub"></i>
-      <i class="fa fa-plus-square movie-btn" (click)="addToWatchlist()" title="Dodaj do Watchlisty"></i>
-      <i class="fa fa-play movie-btn" (click)="watchMovie()" title="Obejrzyj"></i>
-    </div>
-    <app-movie-stars
-      [currentRating]="currentRating"
-      (ratingChanged)="rateMovie($event)">
-    </app-movie-stars>
-  </div>
+  <app-movie-actions
+    [currentRating]="currentRating"
+    (ratingChanged)="rateMovie($event)">
+  </app-movie-actions>
+
 
   <app-movie-details [movieData]="movieData"></app-movie-details>
 </div>
