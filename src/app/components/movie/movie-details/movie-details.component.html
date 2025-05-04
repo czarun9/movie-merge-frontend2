@@ -34,18 +34,13 @@
           <p>Obsada (cast) będzie tutaj</p>
         </div>
         <div *ngSwitchCase="'details'">
-          <p class="movie-info"><strong>Data wydania:</strong> {{ movieData?.release_date }}</p>
-          <p class="movie-info"><strong>Język oryginalny:</strong> {{ movieData?.original_language | uppercase }}</p>
+          <div class="movie-details-table">
+            <div class="detail-row" *ngFor="let detail of movieDetails">
+              <div class="label">{{ detail.label }}</div>
+              <div class="value">{{ detail.value }}</div>
+            </div>
+          </div>
 
-          <p class="movie-info"><strong>Gatunki:</strong>
-            <ng-container *ngFor="let genre of movieData?.genres; let last = last">
-              {{ genre.name }}<span *ngIf="!last">, </span>
-            </ng-container>
-          </p>
-          <p class="movie-info"><strong>Dla dorosłych:</strong> {{ movieData?.adult ? 'Tak' : 'Nie' }}</p>
-          <p class="movie-info"><strong>Popularność:</strong> {{ movieData?.popularity | number:'1.0-0' }}</p>
-          <p class="movie-info"><strong>Dochód:</strong> {{ movieData?.revenue | currency:'USD' }}</p>
-          <p class="movie-info"><strong>Wideo dostępne:</strong> {{ movieData?.video ? 'Tak' : 'Nie' }}</p>
         </div>
         <div *ngSwitchCase="'crew'">
           <p>Ekipa (crew) będzie tutaj</p>

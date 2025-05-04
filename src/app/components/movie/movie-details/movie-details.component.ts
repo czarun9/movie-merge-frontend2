@@ -65,4 +65,17 @@ export class MovieDetailsComponent implements AfterViewInit {
     this.selectedTab = tab;
   }
 
+  get movieDetails() {
+    if (!this.movieData) return [];
+
+    return [
+      { label: 'Data wydania', value: this.movieData.release_date },
+      { label: 'Język oryginalny', value: this.movieData.original_language.toUpperCase() },
+      { label: 'Dla dorosłych', value: this.movieData.adult ? 'Tak' : 'Nie' },
+      { label: 'Popularność', value: this.movieData.popularity.toFixed(0) },
+      { label: 'Dochód', value: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(this.movieData.revenue) },
+      { label: 'Wideo dostępne', value: this.movieData.video ? 'Tak' : 'Nie' }
+    ];
+  }
+
 }
