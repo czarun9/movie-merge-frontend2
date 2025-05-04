@@ -17,10 +17,10 @@ export class MovieActionsComponent {
   @Input() movieStatus: MovieStatus | undefined;
 
   @Output() ratingChanged = new EventEmitter<number>();
+  @Output() favouriteToggled = new EventEmitter<boolean>();
+  @Output() addToWatchlistToggled = new EventEmitter<boolean>();
+  @Output() watchedMovieToggled = new EventEmitter<boolean>();
 
-  likeMovie() {
-    console.log('Polubiono');
-  }
 
   addToWatchlist() {
     console.log('Dodano do watchlisty');
@@ -28,6 +28,12 @@ export class MovieActionsComponent {
 
   watchMovie() {
     console.log('Obejrzano');
+  }
+
+  toggleFavorite() {
+    if (!this.movieStatus) return;
+    this.movieStatus.favourite = !this.movieStatus.favourite;
+    this.favouriteToggled.emit(this.movieStatus.favourite);
   }
 
   onRatingChanged(rating: number) {

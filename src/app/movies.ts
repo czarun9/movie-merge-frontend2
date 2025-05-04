@@ -44,6 +44,7 @@ export interface TmdbMoviePageResponse {
 export interface MovieStatus {
   watched: boolean;
   inWatchlist: boolean;
+  favourite: boolean;
   ratings: Rating[];
   latestRating: number | null;
 }

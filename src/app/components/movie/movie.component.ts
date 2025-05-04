@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 import {MovieDetailsComponent} from './movie-details/movie-details.component';
 import {MovieStarsComponent} from './movie-stars/movie-stars.component';
 import {MovieActionsComponent} from './movie-actions/movie-actions.component';
+import {MovieStatusService} from '../../services/movie-status/movie-status.service';
 
 @Component({
   selector: 'app-movie',
@@ -34,7 +35,7 @@ export class MovieComponent implements OnInit {
   protected userRating: number;
   protected staticRating: number;
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService) {
+  constructor(private route: ActivatedRoute, private movieService: MovieService, private movieStatusService: MovieStatusService) {
     this.userRating = 0;
     this.staticRating = 0;
   }
@@ -59,24 +60,12 @@ export class MovieComponent implements OnInit {
   }
 
   loadMovieStatus() {
-    this.movieService.getMovieStatus(this.movieId).subscribe(status => {
+    this.movieStatusService.getMovieStatus(this.movieId).subscribe(status => {
       if (status) {
         this.movieStatus = status;
         console.log(this.movieStatus);
       }
     })
-  }
-
-  likeMovie() {
-
-  }
-
-  addToWatchlist() {
-
-  }
-
-  watchMovie() {
-
   }
 
   rateMovie(rating: number) {
@@ -85,5 +74,8 @@ export class MovieComponent implements OnInit {
     // this.movieService.rateMovie(rating)
   }
 
-
+  changeFavouriteStatus(favouriteStatus: boolean) {
+    console.log(favouriteStatus);
+    this.movieStatusService.setFavouriteStatus(this.movieId, favouriteStatus).subscribe();
+  }
 }

@@ -13,9 +13,15 @@
       title="Dodaj do Watchlisty"></i>
 
     <i
-      class="fa fa-thumbs-up movie-btn"
-      (click)="likeMovie()"
-      title="Polub"></i>
+      class="fa movie-btn"
+      [ngClass]="{
+        'fa-heart': movieStatus?.favourite,
+        'fa-heart-o': !movieStatus?.favourite,
+        'active': movieStatus?.favourite
+      }"
+      (click)="toggleFavorite()"
+      title="{{ movieStatus?.favourite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych' }}">
+    </i>
   </div>
 
   <div class="movie-rating">
