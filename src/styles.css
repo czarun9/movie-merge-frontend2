@@ -1,3 +1,20 @@
 body {
   margin: 0;
 }
+
+.fa,
+.material-icons,
+.icon,
+i {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  caret-color: transparent;
+  outline: none;
+}
+
+body *:not(input):not(textarea) {
+  caret-color: transparent;
+}
