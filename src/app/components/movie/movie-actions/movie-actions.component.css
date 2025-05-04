@@ -29,6 +29,14 @@
   color: #f57c00;
 }
 
+.movie-btn.active {
+  color: #007bff;
+}
+
+.movie-btn.active {
+  transform: scale(1.2);
+}
+
 .movie-rating {
   display: flex;
   align-items: center;

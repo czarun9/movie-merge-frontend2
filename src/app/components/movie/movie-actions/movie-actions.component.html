@@ -1,8 +1,21 @@
 <div class="movie-actions-wrapper">
   <div class="movie-buttons">
-    <i class="fa fa-thumbs-up movie-btn" (click)="likeMovie()" title="Polub"></i>
-    <i class="fa fa-plus-square movie-btn" (click)="addToWatchlist()" title="Dodaj do Watchlisty"></i>
-    <i class="fa fa-play movie-btn" (click)="watchMovie()" title="Obejrzyj"></i>
+    <i
+      class="fa fa-play movie-btn"
+      [ngClass]="{'active': movieStatus?.watched}"
+      (click)="watchMovie()"
+      title="Obejrzano"></i>
+
+    <i
+      class="fa fa-plus-square movie-btn"
+      [ngClass]="{'active': movieStatus?.inWatchlist}"
+      (click)="addToWatchlist()"
+      title="Dodaj do Watchlisty"></i>
+
+    <i
+      class="fa fa-thumbs-up movie-btn"
+      (click)="likeMovie()"
+      title="Polub"></i>
   </div>
 
   <div class="movie-rating">

@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieStarsComponent } from '../movie-stars/movie-stars.component';
 import {RatingTileComponent} from '../rating-tile/rating-tile.component';
+import {MovieStatus} from '../../../movies';
 
 @Component({
   selector: 'app-movie-actions',
@@ -13,6 +14,7 @@ import {RatingTileComponent} from '../rating-tile/rating-tile.component';
 export class MovieActionsComponent {
   @Input() userRating: number = 0;
   @Input() staticRating: number = 0;
+  @Input() movieStatus: MovieStatus | undefined;
 
   @Output() ratingChanged = new EventEmitter<number>();
 
