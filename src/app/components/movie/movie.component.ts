@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MovieService} from '../../services/movie/movie.service';
 import {CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe} from '@angular/common';
-import {TmdbMovie} from '../../movies';
+import {MovieStatus, TmdbMovie} from '../../movies';
 import {environment} from '../../../environments/environment';
 import {MovieDetailsComponent} from './movie-details/movie-details.component';
 import {MovieStarsComponent} from './movie-stars/movie-stars.component';
@@ -27,6 +27,7 @@ import {MovieActionsComponent} from './movie-actions/movie-actions.component';
 export class MovieComponent implements OnInit {
   movieId: string = '1';
   movieData: TmdbMovie | undefined;
+  movieStatus: MovieStatus | undefined;
   protected imageBaseUrl: string = environment.imageBaseUrl;
 
   currentRating: number = 0;
@@ -42,6 +43,7 @@ export class MovieComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.movieId = params.get('id')!;
       this.loadMovieData();
+      this.loadMovieStatus()
     });
   }
 
@@ -54,6 +56,15 @@ export class MovieComponent implements OnInit {
         console.log(this.currentRating);
       }
     });
+  }
+
+  loadMovieStatus() {
+    this.movieService.getMovieStatus(this.movieId).subscribe(status => {
+      if (status) {
+        this.movieStatus = status;
+        console.log(this.movieStatus);
+      }
+    })
   }
 
   likeMovie() {

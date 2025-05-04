@@ -41,6 +41,18 @@ export interface TmdbMoviePageResponse {
   totalPages: number;
 }
 
+export interface MovieStatus {
+  watched: boolean;
+  inWatchlist: boolean;
+  ratings: Rating[];
+  latestRating: number | null;
+}
+
+export interface Rating {
+  value: number;
+  ratedAt: number[];
+}
+
 export const MOVIES: Movie[] = [
   {
     id: 1,

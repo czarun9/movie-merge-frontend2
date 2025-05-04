@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
-import {GenresResponse, Movie, TmdbMovie, TmdbMoviePageResponse} from '../../movies';
+import {GenresResponse, Movie, MovieStatus, TmdbMovie, TmdbMoviePageResponse} from '../../movies';
 import {environment} from '../../../environments/environment';
 
 @Injectable({
@@ -44,7 +44,7 @@ export class MovieService {
     }
 
     return this.http
-      .get<TmdbMoviePageResponse>(`${this.apiUrl}/tmdb/discover`, { params })
+      .get<TmdbMoviePageResponse>(`${this.apiUrl}/tmdb/discover`, {params})
       .pipe(
         map(response => response),
         catchError(() => of(undefined))
@@ -52,10 +52,18 @@ export class MovieService {
   }
 
 
-  getGenres(): Observable<GenresResponse | undefined>{
+  getGenres(): Observable<GenresResponse | undefined> {
     return this.http.get<GenresResponse>(`${this.apiUrl}/tmdb/genres`).pipe(
       map(response => response),
       catchError(() => of(undefined))
     );
+  }
+
+  getMovieStatus(movieId: any): Observable<MovieStatus | undefined> {
+    return this.http
+      .get<MovieStatus>(`${this.apiUrl}/movies/${movieId}/status`).pipe(
+        map(response => response),
+        catchError(() => of(undefined))
+      );
   }
 }
