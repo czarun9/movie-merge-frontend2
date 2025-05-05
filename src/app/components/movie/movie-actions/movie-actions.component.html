@@ -1,16 +1,26 @@
 <div class="movie-actions-wrapper">
   <div class="movie-buttons">
     <i
-      class="fa fa-play movie-btn"
-      [ngClass]="{'active': movieStatus?.watched}"
-      (click)="watchMovie()"
-      title="Obejrzano"></i>
+      class="fa movie-btn"
+      [ngClass]="{
+        'fa-play': !movieStatus?.watched,
+        'fa-play-circle': movieStatus?.watched,
+        'active': movieStatus?.watched
+      }"
+      (click)="toggleWatched()"
+      title="{{ movieStatus?.watched ? 'Usuń z obejrzanych' : 'Oznacz jako obejrzany' }}">
+    </i>
 
     <i
-      class="fa fa-plus-square movie-btn"
-      [ngClass]="{'active': movieStatus?.inWatchlist}"
-      (click)="addToWatchlist()"
-      title="Dodaj do Watchlisty"></i>
+      class="fa movie-btn"
+      [ngClass]="{
+        'fa-plus-square': !movieStatus?.inWatchlist,
+        'fa-check-square': movieStatus?.inWatchlist,
+        'active': movieStatus?.inWatchlist
+      }"
+      (click)="toggleWatchlist()"
+      title="{{ movieStatus?.inWatchlist ? 'Usuń z Watchlisty' : 'Dodaj do Watchlisty' }}">
+    </i>
 
     <i
       class="fa movie-btn"

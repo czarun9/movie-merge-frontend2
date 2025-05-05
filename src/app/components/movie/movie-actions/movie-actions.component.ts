@@ -18,8 +18,8 @@ export class MovieActionsComponent {
 
   @Output() ratingChanged = new EventEmitter<number>();
   @Output() favouriteToggled = new EventEmitter<boolean>();
-  @Output() addToWatchlistToggled = new EventEmitter<boolean>();
   @Output() watchedMovieToggled = new EventEmitter<boolean>();
+  @Output() addToWatchlistToggled = new EventEmitter<boolean>();
 
 
   addToWatchlist() {
@@ -30,14 +30,26 @@ export class MovieActionsComponent {
     console.log('Obejrzano');
   }
 
-  toggleFavorite() {
+  onRatingChanged(rating: number) {
+    this.ratingChanged.emit(rating);
+  }
+
+  toggleFavorite(): void {
     if (!this.movieStatus) return;
     this.movieStatus.favourite = !this.movieStatus.favourite;
     this.favouriteToggled.emit(this.movieStatus.favourite);
   }
 
-  onRatingChanged(rating: number) {
-    this.ratingChanged.emit(rating);
+  toggleWatched(): void {
+    if (!this.movieStatus) return;
+    this.movieStatus.watched = !this.movieStatus.watched;
+    this.watchedMovieToggled.emit(this.movieStatus.watched);
+  }
+
+  toggleWatchlist(): void {
+    if (!this.movieStatus) return;
+    this.movieStatus.inWatchlist = !this.movieStatus.inWatchlist;
+    this.addToWatchlistToggled.emit(this.movieStatus.inWatchlist);
   }
 
 }
