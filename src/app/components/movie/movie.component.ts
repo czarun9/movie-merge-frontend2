@@ -78,4 +78,14 @@ export class MovieComponent implements OnInit {
     console.log(favouriteStatus);
     this.movieStatusService.setFavouriteStatus(this.movieId, favouriteStatus).subscribe();
   }
+
+  changeWatchedStatus(watchedStatus: boolean) {
+    console.log(watchedStatus);
+    this.movieStatusService.setWatchedStatus(this.movieId, watchedStatus).subscribe();
+  }
+
+  changeAddedToWatchlistStatus(addedToWatchlistStatus: boolean) {
+    console.log(addedToWatchlistStatus);
+    this.movieStatusService.setAddedToWatchlistStatus(this.movieId, addedToWatchlistStatus).subscribe();
+  }
 }

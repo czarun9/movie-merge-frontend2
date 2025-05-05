@@ -33,4 +33,25 @@ export class MovieStatusService {
   }
 
 
+  setWatchedStatus(movieId: string, isWatched: boolean):Observable<void> {
+    const body = { watched: isWatched };
+    console.log(isWatched);
+    return this.http.patch<void>(
+      `${this.apiUrl}/movies/${movieId}/watched`,
+      body
+    ).pipe(
+      catchError(() => of())
+    );
+  }
+
+  setAddedToWatchlistStatus(movieId: string, isAddedToWatchlist: boolean):Observable<void> {
+    const body = { watched: isAddedToWatchlist };
+    console.log(isAddedToWatchlist);
+    return this.http.patch<void>(
+      `${this.apiUrl}/movies/${movieId}/watchlist`,
+      body
+    ).pipe(
+      catchError(() => of())
+    );
+  }
 }
