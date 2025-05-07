@@ -21,16 +21,12 @@ export class MovieActionsComponent {
   @Output() watchedMovieToggled = new EventEmitter<boolean>();
   @Output() addToWatchlistToggled = new EventEmitter<boolean>();
 
-
-  addToWatchlist() {
-    console.log('Dodano do watchlisty');
-  }
-
-  watchMovie() {
-    console.log('Obejrzano');
-  }
-
   onRatingChanged(rating: number) {
+    if (!this.movieStatus || rating < 0.5 || rating > 5) {
+      return;
+    }
+
+    this.userRating = rating;
     this.ratingChanged.emit(rating);
   }
 

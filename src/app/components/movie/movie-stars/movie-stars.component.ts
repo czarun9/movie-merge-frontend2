@@ -34,7 +34,7 @@ export class MovieStarsComponent {
   getStarFillPercentage(starIndex: number): number {
     const rating = this.hoverRating > 0
       ? this.hoverRating
-      : (this.hasRated ? this.userRating : this.staticRating);
+      : (this.hasRated ? this.userRating * 2 : this.staticRating);
 
     const fullStars = starIndex * 2;
     if (rating >= fullStars) return 100;
@@ -43,9 +43,15 @@ export class MovieStarsComponent {
   }
 
   rateMovie(rating: number) {
-    this.hasRated = true;
-    this.userRating = rating;
     const scaledRating = Math.round(rating) / 2;
+
+    if (scaledRating <= 0) {
+      return;
+    }
+
+    this.hasRated = true;
+    this.userRating = scaledRating;
     this.ratingChanged.emit(scaledRating);
   }
+
 }

@@ -51,7 +51,7 @@ export interface MovieStatus {
 
 export interface Rating {
   value: number;
-  ratedAt: number[];
+  ratedAt: Date;
 }
 
 export const MOVIES: Movie[] = [

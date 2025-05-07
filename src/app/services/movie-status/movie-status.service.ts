@@ -54,4 +54,18 @@ export class MovieStatusService {
       catchError(() => of())
     );
   }
+
+  setRating(movieId: string, rating: number): Observable<void> {
+    const body = { value: rating };
+    return this.http.post<void>(
+      `${this.apiUrl}/movies/${movieId}/rating`,
+      body
+    ).pipe(
+      catchError((error) => {
+        console.error('Błąd podczas wysyłania oceny:', error);
+        return of();
+      })
+    );
+  }
+
 }

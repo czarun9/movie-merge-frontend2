@@ -69,10 +69,25 @@ export class MovieComponent implements OnInit {
   }
 
   rateMovie(rating: number) {
+    if (rating < 0.5 || rating > 5) {
+      console.warn('Nieprawidłowa ocena:', rating);
+      return;
+    }
+
     this.currentRating = rating;
-    console.log(rating);
-    // this.movieService.rateMovie(rating)
+
+    if (this.movieStatus) {
+      const now = new Date();
+      this.movieStatus.ratings.push({ value: rating, ratedAt: now });
+      this.movieStatus.latestRating = rating;
+    }
+
+    this.movieStatusService.setRating(this.movieId, rating).subscribe({
+      next: () => console.log('Ocena wysłana:', rating),
+      error: err => console.error('Błąd podczas wysyłania oceny:', err)
+    });
   }
+
 
   changeFavouriteStatus(favouriteStatus: boolean) {
     console.log(favouriteStatus);
