@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
-import {MovieService} from '../../../services/movie/movie.service';
 
 @Component({
   selector: 'app-browse-pagination',

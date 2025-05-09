@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieService} from '../../services/movie/movie.service';
 import {RouterLink} from '@angular/router';
-import {Genre, TmdbMovie} from '../../movies';
 import {DecimalPipe, NgForOf} from '@angular/common';
 import {environment} from '../../../environments/environment';
 import {MovieCardComponent} from '../browse/movie-card/movie-card.component';
+import {TmdbMovie} from '../../models/movie.model';
+import {Genre} from '../../models/genre.model';
 
 @Component({
   selector: 'app-home',

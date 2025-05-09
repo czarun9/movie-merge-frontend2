@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
-import {MovieStatus} from '../../movies';
+import {MovieStatus} from '../../models/movie-status.model';
 
 @Injectable({
   providedIn: 'root'

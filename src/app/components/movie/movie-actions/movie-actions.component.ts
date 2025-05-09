@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieStarsComponent } from '../movie-stars/movie-stars.component';
 import { RatingTileComponent } from '../rating-tile/rating-tile.component';
-import { MovieStatus } from '../../../movies';
+import {MovieStatus} from '../../../models/movie-status.model';
 
 @Component({
   selector: 'app-movie-actions',

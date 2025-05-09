@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {DatePipe, DecimalPipe} from '@angular/common';
-import {Genre} from '../../../movies';
 import {RatingTileComponent} from '../../movie/rating-tile/rating-tile.component';
+import {Genre} from '../../../models/genre.model';
 
 @Component({
   selector: 'app-movie-card',

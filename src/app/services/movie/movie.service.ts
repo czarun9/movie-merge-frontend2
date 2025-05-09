@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
-import {GenresResponse, TmdbMovie, TmdbMoviePageResponse} from '../../movies';
 import {environment} from '../../../environments/environment';
+import {TmdbMovie, TmdbMoviePageResponse} from '../../models/movie.model';
+import {GenresResponse} from '../../models/genre.model';
 
 @Injectable({
   providedIn: 'root'

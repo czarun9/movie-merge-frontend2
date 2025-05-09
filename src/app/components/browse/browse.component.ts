@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Genre, TmdbMovie} from '../../movies';
 import { MovieService } from '../../services/movie/movie.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
@@ -7,6 +6,8 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { NgForOf } from '@angular/common';
 import {BrowsePaginationComponent} from './browse-pagination/browse-pagination.component';
 import {BrowseFilterComponent} from './browse-filter/browse-filter.component';
+import {TmdbMovie} from '../../models/movie.model';
+import {Genre} from '../../models/genre.model';
 
 @Component({
   selector: 'app-browse',

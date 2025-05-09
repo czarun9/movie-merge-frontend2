@@ -10,7 +10,7 @@ import {
   NgSwitchCase,
   UpperCasePipe
 } from '@angular/common';
-import {TmdbMovie} from '../../../movies';
+import {TmdbMovie} from '../../../models/movie.model';
 
 @Component({
   selector: 'app-movie-details',

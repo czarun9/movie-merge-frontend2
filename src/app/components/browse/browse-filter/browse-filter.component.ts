@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Genre, TmdbMovie } from '../../../movies';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {TmdbMovie} from '../../../models/movie.model';
+import {Genre} from '../../../models/genre.model';
 
 @Component({
   selector: 'app-browse-filter',
@@ -30,7 +31,7 @@ export class BrowseFilterComponent {
   resetFilters(): void {
     this.selectedGenre = '';
     this.selectedRating = '';
-    this.triggerSearch(); // automatycznie zresetuj także wyniki
+    this.triggerSearch();
   }
 
 }

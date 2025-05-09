@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MovieService} from '../../services/movie/movie.service';
 import {CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe} from '@angular/common';
-import {MovieStatus, TmdbMovie} from '../../movies';
 import {environment} from '../../../environments/environment';
 import {MovieDetailsComponent} from './movie-details/movie-details.component';
 import {MovieStarsComponent} from './movie-stars/movie-stars.component';
 import {MovieActionsComponent} from './movie-actions/movie-actions.component';
 import {MovieStatusService} from '../../services/movie-status/movie-status.service';
+import {TmdbMovie} from '../../models/movie.model';
+import {MovieStatus} from '../../models/movie-status.model';
 
 @Component({
   selector: 'app-movie',
