@@ -1,21 +1,27 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {NgClass, NgForOf} from "@angular/common";
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import { NgClass, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-movie-stars',
   standalone: true,
   imports: [NgForOf, NgClass],
   templateUrl: './movie-stars.component.html',
-  styleUrl: './movie-stars.component.css'
+  styleUrls: ['./movie-stars.component.css']
 })
-export class MovieStarsComponent {
+export class MovieStarsComponent implements OnChanges {
   @Input() staticRating: number = 0;
   @Input() userRating: number = 0;
   @Output() ratingChanged = new EventEmitter<number>();
 
   stars = [1, 2, 3, 4, 5];
   hoverRating = 0;
-  hasRated = false;
+  hasRated: boolean = false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['userRating']) {
+      this.hasRated = this.userRating > 0;
+    }
+  }
 
   onStarHover(event: MouseEvent, starIndex: number) {
     const wrapper = event.currentTarget as HTMLElement;
@@ -53,5 +59,4 @@ export class MovieStarsComponent {
     this.userRating = scaledRating;
     this.ratingChanged.emit(scaledRating);
   }
-
 }

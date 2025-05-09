@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieStarsComponent } from '../movie-stars/movie-stars.component';
-import {RatingTileComponent} from '../rating-tile/rating-tile.component';
-import {MovieStatus} from '../../../movies';
+import { RatingTileComponent } from '../rating-tile/rating-tile.component';
+import { MovieStatus } from '../../../movies';
 
 @Component({
   selector: 'app-movie-actions',
@@ -12,7 +12,6 @@ import {MovieStatus} from '../../../movies';
   styleUrls: ['./movie-actions.component.css']
 })
 export class MovieActionsComponent {
-  @Input() userRating: number = 0;
   @Input() staticRating: number = 0;
   @Input() movieStatus: MovieStatus | undefined;
 
@@ -21,12 +20,18 @@ export class MovieActionsComponent {
   @Output() watchedMovieToggled = new EventEmitter<boolean>();
   @Output() addToWatchlistToggled = new EventEmitter<boolean>();
 
+  get userRating(): number {
+    return this.movieStatus?.latestRating ?? 0;
+  }
+
   onRatingChanged(rating: number) {
     if (!this.movieStatus || rating < 0.5 || rating > 5) {
       return;
     }
 
-    this.userRating = rating;
+    this.movieStatus.latestRating = rating;
+    this.movieStatus.ratings.push({ value: rating, ratedAt: new Date() });
+
     this.ratingChanged.emit(rating);
   }
 
@@ -47,5 +52,4 @@ export class MovieActionsComponent {
     this.movieStatus.inWatchlist = !this.movieStatus.inWatchlist;
     this.addToWatchlistToggled.emit(this.movieStatus.inWatchlist);
   }
-
 }
