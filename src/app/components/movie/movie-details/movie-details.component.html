@@ -46,7 +46,7 @@
           <p>Ekipa (crew) będzie tutaj</p>
         </div>
         <div *ngSwitchCase="'reviews'">
-          <p>Ekipa (crew) będzie tutaj</p>
+          <app-movie-details-reviews [reviews]="movieData?.reviews ?? []" />
         </div>
       </ng-container>
     </div>

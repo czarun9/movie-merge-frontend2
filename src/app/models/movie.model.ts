@@ -1,13 +1,5 @@
 import {Genre} from './genre.model';
-
-export interface Movie {
-  id: number;
-  title: string;
-  genre: string;
-  year: number;
-  rating: number;
-  imageUrl: string;
-}
+import {Review} from './review.model';
 
 export interface TmdbMovie {
   id: number;
@@ -28,6 +20,7 @@ export interface TmdbMovie {
   release_date: string;
   genres: Genre[];
   original_language: string;
+  reviews: Review[];
 }
 
 export interface TmdbMoviePageResponse {

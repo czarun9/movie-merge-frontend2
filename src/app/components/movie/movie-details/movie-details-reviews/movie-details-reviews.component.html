@@ -1,1 +1,17 @@
-<p>movie-details-reviews works!</p>
+<div class="reviews-wrapper">
+  <div class="reviews">
+    <div class="review" *ngFor="let review of reviews; let i = index">
+      <div class="review-meta">
+        {{ review.author }} ({{ review.platform }})
+      </div>
+      <div class="review-content">
+        <p [ngClass]="{ 'collapsed': !isExpanded(i) }">
+          {{ review.content }}
+        </p>
+        <button *ngIf="review.content.length > 300" (click)="toggleReview(i)">
+          {{ isExpanded(i) ? 'Zwiń' : 'Czytaj dalej' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -49,11 +49,31 @@ export class MovieComponent implements OnInit {
     });
   }
 
+
   loadMovieData() {
     this.movieService.getMovie(this.movieId).subscribe(data => {
       if (data) {
         this.movieData = data;
         this.staticRating = data.vote_average ?? 0;
+
+        this.movieData.reviews = [
+          {
+            author: 'janek_89',
+            platform: 'Filmweb',
+            content: 'Świetny film z genialną obsadą. Na pewno wrócę do niego jeszcze nie raz.'
+          },
+          {
+            author: 'moviereviewer',
+            platform: 'IMDb',
+            content: 'Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona.  Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona.'
+          },
+          {
+            author: 'cinemalover22',
+            platform: 'Rotten Tomatoes',
+            content: 'Przeciętny film z kilkoma ciekawymi momentami, ale ogólnie szału nie ma.'
+          }
+        ];
+
         console.log(this.movieData);
         console.log(this.currentRating);
       }

@@ -11,6 +11,7 @@ import {
   UpperCasePipe
 } from '@angular/common';
 import {TmdbMovie} from '../../../models/movie.model';
+import {MovieDetailsReviewsComponent} from './movie-details-reviews/movie-details-reviews.component';
 
 @Component({
   selector: 'app-movie-details',
@@ -24,7 +25,8 @@ import {TmdbMovie} from '../../../models/movie.model';
     DatePipe,
     NgClass,
     NgSwitch,
-    NgSwitchCase
+    NgSwitchCase,
+    MovieDetailsReviewsComponent
   ],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
