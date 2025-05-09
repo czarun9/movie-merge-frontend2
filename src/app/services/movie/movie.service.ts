@@ -4,6 +4,7 @@ import {catchError, map, Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {TmdbMovie, TmdbMoviePageResponse} from '../../models/movie.model';
 import {GenresResponse} from '../../models/genre.model';
+import {ReviewPageResponse} from '../../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,16 @@ export class MovieService {
       map(response => response),
       catchError(() => of(undefined))
     );
+  }
+
+  getMovieReviews(movieId: string, page: number = 1): Observable<ReviewPageResponse | undefined> {
+    const params = new HttpParams().set('page', page.toString());
+
+    return this.http
+      .get<ReviewPageResponse>(`${this.apiUrl}/tmdb/movies/${movieId}/reviews`, {params})
+      .pipe(
+        map(response => response),
+        catchError(() => of(undefined))
+      );
   }
 }

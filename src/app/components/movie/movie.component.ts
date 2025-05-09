@@ -9,6 +9,8 @@ import {MovieActionsComponent} from './movie-actions/movie-actions.component';
 import {MovieStatusService} from '../../services/movie-status/movie-status.service';
 import {TmdbMovie} from '../../models/movie.model';
 import {MovieStatus} from '../../models/movie-status.model';
+import {forkJoin} from 'rxjs';
+import {Review} from '../../models/review.model';
 
 @Component({
   selector: 'app-movie',
@@ -44,49 +46,43 @@ export class MovieComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.movieId = params.get('id')!;
-      this.loadMovieData();
-      this.loadMovieStatus()
+      this.loadMovieDataAndReviews();
+      this.loadMovieStatus();
     });
   }
 
-
-  loadMovieData() {
-    this.movieService.getMovie(this.movieId).subscribe(data => {
-      if (data) {
-        this.movieData = data;
-        this.staticRating = data.vote_average ?? 0;
-
-        this.movieData.reviews = [
-          {
-            author: 'janek_89',
-            platform: 'Filmweb',
-            content: 'Świetny film z genialną obsadą. Na pewno wrócę do niego jeszcze nie raz.'
-          },
-          {
-            author: 'moviereviewer',
-            platform: 'IMDb',
-            content: 'Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona.  Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona. Trochę zbyt długi, ale fabuła bardzo wciągająca i świetnie nakręcona.'
-          },
-          {
-            author: 'cinemalover22',
-            platform: 'Rotten Tomatoes',
-            content: 'Przeciętny film z kilkoma ciekawymi momentami, ale ogólnie szału nie ma.'
-          }
-        ];
-
-        console.log(this.movieData);
-        console.log(this.currentRating);
+  private loadMovieDataAndReviews(): void {
+    forkJoin({
+      movie: this.movieService.getMovie(this.movieId),
+      reviewPage: this.movieService.getMovieReviews(this.movieId)
+    }).subscribe(({ movie, reviewPage }) => {
+      if (movie) {
+        this.setMovieData(movie);
+      }
+      if (reviewPage) {
+        this.setReviews(reviewPage.reviews);
       }
     });
   }
 
-  loadMovieStatus() {
+  private setMovieData(movie: TmdbMovie): void {
+    this.movieData = movie;
+    this.staticRating = movie.vote_average ?? 0;
+  }
+
+  private setReviews(reviews: Review[]): void {
+    if (this.movieData) {
+      this.movieData.reviews = reviews;
+    }
+  }
+
+  private loadMovieStatus(): void {
     this.movieStatusService.getMovieStatus(this.movieId).subscribe(status => {
       if (status) {
         this.movieStatus = status;
         console.log(this.movieStatus);
       }
-    })
+    });
   }
 
   rateMovie(rating: number) {
@@ -99,7 +95,7 @@ export class MovieComponent implements OnInit {
 
     if (this.movieStatus) {
       const now = new Date();
-      this.movieStatus.ratings.push({ value: rating, ratedAt: now });
+      this.movieStatus.ratings.push({value: rating, ratedAt: now});
       this.movieStatus.latestRating = rating;
     }
 

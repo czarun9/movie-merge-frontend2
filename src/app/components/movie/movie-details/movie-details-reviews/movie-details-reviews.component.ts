@@ -24,6 +24,6 @@ export class MovieDetailsReviewsComponent {
   }
 
   isExpanded(index: number): boolean {
-    return this.expandedReviews[index] === true;
+    return this.expandedReviews[index];
   }
 }

@@ -2,7 +2,7 @@
   <div class="reviews">
     <div class="review" *ngFor="let review of reviews; let i = index">
       <div class="review-meta">
-        {{ review.author }} ({{ review.platform }})
+        {{ review.author }} ({{ review.platform || 'MovieMerge' }})
       </div>
       <div class="review-content">
         <p [ngClass]="{ 'collapsed': !isExpanded(i) }">
