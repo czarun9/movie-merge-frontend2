@@ -66,3 +66,18 @@
 .w-100 {
   width: 100%;
 }
+
+.poster-placeholder {
+  width: 50px;
+  height: 75px;
+  background-color: #dee2e6;
+  border-radius: 5px;
+  color: #6c757d;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
