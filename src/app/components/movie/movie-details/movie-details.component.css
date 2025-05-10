@@ -24,6 +24,12 @@
   margin-left: 8px;
 }
 
+.movie-runtime {
+  font-size: 18px;
+  color: #444;
+  margin-left: 10px;
+}
+
 .movie-overview {
   position: relative;
   background-color: #f9f9f9;

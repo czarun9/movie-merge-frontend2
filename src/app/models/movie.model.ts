@@ -21,6 +21,7 @@ export interface TmdbMovie {
   genres: Genre[];
   original_language: string;
   reviews: Review[];
+  runtime: number;
 }
 
 export interface TmdbMoviePageResponse {

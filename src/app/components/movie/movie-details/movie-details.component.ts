@@ -50,6 +50,14 @@ export class MovieDetailsComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
+  formatRuntime(runtime: number | null | undefined): string {
+    if (!runtime || runtime <= 0) return '';
+    const hours = Math.floor(runtime / 60);
+    const minutes = runtime % 60;
+    return `${hours}h ${minutes}min`;
+  }
+
+
   toggleOverview() {
     this.isOverviewExpanded = !this.isOverviewExpanded;
   }

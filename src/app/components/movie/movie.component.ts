@@ -67,6 +67,7 @@ export class MovieComponent implements OnInit {
 
   private setMovieData(movie: TmdbMovie): void {
     this.movieData = movie;
+    console.log(this.movieData);
     this.staticRating = movie.vote_average ?? 0;
   }
 
