@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h2 class="mb-4">{{ title }}</h2>
+
+  <div *ngIf="items.length > 0; else emptyList">
+    <div class="list-group">
+      <div
+        *ngFor="let item of items"
+        class="list-group-item d-flex justify-content-between align-items-start flex-column flex-md-row gap-3 position-relative"
+      >
+        <div class="list-item">
+          <app-user-list-item
+            [item]="item"
+            [canRemove]="canRemove"
+            (remove)="removeItem(item.id)"
+          ></app-user-list-item>
+        </div>
+
+
+        <button
+          *ngIf="canRemove"
+          class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2"
+          (click)="removeItem(item.id)"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyList>
+    <div class="alert alert-info text-center">
+      Brak elementów w sekcji "{{ title }}".
+    </div>
+  </ng-template>
+</div>
