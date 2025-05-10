@@ -19,7 +19,7 @@ export class UserService {
 
   getUserFavorites(): Observable<ListItem[]> {
     return of([
-      { id: 1, title: 'Incepcja', release_date: '2010-07-16' },
+      { id: 1, title: 'Incepcja', release_date: '2010-07-16', posterUrl: 'https://image.tmdb.org/t/p/w500/9fa0zIIPqKqS5YE9xweWW0xXtR3.jpg', rating: 5},
       { id: 2, title: 'Matrix', release_date: '1999-03-31' }
     ]);
   }
@@ -33,8 +33,8 @@ export class UserService {
 
   getUserRatings(): Observable<ListItem[]> {
     return of([
-      { id: 5, title: 'The Dark Knight', rating: 9, release_date: '2008-07-18' },
-      { id: 6, title: 'Fight Club', rating: 8, release_date: '1999-10-15' }
+      { id: 5, title: 'The Dark Knight', rating: 3, release_date: '2008-07-18' },
+      { id: 6, title: 'Fight Club', rating: 3.5, release_date: '1999-10-15' }
     ]);
   }
 

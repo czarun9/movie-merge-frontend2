@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {UserService} from '../../../../services/user/user.service';
-import {UserListItemComponent} from '../user-list-item/user-list-item.component';
+import { UserService } from '../../../../services/user/user.service';
+import { UserListItemComponent } from '../user-list-item/user-list-item.component';
 
 interface ListItem {
   id: number;

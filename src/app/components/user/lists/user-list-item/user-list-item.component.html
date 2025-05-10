@@ -1,16 +1,26 @@
-<div class="d-flex flex-column w-100">
-  <div class="d-flex justify-content-between align-items-center">
-    <h5 class="mb-1">{{ item.title }}</h5>
-    <small *ngIf="formattedDate" class="text-muted">{{ formattedDate }}</small>
-  </div>
+<div class="list-item d-flex flex-column w-100">
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <!-- Lewa część: plakat + tytuł -->
+    <div class="d-flex align-items-center flex-grow-1">
+      <img *ngIf="item.posterUrl" [src]="item.posterUrl" alt="Plakat" class="poster-image" />
+      <h5 class="mb-0 ms-3">{{ item.title }}</h5>
+    </div>
 
-  <!-- Rating -->
-  <div *ngIf="item.rating" class="mb-1">
-    <strong>Ocena:</strong> {{ item.rating }}/10
+    <!-- Prawa część: data, ocena i X -->
+    <div class="d-flex align-items-center ms-3 gap-2">
+      <small *ngIf="formattedDate" class="text-muted">{{ formattedDate }}</small>
+      <app-rating-tile *ngIf="item.rating" [value]="item.rating"></app-rating-tile>
+      <button
+        *ngIf="canRemove"
+        class="btn btn-sm btn-danger"
+        (click)="remove.emit(item.id)">
+        &times;
+      </button>
+    </div>
   </div>
 
   <!-- Review content -->
-  <div *ngIf="item.content" class="mb-1">
+  <div *ngIf="item.content" class="mt-2">
     <p class="mb-0">{{ item.content }}</p>
     <small class="text-muted" *ngIf="item.author">Autor: {{ item.author }}</small>
   </div>

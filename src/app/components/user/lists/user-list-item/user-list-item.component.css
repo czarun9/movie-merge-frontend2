@@ -7,10 +7,11 @@
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  width: 100%;
 }
 
 .list-item h5 {
-  margin-bottom: 0.25rem;
+  margin: 0;
   font-size: 1.1rem;
 }
 
@@ -22,6 +23,46 @@
   color: #6c757d;
 }
 
+.poster-image {
+  width: 50px;
+  height: auto;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
 .btn {
-  align-self: flex-end;
+  white-space: nowrap;
+}
+
+.ms-3 {
+  margin-left: 1rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.w-100 {
+  width: 100%;
 }
