@@ -7,14 +7,13 @@
         <app-rating-tile [value]="movie.vote_average / 2"></app-rating-tile>
       </div>
       <div class="movie-meta">
-  <span class="meta-item">
-    <i class="fa fa-calendar"></i> {{ movie.release_date | date:'yyyy' }}
-  </span>
         <span class="meta-item">
-    <i class="fa fa-film"></i> {{ getGenreNames() }}
-  </span>
+          <i class="fa fa-calendar"></i> {{ movie.release_date | date:'yyyy' }}
+        </span>
+        <span class="meta-item">
+          <i class="fa fa-film"></i> {{ getGenreNames() }}
+        </span>
       </div>
-
     </div>
     <div class="button-bar">
       <a [routerLink]="['/movie', movie.id]" class="btn btn-primary">Zobacz więcej</a>

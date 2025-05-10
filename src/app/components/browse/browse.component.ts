@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from '../../services/movie/movie.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
-import { MovieCardComponent } from './movie-card/movie-card.component';
-import { NgForOf } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {MovieService} from '../../services/movie/movie.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
+import {MovieCardComponent} from './movie-card/movie-card.component';
+import {NgForOf} from '@angular/common';
 import {BrowsePaginationComponent} from './browse-pagination/browse-pagination.component';
 import {BrowseFilterComponent} from './browse-filter/browse-filter.component';
 import {TmdbMovie} from '../../models/movie.model';
@@ -37,7 +37,8 @@ export class BrowseComponent implements OnInit {
     private movieService: MovieService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -50,14 +51,15 @@ export class BrowseComponent implements OnInit {
     });
   }
 
-  loadMovies(): void {
+  private loadMovies(): void {
     this.movieService
       .discoverMovies(this.page, this.selectedGenreId?.toString(), this.selectedRating)
       .subscribe(response => {
         if (response) {
-          this.movies      = response.movies;
+          this.movies = response.movies;
           this.filteredMovies = response.movies;
-          this.totalPages  = response.totalPages;
+          this.totalPages = response.totalPages;
+          console.log(this.movies)
         }
       });
   }
@@ -65,7 +67,7 @@ export class BrowseComponent implements OnInit {
   onPageChanged(newPage: number): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: newPage },
+      queryParams: {page: newPage},
       queryParamsHandling: 'merge'
     });
   }
