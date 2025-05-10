@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <ul class="navbar-nav me-auto"> <!-- Elementy po lewej stronie -->
+    <ul class="navbar-nav me-auto">
       <li class="nav-item">
         <a class="nav-link btn btn-outline-primary" routerLink="/">Home</a>
       </li>
@@ -13,7 +13,20 @@
         <button class="btn btn-primary" routerLink="/register">Zarejestruj się</button>
       </li>
       <li class="nav-item dropdown" *ngIf="isLoggedIn">
-        <a class="nav-link dropdown-toggle btn btn-outline-primary" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle btn btn-outline-secondary me-2" id="listsDropdown" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          Listy
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="listsDropdown">
+          <li><a class="dropdown-item" routerLink="/watchlist">Do Obejrzenia</a></li>
+          <li><a class="dropdown-item" routerLink="/rated">Ocenione</a></li>
+          <li><a class="dropdown-item" routerLink="/favourites">Ulubione</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown" *ngIf="isLoggedIn">
+        <a class="nav-link dropdown-toggle btn btn-outline-primary" id="navbarDropdown" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
           <img ngSrc="profile.svg" alt="Profil" style="width: 24px; height: 24px;" height="18" width="18"/>
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -21,7 +34,6 @@
           <li><a class="dropdown-item" (click)="logout()">Wyloguj się</a></li>
         </ul>
       </li>
-
     </ul>
   </div>
 </nav>
