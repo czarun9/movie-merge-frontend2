@@ -1,45 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {ListItem} from '../../models/list.model';
 
-interface ListItem {
-  id: number;
-  title: string;
-  release_date?: string;
-  rating?: number;
-  date?: string;
-  content?: string;
-  author?: string;
+interface PaginatedResponse<T> {
+  content: T[];
+  pageable: any;
+  totalPages: number;
+  totalElements: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor() {}
+  private apiUrl = `${environment.apiUrl}/api/v1/user`;
 
-  getUserFavorites(): Observable<ListItem[]> {
-    return of([
-      { id: 1, title: 'Incepcja', release_date: '2010-07-16', posterUrl: 'https://image.tmdb.org/t/p/w500/9fa0zIIPqKqS5YE9xweWW0xXtR3.jpg', rating: 5},
-      { id: 2, title: 'Matrix', release_date: '1999-03-31' }
-    ]);
+  constructor(private http: HttpClient) {}
+
+  getUserFavorites(page: number = 0, size: number = 10): Observable<PaginatedResponse<ListItem>> {
+    return this.http.get<PaginatedResponse<ListItem>>(`${this.apiUrl}/favorites?page=${page}&size=${size}`);
   }
 
-  getUserWatchlist(): Observable<ListItem[]> {
-    return of([
-      { id: 3, title: 'Interstellar', release_date: '2014-11-07' },
-      { id: 4, title: 'Blade Runner 2049', release_date: '2017-10-06' }
-    ]);
+  getUserWatchlist(page: number = 0, size: number = 10): Observable<PaginatedResponse<ListItem>> {
+    return this.http.get<PaginatedResponse<ListItem>>(`${this.apiUrl}/watchlist?page=${page}&size=${size}`);
   }
 
-  getUserRatings(): Observable<ListItem[]> {
-    return of([
-      { id: 5, title: 'The Dark Knight', rating: 3, release_date: '2008-07-18' },
-      { id: 6, title: 'Fight Club', rating: 3.5, release_date: '1999-10-15' }
-    ]);
+  getUserRatings(page: number = 0, size: number = 10): Observable<PaginatedResponse<ListItem>> {
+    return this.http.get<PaginatedResponse<ListItem>>(`${this.apiUrl}/ratings?page=${page}&size=${size}`);
+  }
+
+  getUserWatched(page: number = 0, size: number = 10): Observable<PaginatedResponse<ListItem>> {
+    return this.http.get<PaginatedResponse<ListItem>>(`${this.apiUrl}/watched?page=${page}&size=${size}`);
   }
 
   removeItemFromSection(sectionName: string, itemId: number): Observable<void> {
-    console.log(`Usuwanie elementu ${itemId} z sekcji ${sectionName}`);
-    return of(void 0);
+    return this.http.delete<void>(`${this.apiUrl}/${sectionName}/${itemId}`);
   }
 }

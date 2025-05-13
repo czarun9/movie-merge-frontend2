@@ -1,38 +1,37 @@
-<div class="list-item d-flex flex-column w-100">
-  <div class="d-flex justify-content-between align-items-center w-100">
-    <!-- Lewa część: plakat + tytuł -->
-    <div class="d-flex align-items-center flex-grow-1">
-      <!-- Plakat lub placeholder -->
-      <ng-container *ngIf="item.posterUrl; else noPoster">
-        <img [src]="item.posterUrl" alt="Plakat" class="poster-image" />
-      </ng-container>
-      <ng-template #noPoster>
-        <div class="poster-placeholder">
-          ?
-        </div>
-      </ng-template>
+<ng-container *ngIf="item as i">
+  <div class="list-item d-flex flex-column w-100">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <!-- Lewa część: plakat + tytuł -->
+      <div class="d-flex align-items-center flex-grow-1">
+        <!-- Plakat lub placeholder -->
+        <ng-container *ngIf="i.posterUrl; else noPoster">
+          <img [src]="imageBaseUrl + i.posterUrl" alt="Plakat" class="poster-image" />
+        </ng-container>
+        <ng-template #noPoster>
+          <div class="poster-placeholder">?</div>
+        </ng-template>
 
-      <!-- Tytuł -->
-      <h5 class="mb-0 ms-3">{{ item.title }}</h5>
+        <!-- Tytuł -->
+        <h5 class="mb-0 ms-3">{{ i.title }}</h5>
+      </div>
+
+      <!-- Prawa część: data, ocena i X -->
+      <div class="d-flex align-items-center ms-3 gap-2">
+        <small *ngIf="formattedDate" class="text-muted">{{ formattedDate }}</small>
+        <app-rating-tile *ngIf="i.rating" [value]="i.rating"></app-rating-tile>
+        <button
+          *ngIf="canRemove"
+          class="btn btn-sm btn-danger"
+          (click)="remove.emit(i.id)">
+          &times;
+        </button>
+      </div>
     </div>
 
-
-    <!-- Prawa część: data, ocena i X -->
-    <div class="d-flex align-items-center ms-3 gap-2">
-      <small *ngIf="formattedDate" class="text-muted">{{ formattedDate }}</small>
-      <app-rating-tile *ngIf="item.rating" [value]="item.rating"></app-rating-tile>
-      <button
-        *ngIf="canRemove"
-        class="btn btn-sm btn-danger"
-        (click)="remove.emit(item.id)">
-        &times;
-      </button>
+    <!-- Review content -->
+    <div *ngIf="i.content" class="mt-2">
+      <p class="mb-0">{{ i.content }}</p>
+      <small class="text-muted" *ngIf="i.author">Autor: {{ i.author }}</small>
     </div>
   </div>
-
-  <!-- Review content -->
-  <div *ngIf="item.content" class="mt-2">
-    <p class="mb-0">{{ item.content }}</p>
-    <small class="text-muted" *ngIf="item.author">Autor: {{ item.author }}</small>
-  </div>
-</div>
+</ng-container>
