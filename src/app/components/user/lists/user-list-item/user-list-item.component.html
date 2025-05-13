@@ -22,7 +22,7 @@
         <button
           *ngIf="canRemove"
           class="btn btn-sm btn-danger"
-          (click)="remove.emit(i.id)">
+          (click)="onRemoveClicked(i.id)">
           &times;
         </button>
       </div>

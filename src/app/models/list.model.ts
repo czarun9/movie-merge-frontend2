@@ -1,5 +1,6 @@
 export interface ListItem {
-  id: number;
+  id: string;
+  movieTmdbId: number;
   title: string;
   release_date?: string;
   rating?: number;

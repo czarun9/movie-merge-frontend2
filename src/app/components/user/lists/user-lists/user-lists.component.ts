@@ -66,7 +66,7 @@ export class UserListsComponent implements OnInit {
     }
   }
 
-  removeItem(itemId: number) {
+  removeItem(itemId: string) {
     this.userService.removeItemFromSection(this.sectionName, itemId).subscribe(() => {
       this.items = this.items.filter(item => item.id !== itemId);
     });

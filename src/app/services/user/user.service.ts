@@ -35,7 +35,7 @@ export class UserService {
     return this.http.get<PaginatedResponse<ListItem>>(`${this.apiUrl}/watched?page=${page}&size=${size}`);
   }
 
-  removeItemFromSection(sectionName: string, itemId: number): Observable<void> {
+  removeItemFromSection(sectionName: string, itemId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${sectionName}/${itemId}`);
   }
 }

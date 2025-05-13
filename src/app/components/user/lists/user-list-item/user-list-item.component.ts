@@ -16,7 +16,7 @@ import {environment} from '../../../../../environments/environment';
 export class UserListItemComponent {
   @Input() item: ListItem | undefined;
   @Input() canRemove: boolean = false;
-  @Output() remove = new EventEmitter<number>();
+  @Output() remove = new EventEmitter<string>();
 
   protected imageBaseUrl = `${environment.imageBaseUrl}`;
 
@@ -31,4 +31,14 @@ export class UserListItemComponent {
     }
     return null;
   }
+
+  onRemoveClicked(id: string | undefined): void {
+    console.log('Usuwany item.id:', id);
+    if (id !== undefined) {
+      this.remove.emit(id);
+    } else {
+      console.warn('Item nie ma ID, nie można usunąć.');
+    }
+  }
+
 }
