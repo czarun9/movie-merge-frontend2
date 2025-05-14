@@ -8,18 +8,22 @@
           <a [routerLink]="['/movie', i.movieTmdbId]">
             <img [src]="imageBaseUrl + i.posterUrl" alt="Plakat" class="poster-image" />
           </a>
-
         </ng-container>
         <ng-template #noPoster>
           <div class="poster-placeholder">?</div>
         </ng-template>
 
-        <!-- Tytuł -->
-        <h5 class="mb-0 ms-3">
-          <a [routerLink]="['/movie', i.movieTmdbId]" class="text-decoration-none text-dark">
-            {{ i.title }}
-          </a>
-        </h5>
+        <!-- Tytuł + Data dodania -->
+        <div class="ms-3 d-flex flex-column">
+          <h5 class="mb-0">
+            <a [routerLink]="['/movie', i.movieTmdbId]" class="text-decoration-none text-dark">
+              {{ i.title }}
+            </a>
+          </h5>
+          <small *ngIf="formattedAddedDate" class="text-muted">
+            Dodano: {{ formattedAddedDate }}
+          </small>
+        </div>
       </div>
 
       <!-- Prawa część: data, ocena i X -->

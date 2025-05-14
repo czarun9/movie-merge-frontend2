@@ -8,4 +8,5 @@ export interface ListItem {
   content?: string;
   author?: string;
   posterUrl?: string;
+  createdAt?: string;
 }

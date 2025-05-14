@@ -42,4 +42,24 @@ export class UserListItemComponent {
     }
   }
 
+  get formattedAddedDate(): string | null {
+    const created = this.item?.createdAt;
+
+    if (Array.isArray(created)) {
+      const [y, m, d, h = 0, min = 0, s = 0, nano = 0] = created;
+
+      const millis = Math.floor(nano / 1_000_000);
+      const parsedDate = new Date(y, m - 1, d, h, min, s, millis);
+
+      return this.datePipe.transform(parsedDate, 'short');
+    }
+
+    if (typeof created === 'string') {
+      return this.datePipe.transform(new Date(created), 'short');
+    }
+
+    return null;
+  }
+
+
 }

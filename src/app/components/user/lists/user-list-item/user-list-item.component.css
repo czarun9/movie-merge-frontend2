@@ -81,3 +81,19 @@
   flex-shrink: 0;
 }
 
+.list-item .d-flex.align-items-center {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.list-item .ms-3 {
+  margin-left: 1rem;
+}
+
+.list-item .d-flex.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
