@@ -4,11 +4,12 @@ import { LOCALE_ID } from '@angular/core';
 import {RatingTileComponent} from '../../../movie/rating-tile/rating-tile.component';
 import {ListItem} from '../../../../models/list.model';
 import {environment} from '../../../../../environments/environment';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-user-list-item',
   standalone: true,
-  imports: [CommonModule, NgIf, RatingTileComponent],
+  imports: [CommonModule, NgIf, RatingTileComponent, RouterLink],
   templateUrl: './user-list-item.component.html',
   styleUrls: ['./user-list-item.component.css'],
   providers: [DatePipe, { provide: LOCALE_ID, useValue: 'pl' }]

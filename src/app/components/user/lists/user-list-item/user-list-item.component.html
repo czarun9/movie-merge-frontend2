@@ -5,14 +5,21 @@
       <div class="d-flex align-items-center flex-grow-1">
         <!-- Plakat lub placeholder -->
         <ng-container *ngIf="i.posterUrl; else noPoster">
-          <img [src]="imageBaseUrl + i.posterUrl" alt="Plakat" class="poster-image" />
+          <a [routerLink]="['/movie', i.movieTmdbId]">
+            <img [src]="imageBaseUrl + i.posterUrl" alt="Plakat" class="poster-image" />
+          </a>
+
         </ng-container>
         <ng-template #noPoster>
           <div class="poster-placeholder">?</div>
         </ng-template>
 
         <!-- Tytuł -->
-        <h5 class="mb-0 ms-3">{{ i.title }}</h5>
+        <h5 class="mb-0 ms-3">
+          <a [routerLink]="['/movie', i.movieTmdbId]" class="text-decoration-none text-dark">
+            {{ i.title }}
+          </a>
+        </h5>
       </div>
 
       <!-- Prawa część: data, ocena i X -->
