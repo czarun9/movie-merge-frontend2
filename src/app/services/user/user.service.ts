@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {ListItem} from '../../models/list.model';
+import {ListItem, UserMovieListItem} from '../../models/list.model';
 
 interface PaginatedResponse<T> {
   content: T[];
@@ -34,6 +34,11 @@ export class UserService {
   getUserWatched(page: number = 0, size: number = 10): Observable<PaginatedResponse<ListItem>> {
     return this.http.get<PaginatedResponse<ListItem>>(`${this.apiUrl}/watched?page=${page}&size=${size}`);
   }
+
+  getUserMovieLists(): Observable<UserMovieListItem[]> {
+    return this.http.get<UserMovieListItem[]>(`${this.apiUrl}/lists`);
+  }
+
 
   removeItemFromSection(sectionName: string, itemId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${sectionName}/${itemId}`);

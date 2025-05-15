@@ -10,3 +10,10 @@ export interface ListItem {
   posterUrl?: string;
   createdAt?: string;
 }
+
+export interface UserMovieListItem {
+  id: string;
+  name: string;
+  createdAt: string | number[];
+}
+

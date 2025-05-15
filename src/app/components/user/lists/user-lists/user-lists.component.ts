@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserService } from '../../../../services/user/user.service';
-import { UserListItemComponent } from '../user-list-item/user-list-item.component';
-import {ListItem} from '../../../../models/list.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UserService} from '../../../../services/user/user.service';
+import {UserListItemComponent} from '../user-list-item/user-list-item.component';
+import {ListItem, UserMovieListItem} from '../../../../models/list.model';
 
 @Component({
   selector: 'app-user-lists',
@@ -12,9 +12,9 @@ import {ListItem} from '../../../../models/list.model';
   styleUrls: ['./user-lists.component.css']
 })
 export class UserListsComponent implements OnInit {
-  @Input() sectionName!: 'favorites' | 'watchlist' | 'ratings' | 'watched';
+  @Input() sectionName!: 'favorites' | 'watchlist' | 'ratings' | 'watched' | 'customLists';
   title = '';
-  items: ListItem[] = [];
+  items: (ListItem | UserMovieListItem)[] = [];
   canRemove = true;
 
   currentPage = 0;
@@ -22,7 +22,8 @@ export class UserListsComponent implements OnInit {
   totalItems = 0;
   pageSize = 10;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
     this.loadData();
@@ -63,6 +64,15 @@ export class UserListsComponent implements OnInit {
           this.totalItems = response.totalElements;
         });
         break;
+      case 'customLists':
+        this.title = 'Moje listy';
+        this.userService.getUserMovieLists().subscribe(response => {
+          this.items = response;
+          this.totalPages = 1;
+          this.totalItems = response.length;
+        });
+        break;
+
     }
   }
 

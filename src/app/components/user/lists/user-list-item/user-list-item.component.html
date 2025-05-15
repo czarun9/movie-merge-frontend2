@@ -1,48 +1,61 @@
-<ng-container *ngIf="item as i">
-  <div class="list-item d-flex flex-column w-100">
+<ng-container *ngIf="item">
+
+  <div *ngIf="isMovie && movie" class="list-item d-flex flex-column w-100">
     <div class="d-flex justify-content-between align-items-center w-100">
-      <!-- Lewa część: plakat + tytuł -->
       <div class="d-flex align-items-center flex-grow-1">
-        <!-- Plakat lub placeholder -->
-        <ng-container *ngIf="i.posterUrl; else noPoster">
-          <a [routerLink]="['/movie', i.movieTmdbId]">
-            <img [src]="imageBaseUrl + i.posterUrl" alt="Plakat" class="poster-image" />
+        <ng-container *ngIf="movie.posterUrl; else noPoster">
+          <a [routerLink]="['/movie', movie.movieTmdbId]">
+            <img [src]="imageBaseUrl + movie.posterUrl" alt="Plakat" class="poster-image" />
           </a>
         </ng-container>
         <ng-template #noPoster>
           <div class="poster-placeholder">?</div>
         </ng-template>
 
-        <!-- Tytuł + Data dodania -->
         <div class="ms-3 d-flex flex-column">
           <h5 class="mb-0">
-            <a [routerLink]="['/movie', i.movieTmdbId]" class="text-decoration-none text-dark">
-              {{ i.title }}
+            <a [routerLink]="['/movie', movie.movieTmdbId]" class="text-decoration-none text-dark">
+              {{ movie.title }}
             </a>
           </h5>
-          <small *ngIf="formattedAddedDate" class="text-muted">
-            Dodano: {{ formattedAddedDate }}
-          </small>
         </div>
       </div>
 
-      <!-- Prawa część: data, ocena i X -->
       <div class="d-flex align-items-center ms-3 gap-2">
-        <small *ngIf="formattedDate" class="text-muted">{{ formattedDate }}</small>
-        <app-rating-tile *ngIf="i.rating" [value]="i.rating"></app-rating-tile>
+        <small *ngIf="formattedCreatedAt" class="text-muted">Dodano: {{ formattedCreatedAt }}</small>
+        <app-rating-tile *ngIf="movie.rating" [value]="movie.rating"></app-rating-tile>
         <button
           *ngIf="canRemove"
           class="btn btn-sm btn-danger"
-          (click)="onRemoveClicked(i.id)">
+          (click)="onRemoveClicked(movie.id)">
           &times;
         </button>
       </div>
     </div>
 
-    <!-- Review content -->
-    <div *ngIf="i.content" class="mt-2">
-      <p class="mb-0">{{ i.content }}</p>
-      <small class="text-muted" *ngIf="i.author">Autor: {{ i.author }}</small>
+    <!-- Recenzja -->
+    <div *ngIf="movie.content" class="mt-2">
+      <p class="mb-0">{{ movie.content }}</p>
+      <small class="text-muted" *ngIf="movie.author">Autor: {{ movie.author }}</small>
     </div>
   </div>
+
+  <div *ngIf="isCustomList && customList" class="list-item d-flex flex-column w-100">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="d-flex flex-column">
+        <h5 class="mb-0">{{ customList.name }}</h5>
+      </div>
+
+      <div class="d-flex align-items-center ms-3 gap-2">
+        <small *ngIf="formattedCreatedAt" class="text-muted">Utworzono: {{ formattedCreatedAt }}</small>
+        <button
+          *ngIf="canRemove"
+          class="btn btn-sm btn-danger"
+          (click)="onRemoveClicked(customList.id)">
+          &times;
+        </button>
+      </div>
+    </div>
+  </div>
+
 </ng-container>
