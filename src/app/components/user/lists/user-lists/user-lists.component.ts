@@ -13,6 +13,8 @@ import {ListItem, UserMovieListItem} from '../../../../models/list.model';
 })
 export class UserListsComponent implements OnInit {
   @Input() sectionName!: 'favorites' | 'watchlist' | 'ratings' | 'watched' | 'customLists';
+  @Input() listId?: string;
+
   title = '';
   items: (ListItem | UserMovieListItem)[] = [];
   canRemove = true;

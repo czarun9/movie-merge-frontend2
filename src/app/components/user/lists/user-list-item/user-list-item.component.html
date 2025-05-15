@@ -43,7 +43,11 @@
   <div *ngIf="isCustomList && customList" class="list-item d-flex flex-column w-100">
     <div class="d-flex justify-content-between align-items-center w-100">
       <div class="d-flex flex-column">
-        <h5 class="mb-0">{{ customList.name }}</h5>
+        <h5 class="mb-0">
+          <a [routerLink]="['/custom-lists', customList.id]" class="text-decoration-none text-dark">
+            {{ customList.name }}
+          </a>
+        </h5>
       </div>
 
       <div class="d-flex align-items-center ms-3 gap-2">

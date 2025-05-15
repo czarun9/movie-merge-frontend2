@@ -10,6 +10,9 @@ import {WatchlistPageComponent} from './components/user/lists/pages/watchlist-pa
 import {RatingsPageComponent} from './components/user/lists/pages/ratings-page/ratings-page.component';
 import {WatchedPageComponent} from './components/user/lists/pages/watched-page/watched-page.component';
 import {CustomListsPageComponent} from './components/user/lists/pages/custom-lists-page/custom-lists-page.component';
+import {
+  CustomListViewPageComponent
+} from './components/user/lists/pages/custom-list-view-page/custom-list-view-page.component';
 
 
 export const routes: Routes = [
@@ -25,4 +28,5 @@ export const routes: Routes = [
   { path: 'watched', component: WatchedPageComponent },
   { path: 'ratings', component: RatingsPageComponent },
   { path: 'custom-lists', component: CustomListsPageComponent },
+  { path: 'custom-lists/:id', component: CustomListViewPageComponent },
 ];
