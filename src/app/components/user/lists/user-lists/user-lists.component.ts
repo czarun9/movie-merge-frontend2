@@ -77,7 +77,8 @@ export class UserListsComponent implements OnInit {
   }
 
   removeItem(itemId: string) {
-    this.userService.removeItemFromSection(this.sectionName, itemId).subscribe(() => {
+
+    this.userService.removeItemFromSection(this.sectionName === "customLists" ? "lists" : this.sectionName, itemId).subscribe(() => {
       this.items = this.items.filter(item => item.id !== itemId);
     });
   }
