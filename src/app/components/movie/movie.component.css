@@ -1,6 +1,5 @@
-/* Wrapper dla całego komponentu filmu */
 .movie-wrapper {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   border-radius: 12px;
   position: relative;
@@ -8,7 +7,6 @@
   background: white;
 }
 
-/* Kontener dla tła filmu */
 .movie-backdrop {
   position: relative;
   height: 300px;
@@ -21,7 +19,6 @@
   filter: brightness(0.5);
 }
 
-/* Plakat filmu */
 .movie-hero {
   position: absolute;
   top: 200px;
@@ -40,7 +37,6 @@
   filter: brightness(1);
 }
 
-/* Przyciski akcji */
 .movie-buttons,
 .movie-rating {
   display: flex;
@@ -64,7 +60,6 @@
   color: #f57c00;
 }
 
-/* Sekcja akcji poniżej plakatu */
 .movie-actions-below {
   margin-left: 200px;
   margin-top: 10px;
@@ -73,7 +68,6 @@
   gap: 40px;
 }
 
-/* Kontener dla szczegółów filmu obok plakatu */
 .movie-details-wrapper {
   display: flex;
   gap: 20px;
@@ -83,16 +77,15 @@
 
 @media (max-width: 768px) {
   .movie-details-wrapper {
-    flex-direction: column; /* Na mniejszych ekranach szczegóły pod plakatem */
+    flex-direction: column;
     margin-left: 20px;
   }
 
   .movie-hero {
-    top: 150px; /* Obniżamy plakat na mniejszych ekranach */
+    top: 150px;
   }
 }
 
-/* Szczegóły filmu */
 .movie-details {
   flex: 1;
   margin-top: 20px;
@@ -109,7 +102,6 @@
   margin-bottom: 5px;
 }
 
-/* Sekcja przeglądu filmu */
 .movie-overview {
   margin-top: 20px;
 }
@@ -119,7 +111,6 @@
   font-weight: bold;
 }
 
-/* Sekcja meta informacji (rok, gatunki) */
 .movie-meta {
   display: flex;
   flex-wrap: wrap;
