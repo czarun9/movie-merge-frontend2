@@ -1,0 +1,80 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Dodaj film do listy</h2>
+      <button class="close-btn" (click)="onCloseClick()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div *ngIf="isLoading" class="loading">
+        <p>Ładowanie stron...</p>
+      </div>
+
+      <div *ngIf="!isLoading">
+        <div *ngIf="!showNewListForm">
+          <h3>Wybierz istniejącą listę:</h3>
+
+          <div *ngIf="lists.length === 0" class="no-lists">
+            <p>Nie masz jeszcze żadnych stron.</p>
+          </div>
+
+          <div *ngIf="lists.length > 0" class="list-list">
+            <div
+              *ngFor="let list of lists"
+              class="list-item"
+              [class.selected]="selectedListId === list.id"
+              (click)="selectedListId = list.id">
+              <span>{{ list.name }}</span>
+            </div>
+
+            <div class="action-buttons">
+              <button
+                class="btn primary-btn"
+                [disabled]="!selectedListId"
+                (click)="addToExistingList()">
+                Dodaj do wybranej listy
+              </button>
+            </div>
+          </div>
+
+          <div class="separator">
+            <span>lub</span>
+          </div>
+
+          <button class="btn secondary-btn" (click)="toggleNewListForm()">
+            Utwórz nową listę
+          </button>
+        </div>
+
+        <div *ngIf="showNewListForm" class="new-list-form">
+          <h3>Utwórz nową listę:</h3>
+
+          <div class="form-group">
+            <label for="listName">Nazwa listy:</label>
+            <input
+              type="text"
+              id="listName"
+              [(ngModel)]="newListName"
+              placeholder="Wprowadź nazwę nowej listy"
+              class="form-control">
+          </div>
+
+          <div class="action-buttons">
+            <button
+              class="btn secondary-btn"
+              (click)="toggleNewListForm()">
+              Wróć
+            </button>
+
+            <button
+              class="btn primary-btn"
+              [disabled]="!newListName.trim()"
+              (click)="createNewList()">
+              Utwórz i dodaj film
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
