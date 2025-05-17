@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import { NgClass, NgForOf } from '@angular/common';
+import { NgClass, NgForOf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-movie-stars',
   standalone: true,
-  imports: [NgForOf, NgClass],
+  imports: [NgForOf, NgClass, NgStyle],
   templateUrl: './movie-stars.component.html',
   styleUrls: ['./movie-stars.component.css']
 })
@@ -37,15 +37,22 @@ export class MovieStarsComponent implements OnChanges {
     this.hoverRating = 0;
   }
 
-  getStarFillPercentage(starIndex: number): number {
+  getStarClipValue(starIndex: number): string {
     const rating = this.hoverRating > 0
       ? this.hoverRating
       : (this.hasRated ? this.userRating * 2 : this.staticRating);
 
-    const fullStars = starIndex * 2;
-    if (rating >= fullStars) return 100;
-    if (rating >= fullStars - 1) return 42;
-    return 0;
+    const starStartValue = (starIndex - 1) * 2;
+
+    const remainingPoints = Math.max(0, Math.min(2, rating - starStartValue));
+
+    let fillPercentage = (remainingPoints / 2) * 100;
+
+    if (Math.abs(remainingPoints - 1) < 0.1) {
+      fillPercentage = 50;
+    }
+
+    return (100 - fillPercentage) + '%';
   }
 
   rateMovie(rating: number) {

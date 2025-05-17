@@ -10,15 +10,13 @@
   height: 32px;
   cursor: pointer;
   user-select: none;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .star-bg,
-.star-fg,
-.user-rated {
+.star-fg {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,6 +24,9 @@
   height: 100%;
   font-size: 32px;
   line-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
 }
 
@@ -37,10 +38,7 @@
 .star-fg {
   color: gold;
   z-index: 2;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 0;
-  transition: width 0.1s ease;
+  transition: all 0.1s ease;
 }
 
 .star-fg.user-rated {

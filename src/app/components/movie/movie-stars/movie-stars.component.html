@@ -7,6 +7,6 @@
     <div class="star-bg">★</div>
     <div class="star-fg"
          [ngClass]="{ 'user-rated': hasRated }"
-         [style.width.%]="getStarFillPercentage(i + 1)">★</div>
+         [ngStyle]="{ 'clipPath': 'inset(0 ' + getStarClipValue(i + 1) + ' 0 0)' }">★</div>
   </div>
 </div>
