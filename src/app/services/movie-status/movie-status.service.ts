@@ -21,7 +21,7 @@ export class MovieStatusService {
       );
   }
 
-  setFavouriteStatus(movieId: string, isFavourite: boolean): Observable<void> {
+  setFavouriteStatus(movieId: number, isFavourite: boolean): Observable<void> {
     const body = { status: isFavourite };
     console.log(isFavourite);
     return this.http.patch<void>(
@@ -33,7 +33,7 @@ export class MovieStatusService {
   }
 
 
-  setWatchedStatus(movieId: string, isWatched: boolean):Observable<void> {
+  setWatchedStatus(movieId: number, isWatched: boolean):Observable<void> {
     const body = { status: isWatched };
     console.log(isWatched);
     return this.http.patch<void>(
@@ -44,7 +44,7 @@ export class MovieStatusService {
     );
   }
 
-  setAddedToWatchlistStatus(movieId: string, isAddedToWatchlist: boolean):Observable<void> {
+  setAddedToWatchlistStatus(movieId: number, isAddedToWatchlist: boolean):Observable<void> {
     const body = { status: isAddedToWatchlist };
     console.log("tuż przed wysłaniem" + isAddedToWatchlist);
     return this.http.patch<void>(
@@ -55,7 +55,7 @@ export class MovieStatusService {
     );
   }
 
-  setRating(movieId: string, rating: number): Observable<void> {
+  setRating(movieId: number, rating: number): Observable<void> {
     const body = { value: rating };
     return this.http.post<void>(
       `${this.apiUrl}/movies/${movieId}/rating`,

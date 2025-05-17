@@ -15,7 +15,7 @@ export class MovieService {
   constructor(private http: HttpClient) {
   }
 
-  getMovie(id: string): Observable<TmdbMovie | undefined> {
+  getMovie(id: number): Observable<TmdbMovie | undefined> {
     return this.http.get<TmdbMovie>(`${this.apiUrl}/tmdb/movies/${id}`).pipe(
       map(response => response),
       catchError(() => of(undefined))
@@ -54,7 +54,7 @@ export class MovieService {
     );
   }
 
-  getMovieReviews(movieId: string, page: number = 1): Observable<ReviewPageResponse | undefined> {
+  getMovieReviews(movieId: number, page: number = 1): Observable<ReviewPageResponse | undefined> {
     const params = new HttpParams().set('page', page.toString());
 
     return this.http

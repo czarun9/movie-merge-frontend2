@@ -11,6 +11,7 @@ import {TmdbMovie} from '../../models/movie.model';
 import {MovieStatus} from '../../models/movie-status.model';
 import {forkJoin} from 'rxjs';
 import {Review} from '../../models/review.model';
+import {UserService} from '../../services/user/user.service';
 
 @Component({
   selector: 'app-movie',
@@ -29,7 +30,7 @@ import {Review} from '../../models/review.model';
   styleUrl: './movie.component.css'
 })
 export class MovieComponent implements OnInit {
-  movieId: string = '1';
+  movieId: number | null = null;
   movieData: TmdbMovie | undefined;
   movieStatus: MovieStatus | undefined;
   protected imageBaseUrl: string = environment.imageBaseUrl;
@@ -38,24 +39,35 @@ export class MovieComponent implements OnInit {
   protected userRating: number;
   protected staticRating: number;
 
-  constructor(private route: ActivatedRoute, private movieService: MovieService, private movieStatusService: MovieStatusService) {
+  constructor(private route: ActivatedRoute, private movieService: MovieService, private movieStatusService: MovieStatusService, private userService: UserService) {
     this.userRating = 0;
     this.staticRating = 0;
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.movieId = params.get('id')!;
-      this.loadMovieDataAndReviews();
-      this.loadMovieStatus();
+      const idParam = params.get('id');
+      this.movieId = idParam ? +idParam : null;
+      if (this.movieId !== null) {
+        this.loadMovieDataAndReviews();
+        this.loadMovieStatus();
+      } else {
+        console.error('Brak poprawnego ID filmu w URL');
+      }
     });
   }
 
+
   private loadMovieDataAndReviews(): void {
+    if (this.movieId === null) {
+      console.error('Nie można załadować danych filmu: movieId jest null');
+      return;
+    }
+
     forkJoin({
       movie: this.movieService.getMovie(this.movieId),
       reviewPage: this.movieService.getMovieReviews(this.movieId)
-    }).subscribe(({ movie, reviewPage }) => {
+    }).subscribe(({movie, reviewPage}) => {
       if (movie) {
         this.setMovieData(movie);
       }
@@ -100,7 +112,7 @@ export class MovieComponent implements OnInit {
       this.movieStatus.latestRating = rating;
     }
 
-    this.movieStatusService.setRating(this.movieId, rating).subscribe({
+    this.movieStatusService.setRating(this.movieId!, rating).subscribe({
       next: () => console.log('Ocena wysłana:', rating),
       error: err => console.error('Błąd podczas wysyłania oceny:', err)
     });
@@ -109,16 +121,32 @@ export class MovieComponent implements OnInit {
 
   changeFavouriteStatus(favouriteStatus: boolean) {
     console.log(favouriteStatus);
-    this.movieStatusService.setFavouriteStatus(this.movieId, favouriteStatus).subscribe();
+    this.movieStatusService.setFavouriteStatus(this.movieId!, favouriteStatus).subscribe();
   }
 
   changeWatchedStatus(watchedStatus: boolean) {
     console.log(watchedStatus);
-    this.movieStatusService.setWatchedStatus(this.movieId, watchedStatus).subscribe();
+    this.movieStatusService.setWatchedStatus(this.movieId!, watchedStatus).subscribe();
   }
 
   changeAddedToWatchlistStatus(addedToWatchlistStatus: boolean) {
     console.log(addedToWatchlistStatus);
-    this.movieStatusService.setAddedToWatchlistStatus(this.movieId, addedToWatchlistStatus).subscribe();
+    this.movieStatusService.setAddedToWatchlistStatus(this.movieId!, addedToWatchlistStatus).subscribe();
   }
+
+  addMovieToCustomList(listId: string) {
+    this.userService.addMovieToList(listId, this.movieId!).subscribe({
+      next: () => console.log(`Dodano film do listy ${listId}`),
+      error: err => console.error('Błąd dodawania do listy', err)
+    });
+  }
+
+  createCustomList(listName: string) {
+    this.userService.createListWithMovie(listName, this.movieId!).subscribe({
+      next: () => console.log(`Utworzono listę '${listName}' z filmem`),
+      error: err => console.error('Błąd tworzenia listy', err)
+    });
+  }
+
+
 }

@@ -12,7 +12,9 @@
     (ratingChanged)="rateMovie($event)"
     (favouriteToggled)="changeFavouriteStatus($event)"
     (watchedMovieToggled)="changeWatchedStatus($event)"
-    (addToWatchlistToggled)="changeAddedToWatchlistStatus($event)">
+    (addToWatchlistToggled)="changeAddedToWatchlistStatus($event)"
+    (addToList)="addMovieToCustomList($event)"
+    (createList)="createCustomList($event)">
   </app-movie-actions>
 
   <div class="movie-details-wrapper">

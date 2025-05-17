@@ -55,4 +55,18 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/lists/${listId}/item/${movieTmdbId}`);
   }
 
+  addMovieToList(listId: string, movieTmdbId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/lists/${listId}/item`, {
+      movieTmdbId: movieTmdbId
+    });
+  }
+
+  createListWithMovie(listName: string, movieTmdbId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/lists`, {
+      name: listName,
+      initialMovieId: movieTmdbId
+    });
+  }
+
+
 }

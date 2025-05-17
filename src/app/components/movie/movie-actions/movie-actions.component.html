@@ -43,4 +43,20 @@
 
     <app-rating-tile [value]="staticRating / 2"></app-rating-tile>
   </div>
+
+  <div class="movie-buttons">
+    <i
+      class="fa fa-list-alt movie-btn"
+      (click)="openListSelector()"
+      title="Dodaj film do listy">
+    </i>
+  </div>
+
+  <app-list-selector-modal
+    *ngIf="showListModal"
+    (close)="closeListModal()"
+    (addToList)="onListAdd($event)"
+    (createList)="onListCreate($event)">
+  </app-list-selector-modal>
+
 </div>
