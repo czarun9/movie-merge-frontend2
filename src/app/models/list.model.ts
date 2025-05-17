@@ -11,7 +11,7 @@ export interface ListItem {
   createdAt?: string;
 }
 
-export interface UserMovieListItem {
+export interface CustomList {
   id: string;
   name: string;
   createdAt: string | number[];

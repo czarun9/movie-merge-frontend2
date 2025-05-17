@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {UserService} from '../../../../services/user/user.service';
 import {UserListItemComponent} from '../user-list-item/user-list-item.component';
-import {ListItem, UserMovieListItem} from '../../../../models/list.model';
+import {ListItem, CustomList} from '../../../../models/list.model';
 
 @Component({
   selector: 'app-user-lists',
@@ -16,7 +16,7 @@ export class UserListsComponent implements OnInit {
   @Input() listId?: string;
 
   title = '';
-  items: (ListItem | UserMovieListItem)[] = [];
+  items: (ListItem | CustomList)[] = [];
   canRemove = true;
 
   currentPage = 0;
@@ -67,23 +67,49 @@ export class UserListsComponent implements OnInit {
         });
         break;
       case 'customLists':
-        this.title = 'Moje listy';
-        this.userService.getUserMovieLists().subscribe(response => {
-          this.items = response;
-          this.totalPages = 1;
-          this.totalItems = response.length;
-        });
+        if (this.listId) {
+          this.userService.getUserMovieList(this.listId).subscribe(response => {
+            this.title = response.name;
+          })
+          this.userService.getUserMovieListItems(this.listId, this.currentPage, this.pageSize).subscribe(response => {
+            this.items = response.content;
+            this.totalPages = response.totalPages;
+            this.totalItems = response.totalElements;
+          });
+        } else {
+          this.title = 'Moje listy';
+          this.userService.getUserMovieLists().subscribe(response => {
+            this.items = response;
+            this.totalPages = 1;
+            this.totalItems = response.length;
+          });
+        }
         break;
-
     }
   }
 
-  removeItem(itemId: string) {
-
-    this.userService.removeItemFromSection(this.sectionName === "customLists" ? "lists" : this.sectionName, itemId).subscribe(() => {
-      this.items = this.items.filter(item => item.id !== itemId);
-    });
+  removeItem(item: ListItem | CustomList) {
+    if (this.sectionName === 'customLists') {
+      if (this.listId) {
+        const movieItem = item as ListItem;
+        this.userService.removeMovieFromCustomList(this.listId, movieItem.movieTmdbId).subscribe(() => {
+          this.items = this.items.filter(i => i.id !== item.id);
+        });
+      } else {
+        const listItem = item as CustomList;
+        this.userService.removeItemFromSection("lists", listItem.id).subscribe(() => {
+          this.items = this.items.filter(i => i.id !== item.id);
+        });
+      }
+    } else {
+      const movieItem = item as ListItem;
+      this.userService.removeItemFromSection(this.sectionName, movieItem.id).subscribe(() => {
+        this.items = this.items.filter(i => i.id !== item.id);
+      });
+    }
   }
+
+
 
   goToPage(page: number) {
     if (page >= 0 && page < this.totalPages) {

@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule, DatePipe, NgIf } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import { RatingTileComponent } from '../../../movie/rating-tile/rating-tile.component';
-import { ListItem, UserMovieListItem } from '../../../../models/list.model';
+import { ListItem, CustomList } from '../../../../models/list.model';
 import { environment } from '../../../../../environments/environment';
 import { RouterLink } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
   providers: [DatePipe, { provide: LOCALE_ID, useValue: 'pl' }]
 })
 export class UserListItemComponent {
-  @Input() item: ListItem | UserMovieListItem | undefined;
+  @Input() item: ListItem | CustomList | undefined;
   @Input() canRemove = false;
   @Output() remove = new EventEmitter<string>();
 
@@ -35,8 +35,8 @@ export class UserListItemComponent {
     return this.isMovie ? this.item as ListItem : undefined;
   }
 
-  get customList(): UserMovieListItem | undefined {
-    return this.isCustomList ? this.item as UserMovieListItem : undefined;
+  get customList(): CustomList | undefined {
+    return this.isCustomList ? this.item as CustomList : undefined;
   }
 
   get formattedReleaseDate(): string | null {
