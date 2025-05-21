@@ -10,7 +10,7 @@ import {
   NgSwitchCase,
   UpperCasePipe
 } from '@angular/common';
-import {TmdbMovie} from '../../../models/movie.model';
+import {TmdbMovie, TraktMovie} from '../../../models/movie.model';
 import {MovieDetailsReviewsComponent} from './movie-details-reviews/movie-details-reviews.component';
 
 @Component({
@@ -33,6 +33,7 @@ import {MovieDetailsReviewsComponent} from './movie-details-reviews/movie-detail
 })
 export class MovieDetailsComponent implements AfterViewInit {
   @Input() movieData: TmdbMovie | undefined;
+  @Input() traktMovieData!: TraktMovie | undefined;
 
   isOverviewExpanded = false;
   isTruncatable = false;

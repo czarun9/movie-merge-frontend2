@@ -4,7 +4,7 @@ import { CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe } from '@angula
 import { Subject, takeUntil } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { TmdbMovie } from '../../models/movie.model';
+import {TmdbMovie, TraktMovie} from '../../models/movie.model';
 import { MovieStatus } from '../../models/movie-status.model';
 
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
@@ -32,6 +32,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   // Dane modelu
   movieId: number | null = null;
   movieData: TmdbMovie | null | undefined;
+  traktMovieData: TraktMovie | undefined;
   movieStatus: MovieStatus | undefined;
 
   // Stałe
@@ -73,8 +74,19 @@ export class MovieComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (movieDetails) => {
-          this.movieData = movieDetails.movie;
-          this.staticRating = movieDetails.movie?.vote_average ?? 0;
+          if (movieDetails.movie) {
+            this.movieData = movieDetails.movie;
+            this.staticRating = movieDetails.movie.vote_average ?? 0;
+          } else {
+            console.error('Nie udało się pobrać danych filmu TMDB');
+          }
+
+          if (movieDetails.traktMovie) {
+            this.traktMovieData = movieDetails.traktMovie;
+            console.log('Pobrano dane Trakt:', this.traktMovieData);
+          } else {
+            console.warn('Nie udało się pobrać danych filmu Trakt');
+          }
         },
         error: (error) => console.error('Błąd podczas pobierania danych filmu:', error)
       });

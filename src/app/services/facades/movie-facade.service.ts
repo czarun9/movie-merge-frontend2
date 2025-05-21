@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map, switchMap, tap } from 'rxjs';
+import { Observable, forkJoin, map, switchMap} from 'rxjs';
 import { MovieService } from '../movie/movie.service';
 import { MovieStatusService } from '../movie-status/movie-status.service';
 import { UserService } from '../user/user.service';
-import { TmdbMovie } from '../../models/movie.model';
+import { TmdbMovie, TraktMovie } from '../../models/movie.model';
 import { MovieStatus } from '../../models/movie-status.model';
 
 export interface MovieDetails {
   movie: TmdbMovie | null;
+  traktMovie: TraktMovie | null;
   status?: MovieStatus;
 }
 
@@ -21,17 +22,27 @@ export class MovieFacadeService {
     private userService: UserService
   ) {}
 
+  /**
+   * Pobiera kompleksowe dane o filmie, łącznie z recenzjami
+   */
   getMovieDetails(movieId: number): Observable<MovieDetails> {
     return forkJoin({
       movie: this.movieService.getMovie(movieId),
-      reviewPage: this.movieService.getMovieReviews(movieId)
+      reviewPage: this.movieService.getMovieReviews(movieId),
+      traktMovie: this.movieService.getTraktMovie(movieId)
     }).pipe(
-      map(({ movie, reviewPage }) => {
+      map(({ movie, reviewPage, traktMovie }) => {
         const movieData = movie || null;
+        const traktMovieData = traktMovie || null;
+
         if (movieData && reviewPage) {
           movieData.reviews = reviewPage.reviews;
         }
-        return { movie: movieData };
+
+        return {
+          movie: movieData,
+          traktMovie: traktMovieData
+        };
       })
     );
   }
