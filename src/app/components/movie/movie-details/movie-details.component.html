@@ -1,9 +1,22 @@
 <div class="movie-details">
+  <div class="data-source-toggle">
+    <button
+      [class.active]="dataSource === 'tmdb'"
+      (click)="dataSource = 'tmdb'">
+      TMDB
+    </button>
+    <button
+      [class.active]="dataSource === 'trakt'"
+      (click)="dataSource = 'trakt'">
+      Trakt
+    </button>
+  </div>
+
   <h2 class="movie-title">
-    {{ movieData?.title }}
-    <span class="movie-year">({{ movieData?.release_date | date:'yyyy' }})</span>
-    <span *ngIf="movieData?.runtime" class="movie-runtime">
-    • {{ formatRuntime(movieData?.runtime) }}
+    {{ movieTitle }}
+    <span class="movie-year">({{ movieReleaseDate | date:'yyyy' }})</span>
+    <span *ngIf="movieRuntime" class="movie-runtime">
+    • {{ formatRuntime(movieRuntime) }}
     </span>
   </h2>
 
@@ -11,7 +24,7 @@
     <div
       class="movie-overview-text"
       [ngClass]="{ 'expanded': isOverviewExpanded }">
-      <p #overviewRef>{{ movieData?.overview }}</p>
+      <p #overviewRef>{{ movieOverview }}</p>
     </div>
     <button
       *ngIf="isTruncatable"
@@ -32,9 +45,16 @@
     </div>
 
     <div class="tab-content">
+      <div class="data-source-indicator">
+        Źródło danych: <span class="source-name">{{ dataSource.toUpperCase() }}</span>
+        <button class="toggle-source-btn" (click)="toggleDataSource()">
+          Przełącz na {{ dataSource === 'tmdb' ? 'Trakt' : 'TMDB' }}
+        </button>
+      </div>
+
       <ng-container [ngSwitch]="selectedTab.value">
         <div *ngSwitchCase="'cast'">
-          <p>Obsada (cast) będzie tutaj</p>
+          <p>{{ castData }}</p>
         </div>
         <div *ngSwitchCase="'details'">
           <div class="movie-details-table">
@@ -43,10 +63,9 @@
               <div class="value">{{ detail.value }}</div>
             </div>
           </div>
-
         </div>
         <div *ngSwitchCase="'crew'">
-          <p>Ekipa (crew) będzie tutaj</p>
+          <p>{{ crewData }}</p>
         </div>
         <div *ngSwitchCase="'reviews'">
           <app-movie-details-reviews [reviews]="movieData?.reviews ?? []"/>
