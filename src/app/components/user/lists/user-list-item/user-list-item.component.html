@@ -5,7 +5,7 @@
       <div class="d-flex align-items-center flex-grow-1">
         <ng-container *ngIf="movie.posterUrl; else noPoster">
           <a [routerLink]="['/movie', movie.movieTmdbId]">
-            <img [src]="imageBaseUrl + movie.posterUrl" alt="Plakat" class="poster-image" />
+            <img [src]="imageBaseUrl + movie.posterUrl" alt="Plakat" class="poster-image"/>
           </a>
         </ng-container>
         <ng-template #noPoster>
@@ -23,7 +23,12 @@
 
       <div class="d-flex align-items-center ms-3 gap-2">
         <small *ngIf="formattedCreatedAt" class="text-muted">Dodano: {{ formattedCreatedAt }}</small>
-        <app-rating-tile *ngIf="movie.rating" [value]="movie.rating"></app-rating-tile>
+        <app-rating-tile
+          *ngIf="movie.rating && movie.rating > 0"
+          [value]="movie.rating"
+          [maxValue]="5"
+          source="user">
+        </app-rating-tile>
         <button
           *ngIf="canRemove"
           class="btn btn-sm btn-danger"
@@ -33,7 +38,6 @@
       </div>
     </div>
 
-    <!-- Recenzja -->
     <div *ngIf="movie.content" class="mt-2">
       <p class="mb-0">{{ movie.content }}</p>
       <small class="text-muted" *ngIf="movie.author">Autor: {{ movie.author }}</small>
