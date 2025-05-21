@@ -47,7 +47,7 @@ export class RatingTileComponent {
     const classes = [this.source + '-rating'];
 
     const value = this.normalizedValue;
-    if (value >= 4.5) classes.push('rating-highest');
+    if (value >= 4.0) classes.push('rating-highest');
     else if (value >= 3.5) classes.push('rating-high');
     else if (value >= 2.5) classes.push('rating-medium');
     else if (value >= 1.5) classes.push('rating-low');

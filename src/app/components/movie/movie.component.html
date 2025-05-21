@@ -8,6 +8,8 @@
 
   <app-movie-actions
     [staticRating]="staticRating"
+    [tmdbMovie]="movieData"
+    [traktMovie]="traktMovieData"
     [movieStatus]="movieStatus"
     (ratingChanged)="rateMovie($event)"
     (favouriteToggled)="changeFavouriteStatus($event)"

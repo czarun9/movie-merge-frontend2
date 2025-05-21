@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieStarsComponent } from '../movie-stars/movie-stars.component';
 import { RatingTileComponent } from '../rating-tile/rating-tile.component';
@@ -13,7 +13,7 @@ import { TmdbMovie, TraktMovie } from '../../../models/movie.model';
   templateUrl: './movie-actions.component.html',
   styleUrls: ['./movie-actions.component.css']
 })
-export class MovieActionsComponent {
+export class MovieActionsComponent implements OnInit, OnChanges {
   @Input() staticRating: number = 0;
   @Input() movieStatus: MovieStatus | undefined;
   @Input() tmdbMovie: TmdbMovie | undefined;
@@ -27,6 +27,27 @@ export class MovieActionsComponent {
   @Output() createList = new EventEmitter<string>();
 
   showListModal = false;
+  isDataLoading = true;
+
+  ngOnInit() {
+    this.checkDataStatus();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['tmdbMovie'] || changes['traktMovie']) {
+      this.checkDataStatus();
+    }
+  }
+
+  checkDataStatus() {
+    this.isDataLoading = !(this.tmdbMovie !== undefined && this.traktMovie !== undefined);
+
+    if (this.isDataLoading) {
+      setTimeout(() => {
+        this.isDataLoading = false;
+      }, 2000);
+    }
+  }
 
   get userRating(): number {
     return this.movieStatus?.latestRating ?? 0;
