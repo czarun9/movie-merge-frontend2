@@ -28,3 +28,30 @@ export interface TmdbMoviePageResponse {
   movies: TmdbMovie[];
   totalPages: number;
 }
+
+
+export interface TraktMovieIds {
+  readonly trakt: number;
+  readonly slug: string;
+  readonly imdb: string;
+  readonly tmdb: number;
+}
+
+export interface TraktMovie {
+  readonly title: string;
+  readonly year: number;
+  readonly ids: TraktMovieIds;
+  readonly certification: string;
+  readonly tagline: string;
+  readonly overview: string;
+  readonly released: string;
+  readonly runtime: number;
+  readonly trailer: string;
+  readonly homepage: string;
+  readonly language: string;
+  readonly genres: readonly string[];
+  readonly rating: number;
+  readonly votes: number;
+  readonly updatedAt: string;
+  readonly availableTranslations: readonly string[];
+}

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {TmdbMovie, TmdbMoviePageResponse} from '../../models/movie.model';
+import {TmdbMovie, TmdbMoviePageResponse, TraktMovie} from '../../models/movie.model';
 import {GenresResponse} from '../../models/genre.model';
 import {ReviewPageResponse} from '../../models/review.model';
 
@@ -63,5 +63,12 @@ export class MovieService {
         map(response => response),
         catchError(() => of(undefined))
       );
+  }
+
+  getTraktMovie(id: number): Observable<TraktMovie | undefined> {
+    return this.http.get<TraktMovie>(`${this.apiUrl}/trakt/movies/${id}`).pipe(
+      map(response => response),
+      catchError(() => of(undefined))
+    );
   }
 }
