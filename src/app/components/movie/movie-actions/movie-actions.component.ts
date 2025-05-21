@@ -4,6 +4,7 @@ import { MovieStarsComponent } from '../movie-stars/movie-stars.component';
 import { RatingTileComponent } from '../rating-tile/rating-tile.component';
 import { MovieStatus } from '../../../models/movie-status.model';
 import { ListSelectorModalComponent } from '../list-selector-modal/list-selector-modal.component';
+import { TmdbMovie, TraktMovie } from '../../../models/movie.model';
 
 @Component({
   selector: 'app-movie-actions',
@@ -15,6 +16,8 @@ import { ListSelectorModalComponent } from '../list-selector-modal/list-selector
 export class MovieActionsComponent {
   @Input() staticRating: number = 0;
   @Input() movieStatus: MovieStatus | undefined;
+  @Input() tmdbMovie: TmdbMovie | undefined;
+  @Input() traktMovie: TraktMovie | undefined;
 
   @Output() ratingChanged = new EventEmitter<number>();
   @Output() favouriteToggled = new EventEmitter<boolean>();
@@ -27,6 +30,22 @@ export class MovieActionsComponent {
 
   get userRating(): number {
     return this.movieStatus?.latestRating ?? 0;
+  }
+
+  get tmdbRating(): number {
+    return this.tmdbMovie?.vote_average ?? 0;
+  }
+
+  get traktRating(): number {
+    return this.traktMovie?.rating ?? 0;
+  }
+
+  get tmdbMaxRating(): number {
+    return 10;
+  }
+
+  get traktMaxRating(): number {
+    return 10;
   }
 
   onRatingChanged(rating: number) {

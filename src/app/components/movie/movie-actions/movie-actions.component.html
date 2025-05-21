@@ -35,13 +35,45 @@
   </div>
 
   <div class="movie-rating">
-    <app-movie-stars
-      [userRating]="userRating"
-      [staticRating]="staticRating"
-      (ratingChanged)="onRatingChanged($event)">
-    </app-movie-stars>
+    <div class="ratings-section">
+      <h3 class="section-title">Oceny</h3>
 
-    <app-rating-tile [value]="staticRating / 2"></app-rating-tile>
+      <div class="ratings-container">
+        <div class="external-ratings">
+          <app-rating-tile
+            *ngIf="tmdbRating > 0"
+            [value]="tmdbRating"
+            [maxValue]="tmdbMaxRating"
+            source="tmdb">
+          </app-rating-tile>
+
+          <app-rating-tile
+            *ngIf="traktRating > 0"
+            [value]="traktRating"
+            [maxValue]="traktMaxRating"
+            source="trakt">
+          </app-rating-tile>
+        </div>
+
+        <div class="user-rating-section">
+          <div class="user-rating-label">Twoja ocena:</div>
+          <div class="user-rating-controls">
+            <app-movie-stars
+              [userRating]="userRating"
+              [staticRating]="staticRating"
+              (ratingChanged)="onRatingChanged($event)">
+            </app-movie-stars>
+
+            <app-rating-tile
+              *ngIf="userRating > 0"
+              [value]="userRating"
+              [maxValue]="5"
+              source="user">
+            </app-rating-tile>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="movie-buttons">
