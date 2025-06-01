@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import { NgClass, NgForOf, NgStyle } from '@angular/common';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, inject, OnInit} from '@angular/core';
+import {NgClass, NgForOf, NgStyle} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-movie-stars',
@@ -11,11 +12,15 @@ import { NgClass, NgForOf, NgStyle } from '@angular/common';
 export class MovieStarsComponent implements OnChanges {
   @Input() staticRating: number = 0;
   @Input() userRating: number = 0;
+  @Input() isLoggedIn: boolean = false;
   @Output() ratingChanged = new EventEmitter<number>();
 
   stars = [1, 2, 3, 4, 5];
   hoverRating = 0;
   hasRated: boolean = false;
+
+  constructor(private toastr: ToastrService) {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userRating']) {
@@ -43,9 +48,7 @@ export class MovieStarsComponent implements OnChanges {
       : (this.hasRated ? this.userRating * 2 : this.staticRating);
 
     const starStartValue = (starIndex - 1) * 2;
-
     const remainingPoints = Math.max(0, Math.min(2, rating - starStartValue));
-
     let fillPercentage = (remainingPoints / 2) * 100;
 
     if (Math.abs(remainingPoints - 1) < 0.1) {
@@ -59,6 +62,11 @@ export class MovieStarsComponent implements OnChanges {
     const scaledRating = Math.round(rating) / 2;
 
     if (scaledRating <= 0) {
+      return;
+    }
+
+    if (!this.isLoggedIn) {
+      this.toastr.info('Musisz się zalogować, aby ocenić film.', 'Logowanie wymagane');
       return;
     }
 

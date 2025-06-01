@@ -82,7 +82,7 @@ export class MovieActionsComponent implements OnInit, OnChanges {
 
   onRatingChanged(rating: number) {
     if (!this.isLoggedIn) {
-      this.toastr.info('Zaloguj się, aby ocenić film', 'Informacja');
+      this.toastr.info('Zaloguj się, aby ocenić film', 'Logowanie wymagane');
       return;
     }
 
@@ -98,7 +98,7 @@ export class MovieActionsComponent implements OnInit, OnChanges {
 
   toggleFavorite(): void {
     if (!this.isLoggedIn) {
-      this.toastr.info('Zaloguj się, aby dodać do ulubionych', 'Informacja');
+      this.toastr.info('Zaloguj się, aby dodać do ulubionych', 'Logowanie wymagane');
       return;
     }
 
@@ -109,7 +109,7 @@ export class MovieActionsComponent implements OnInit, OnChanges {
 
   toggleWatched(): void {
     if (!this.isLoggedIn) {
-      this.toastr.info('Zaloguj się, aby dodać do obejrzanych', 'Informacja');
+      this.toastr.info('Zaloguj się, aby dodać do obejrzanych', 'Logowanie wymagane');
       return;
     }
 
@@ -120,7 +120,7 @@ export class MovieActionsComponent implements OnInit, OnChanges {
 
   toggleWatchlist(): void {
     if (!this.isLoggedIn) {
-      this.toastr.info('Zaloguj się, aby dodać do Do Obejrzenia', 'Informacja');
+      this.toastr.info('Zaloguj się, aby dodać do Do Obejrzenia', 'Logowanie wymagane');
       return;
     }
 
@@ -131,7 +131,7 @@ export class MovieActionsComponent implements OnInit, OnChanges {
 
   openListSelector(): void {
     if (!this.isLoggedIn) {
-      this.toastr.info('Zaloguj się, aby dodać do własnych list', 'Informacja');
+      this.toastr.info('Zaloguj się, aby dodać do własnych list', 'Logowanie wymagane');
       return;
     }
 
