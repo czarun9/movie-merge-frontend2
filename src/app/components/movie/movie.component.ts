@@ -29,19 +29,16 @@ import { MovieFacadeService } from '../../services/facades/movie-facade.service'
   styleUrl: './movie.component.css'
 })
 export class MovieComponent implements OnInit, OnDestroy {
-  // Dane modelu
   movieId: number | null = null;
   movieData: TmdbMovie | null | undefined;
   traktMovieData: TraktMovie | undefined;
   movieStatus: MovieStatus | undefined;
+  movieNotFound = false;
 
-  // Stałe
   protected readonly imageBaseUrl: string = environment.imageBaseUrl;
 
-  // Wartości dot. oceny
   protected staticRating: number = 0;
 
-  // Obsługa czyszczenia subskrypcji
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -70,6 +67,8 @@ export class MovieComponent implements OnInit, OnDestroy {
   }
 
   private loadMovieData(movieId: number): void {
+    this.movieNotFound = false;
+
     this.movieFacade.getMovieDetails(movieId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -78,17 +77,16 @@ export class MovieComponent implements OnInit, OnDestroy {
             this.movieData = movieDetails.movie;
             this.staticRating = movieDetails.movie.vote_average ?? 0;
           } else {
-            console.error('Nie udało się pobrać danych filmu TMDB');
+            this.movieNotFound = true;
+            return;
           }
 
-          if (movieDetails.traktMovie) {
-            this.traktMovieData = movieDetails.traktMovie;
-            console.log('Pobrano dane Trakt:', this.traktMovieData);
-          } else {
-            console.warn('Nie udało się pobrać danych filmu Trakt');
-          }
+          this.traktMovieData = movieDetails.traktMovie ?? undefined;
         },
-        error: (error) => console.error('Błąd podczas pobierania danych filmu:', error)
+        error: (error) => {
+          console.error('Błąd podczas pobierania danych filmu:', error);
+          this.movieNotFound = true;
+        }
       });
 
     this.movieFacade.getMovieStatus(movieId)
@@ -98,6 +96,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         error: (error) => console.error('Błąd podczas pobierania statusu filmu:', error)
       });
   }
+
 
   rateMovie(rating: number): void {
     if (rating < 0.5 || rating > 5) {

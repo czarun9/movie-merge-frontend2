@@ -140,3 +140,15 @@
     max-height: none;
   }
 }
+
+.movie-error {
+  text-align: center;
+  color: #b00020;
+  background: #ffe6e6;
+  padding: 40px 20px;
+  border-radius: 12px;
+  margin: 50px auto;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+}
+

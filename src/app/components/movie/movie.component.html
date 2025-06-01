@@ -1,3 +1,7 @@
+<div *ngIf="movieNotFound" class="movie-error">
+  <h2>Nie znaleziono filmu</h2>
+  <p>Film o podanym ID nie istnieje lub nie udało się go pobrać.</p>
+</div>
 <div class="movie-wrapper" *ngIf="movieData">
   <div class="movie-backdrop">
     <img [src]="imageBaseUrl + movieData.backdrop_path" alt="Backdrop"/>
