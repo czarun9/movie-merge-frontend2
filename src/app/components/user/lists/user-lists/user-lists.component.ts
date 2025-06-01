@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {UserService} from '../../../../services/user/user.service';
 import {UserListItemComponent} from '../user-list-item/user-list-item.component';
 import {ListItem, CustomList} from '../../../../models/list.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-lists',
@@ -24,7 +25,7 @@ export class UserListsComponent implements OnInit {
   totalItems = 0;
   pageSize = 10;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -94,22 +95,38 @@ export class UserListsComponent implements OnInit {
         const movieItem = item as ListItem;
         this.userService.removeMovieFromCustomList(this.listId, movieItem.movieTmdbId).subscribe(() => {
           this.items = this.items.filter(i => i.id !== item.id);
+          this.toastr.success('Film został usunięty z listy.');
         });
       } else {
         const listItem = item as CustomList;
         this.userService.removeItemFromSection("lists", listItem.id).subscribe(() => {
           this.items = this.items.filter(i => i.id !== item.id);
+          this.toastr.success('Lista została usunięta.');
         });
       }
     } else {
       const movieItem = item as ListItem;
       this.userService.removeItemFromSection(this.sectionName, movieItem.id).subscribe(() => {
         this.items = this.items.filter(i => i.id !== item.id);
+        let sectionMessage = '';
+        switch (this.sectionName) {
+          case 'favorites':
+            sectionMessage = 'Film został usunięty z ulubionych.';
+            break;
+          case 'watchlist':
+            sectionMessage = 'Film został usunięty z Do Obejrzenia.';
+            break;
+          case 'ratings':
+            sectionMessage = 'Ocena filmu została usunięta.';
+            break;
+          case 'watched':
+            sectionMessage = 'Film został usunięty z obejrzanych.';
+            break;
+        }
+        this.toastr.success(sectionMessage);
       });
     }
   }
-
-
 
   goToPage(page: number) {
     if (page >= 0 && page < this.totalPages) {

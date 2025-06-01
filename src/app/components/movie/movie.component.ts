@@ -154,7 +154,19 @@ export class MovieComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => this.toastr.success(`Dodano film do listy`),
-        error: (error) => this.toastr.error('Błąd dodawania do listy:', error)
+        error: (error) => {
+          if (error.status === 403) {
+            this.toastr.error('Nie masz dostępu do tej listy.');
+          } else if (error.status === 409) {
+            this.toastr.warning('Film już znajduje się na tej liście.');
+          } else if (error.status === 404) {
+            this.toastr.error('Lista nie została znaleziona.');
+          } else {
+            this.toastr.error('Wystąpił nieoczekiwany błąd.');
+            console.error(error);
+          }
+        }
+
       });
   }
 

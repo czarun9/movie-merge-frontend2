@@ -24,7 +24,7 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
         console.log('Token wygasł lub jest nieprawidłowy. Wylogowywanie użytkownika...');
         loginService.logout();
       }
-      return throwError(() => new Error(error.message));
+      return throwError(() => error);
     })
   );
 }
