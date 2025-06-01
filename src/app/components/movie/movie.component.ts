@@ -11,6 +11,7 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MovieStarsComponent } from './movie-stars/movie-stars.component';
 import { MovieActionsComponent } from './movie-actions/movie-actions.component';
 import { MovieFacadeService } from '../../services/facades/movie-facade.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-movie',
@@ -43,7 +44,8 @@ export class MovieComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private movieFacade: MovieFacadeService
+    private movieFacade: MovieFacadeService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -143,7 +145,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         next: (updatedStatus) => {
           this.movieStatus = updatedStatus;
         },
-        error: (error) => console.error('Błąd podczas zmiany statusu dodania do watchlisty:', error)
+        error: (error) => console.error('Błąd podczas zmiany statusu pola Do Obejrzenia:', error)
       });
   }
 
@@ -151,17 +153,24 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.movieFacade.addMovieToList(listId, this.movieId!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => console.log(`Dodano film do listy ${listId}`),
-        error: (error) => console.error('Błąd dodawania do listy:', error)
+        next: () => this.toastr.success(`Dodano film do listy`),
+        error: (error) => this.toastr.error('Błąd dodawania do listy:', error)
       });
   }
 
   createCustomList(listName: string): void {
-    this.movieFacade.createListWithMovie(listName, this.movieId!)
+    if (!listName.trim() || !this.movieId) return;
+
+    this.movieFacade.createListWithMovie(listName, this.movieId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => console.log(`Utworzono listę '${listName}' z filmem`),
-        error: (error) => console.error('Błąd tworzenia listy:', error)
+        next: () => {
+          this.toastr.success(`Utworzono listę '${listName}' i dodano film.`);
+        },
+        error: (error) => {
+          console.error('Błąd tworzenia listy:', error);
+          this.toastr.error('Nie udało się utworzyć listy.');
+        }
       });
   }
 }
