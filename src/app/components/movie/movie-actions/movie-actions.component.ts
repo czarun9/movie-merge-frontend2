@@ -1,10 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MovieStarsComponent } from '../movie-stars/movie-stars.component';
-import { RatingTileComponent } from '../rating-tile/rating-tile.component';
-import { MovieStatus } from '../../../models/movie-status.model';
-import { ListSelectorModalComponent } from '../list-selector-modal/list-selector-modal.component';
-import { TmdbMovie, TraktMovie } from '../../../models/movie.model';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, inject} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MovieStarsComponent} from '../movie-stars/movie-stars.component';
+import {RatingTileComponent} from '../rating-tile/rating-tile.component';
+import {MovieStatus} from '../../../models/movie-status.model';
+import {ListSelectorModalComponent} from '../list-selector-modal/list-selector-modal.component';
+import {TmdbMovie, TraktMovie} from '../../../models/movie.model';
+import {LoginService} from '../../../services/login/login.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-movie-actions',
@@ -28,8 +30,17 @@ export class MovieActionsComponent implements OnInit, OnChanges {
 
   showListModal = false;
   isDataLoading = true;
+  isLoggedIn = false;
+  private toastr = inject(ToastrService);
 
-  ngOnInit() {
+  constructor(private loginService: LoginService) {
+  }
+
+  ngOnInit(): void {
+    this.loginService.isLoggedIn$.subscribe((loggedIn: boolean) => {
+      this.isLoggedIn = loggedIn;
+    });
+
     this.checkDataStatus();
   }
 
@@ -70,35 +81,60 @@ export class MovieActionsComponent implements OnInit, OnChanges {
   }
 
   onRatingChanged(rating: number) {
+    if (!this.isLoggedIn) {
+      this.toastr.info('Zaloguj się, aby ocenić film', 'Informacja');
+      return;
+    }
+
     if (!this.movieStatus || rating < 0.5 || rating > 5) {
       return;
     }
 
     this.movieStatus.latestRating = rating;
-    this.movieStatus.ratings.push({ value: rating, ratedAt: new Date() });
+    this.movieStatus.ratings.push({value: rating, ratedAt: new Date()});
 
     this.ratingChanged.emit(rating);
   }
 
   toggleFavorite(): void {
+    if (!this.isLoggedIn) {
+      this.toastr.info('Zaloguj się, aby dodać do ulubionych', 'Informacja');
+      return;
+    }
+
     if (!this.movieStatus) return;
     this.movieStatus.favourite = !this.movieStatus.favourite;
     this.favouriteToggled.emit(this.movieStatus.favourite);
   }
 
   toggleWatched(): void {
+    if (!this.isLoggedIn) {
+      this.toastr.info('Zaloguj się, aby dodać do obejrzanych', 'Informacja');
+      return;
+    }
+
     if (!this.movieStatus) return;
     this.movieStatus.watched = !this.movieStatus.watched;
     this.watchedMovieToggled.emit(this.movieStatus.watched);
   }
 
   toggleWatchlist(): void {
+    if (!this.isLoggedIn) {
+      this.toastr.info('Zaloguj się, aby dodać do Do Obejrzenia', 'Informacja');
+      return;
+    }
+
     if (!this.movieStatus) return;
     this.movieStatus.inWatchlist = !this.movieStatus.inWatchlist;
     this.addToWatchlistToggled.emit(this.movieStatus.inWatchlist);
   }
 
   openListSelector(): void {
+    if (!this.isLoggedIn) {
+      this.toastr.info('Zaloguj się, aby dodać do własnych list', 'Informacja');
+      return;
+    }
+
     this.showListModal = true;
   }
 
