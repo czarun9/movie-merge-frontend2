@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {catchError, map, Observable, of} from 'rxjs';
+import {catchError, Observable, of, tap} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {TmdbMovie, TmdbMoviePageResponse, TraktMovie} from '../../models/movie.model';
 import {GenresResponse} from '../../models/genre.model';
@@ -10,15 +10,16 @@ import {ReviewPageResponse} from '../../models/review.model';
   providedIn: 'root'
 })
 export class MovieService {
-  private apiUrl = `${environment.apiUrl}/api/v1`;
+  private readonly apiUrl = `${environment.apiUrl}/api/v1`;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getMovie(id: number): Observable<TmdbMovie | undefined> {
     return this.http.get<TmdbMovie>(`${this.apiUrl}/tmdb/movies/${id}`).pipe(
-      map(response => response),
-      catchError(() => of(undefined))
+      catchError(error => {
+        console.error('Error fetching TMDB movie:', error);
+        return of(undefined);
+      })
     );
   }
 
@@ -27,8 +28,7 @@ export class MovieService {
     genre?: string,
     rating?: number
   ): Observable<TmdbMoviePageResponse | undefined> {
-    let params = new HttpParams()
-      .set('page', page.toString());
+    let params = new HttpParams().set('page', page.toString());
 
     if (genre) {
       params = params.set('genre', genre);
@@ -41,16 +41,19 @@ export class MovieService {
     return this.http
       .get<TmdbMoviePageResponse>(`${this.apiUrl}/tmdb/discover`, {params})
       .pipe(
-        map(response => response),
-        catchError(() => of(undefined))
+        catchError(error => {
+          console.error('Error discovering movies:', error);
+          return of(undefined);
+        })
       );
   }
 
-
   getGenres(): Observable<GenresResponse | undefined> {
     return this.http.get<GenresResponse>(`${this.apiUrl}/tmdb/genres`).pipe(
-      map(response => response),
-      catchError(() => of(undefined))
+      catchError(error => {
+        console.error('Error fetching genres:', error);
+        return of(undefined);
+      })
     );
   }
 
@@ -60,14 +63,15 @@ export class MovieService {
     return this.http
       .get<ReviewPageResponse>(`${this.apiUrl}/tmdb/movies/${movieId}/reviews`, {params})
       .pipe(
-        map(response => response),
-        catchError(() => of(undefined))
+        catchError(error => {
+          console.error('Error fetching movie reviews:', error);
+          return of(undefined);
+        })
       );
   }
 
   getTraktMovie(id: number): Observable<TraktMovie | undefined> {
     return this.http.get<TraktMovie>(`${this.apiUrl}/trakt/movies/${id}`).pipe(
-      map(response => response),
       catchError(() => of(undefined))
     );
   }

@@ -3,8 +3,9 @@ import { Observable, forkJoin, map, switchMap} from 'rxjs';
 import { MovieService } from '../movie/movie.service';
 import { MovieStatusService } from '../movie-status/movie-status.service';
 import { UserService } from '../user/user.service';
-import { TmdbMovie, TraktMovie } from '../../models/movie.model';
+import {TmdbMovie, TraktMovie, TraktMovieComment} from '../../models/movie.model';
 import { MovieStatus } from '../../models/movie-status.model';
+import {Review} from '../../models/review.model';
 
 export interface MovieDetails {
   movie: TmdbMovie | null;
@@ -23,7 +24,7 @@ export class MovieFacadeService {
   ) {}
 
   /**
-   * Pobiera kompleksowe dane o filmie, łącznie z recenzjami
+   * Pobiera kompleksowe dane o filmie, łącznie z recenzjami i komentarzami Trakt (w obiekcie traktMovie)
    */
   getMovieDetails(movieId: number): Observable<MovieDetails> {
     return forkJoin({
@@ -31,12 +32,21 @@ export class MovieFacadeService {
       reviewPage: this.movieService.getMovieReviews(movieId),
       traktMovie: this.movieService.getTraktMovie(movieId)
     }).pipe(
-      map(({ movie, reviewPage, traktMovie }) => {
+      map(({movie, reviewPage, traktMovie}) => {
         const movieData = movie || null;
         const traktMovieData = traktMovie || null;
 
+        const traktReviews: Review[] = traktMovieData?.comments
+          ? this.mapTraktCommentsToReviews(traktMovieData.comments)
+          : [];
+
         if (movieData && reviewPage) {
-          movieData.reviews = reviewPage.reviews;
+          movieData.reviews = [
+            ...reviewPage.reviews,
+            ...traktReviews
+          ];
+        } else if (movieData) {
+          movieData.reviews = traktReviews;
         }
 
         return {
@@ -45,6 +55,16 @@ export class MovieFacadeService {
         };
       })
     );
+  }
+
+  private mapTraktCommentsToReviews(traktComments: readonly TraktMovieComment[]): Review[] {
+    return traktComments.map(comment => ({
+      id: comment.id.toString(),
+      author: comment.author,
+      content: comment.content,
+      url: '',
+      platform: 'Trakt'
+    }));
   }
 
   /**

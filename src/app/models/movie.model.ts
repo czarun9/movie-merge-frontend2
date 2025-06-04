@@ -37,6 +37,12 @@ export interface TraktMovieIds {
   readonly tmdb: number;
 }
 
+export interface TraktMovieComment {
+  readonly id: number;
+  readonly author: string;
+  readonly content: string;
+}
+
 export interface TraktMovie {
   readonly title: string;
   readonly year: number;
@@ -54,4 +60,5 @@ export interface TraktMovie {
   readonly votes: number;
   readonly updatedAt: string;
   readonly availableTranslations: readonly string[];
+  readonly comments: readonly TraktMovieComment[];
 }
