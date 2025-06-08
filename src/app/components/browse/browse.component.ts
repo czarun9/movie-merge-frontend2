@@ -8,6 +8,7 @@ import {BrowsePaginationComponent} from './browse-pagination/browse-pagination.c
 import {BrowseFilterComponent} from './browse-filter/browse-filter.component';
 import {TmdbMovie} from '../../models/movie.model';
 import {Genre} from '../../models/genre.model';
+import {SearchBarComponent} from './search-bar/search-bar.component';
 
 @Component({
   selector: 'app-browse',
@@ -16,7 +17,8 @@ import {Genre} from '../../models/genre.model';
     NgForOf,
     MovieCardComponent,
     BrowsePaginationComponent,
-    BrowseFilterComponent
+    BrowseFilterComponent,
+    SearchBarComponent
   ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.css'

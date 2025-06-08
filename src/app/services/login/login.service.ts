@@ -28,7 +28,7 @@ export class LoginService {
       tap(response => {
         this.token = response.token ?? null;
         localStorage.setItem('authToken', this.token!);
-        this.loggedInSubject.next(true); // Emituj zmianę stanu logowania
+        this.loggedInSubject.next(true);
       })
     );
   }

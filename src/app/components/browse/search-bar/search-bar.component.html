@@ -1,0 +1,9 @@
+<div class="input-group mb-3">
+  <input
+    #searchInput
+    type="text"
+    class="form-control"
+    [placeholder]="placeholder"
+    (keyup.enter)="emitSearch(searchInput.value)"
+  />
+</div>
