@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyPipe, DecimalPipe, NgForOf, NgIf, UpperCasePipe } from '@angular/common';
-import { Subject, takeUntil } from 'rxjs';
+import {Subject, takeUntil, timeout} from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import {TmdbMovie, TraktMovie} from '../../models/movie.model';
@@ -174,14 +174,21 @@ export class MovieComponent implements OnInit, OnDestroy {
     if (!listName.trim() || !this.movieId) return;
 
     this.movieFacade.createListWithMovie(listName, this.movieId)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        timeout(5000),
+        takeUntil(this.destroy$)
+      )
       .subscribe({
         next: () => {
           this.toastr.success(`Utworzono listę '${listName}' i dodano film.`);
         },
         error: (error) => {
-          console.error('Błąd tworzenia listy:', error);
-          this.toastr.error('Nie udało się utworzyć listy.');
+          if (error.name === 'TimeoutError') {
+            this.toastr.error('Nie udało się zapisać listy, spróbuj ponownie.');
+          } else {
+            console.error('Błąd tworzenia listy:', error);
+            this.toastr.error('Nie udało się utworzyć listy.');
+          }
         }
       });
   }

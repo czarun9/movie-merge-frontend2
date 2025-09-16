@@ -64,7 +64,11 @@ export class MovieDetailsComponent implements AfterViewInit {
   }
 
   toggleDataSource() {
-    this.dataSource = this.dataSource === 'tmdb' ? 'trakt' : 'tmdb';
+    if (this.dataSource === 'tmdb' && this.traktMovieData) {
+      this.dataSource = 'trakt';
+    } else {
+      this.dataSource = 'tmdb';
+    }
   }
 
   tabs = [

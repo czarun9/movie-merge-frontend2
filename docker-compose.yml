@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  movie-merge-app:
+    build: .
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production

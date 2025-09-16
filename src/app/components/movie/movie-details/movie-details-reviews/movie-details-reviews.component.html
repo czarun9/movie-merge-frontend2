@@ -1,5 +1,10 @@
 <div class="reviews-wrapper">
   <div class="reviews">
+
+    <div *ngIf="!reviews || reviews.length === 0" class="no-reviews">
+      Brak recenzji dla tego filmu.
+    </div>
+
     <div class="review" *ngFor="let review of reviews; let i = index">
       <div class="review-meta">
         {{ review.author }} ({{ review.platform || 'MovieMerge' }})
@@ -13,5 +18,6 @@
         </button>
       </div>
     </div>
+
   </div>
 </div>

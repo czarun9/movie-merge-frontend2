@@ -7,10 +7,12 @@
     </button>
     <button
       [class.active]="dataSource === 'trakt'"
+      [disabled]="!traktMovieData"
       (click)="dataSource = 'trakt'">
       Trakt
     </button>
   </div>
+
 
   <h2 class="movie-title">
     {{ movieTitle }}
@@ -47,9 +49,13 @@
     <div class="tab-content">
       <div class="data-source-indicator">
         Źródło danych: <span class="source-name">{{ dataSource.toUpperCase() }}</span>
-        <button class="toggle-source-btn" (click)="toggleDataSource()">
+        <button
+          class="toggle-source-btn"
+          [disabled]="dataSource === 'tmdb' && !traktMovieData"
+          (click)="toggleDataSource()">
           Przełącz na {{ dataSource === 'tmdb' ? 'Trakt' : 'TMDB' }}
         </button>
+
       </div>
 
       <ng-container [ngSwitch]="selectedTab.value">

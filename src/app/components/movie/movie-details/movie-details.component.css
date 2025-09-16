@@ -31,9 +31,18 @@
   box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
 }
 
-.data-source-toggle button:hover:not(.active) {
+.data-source-toggle button:hover:not(.active):not(:disabled) {
   background-color: #e0e0e0;
   border-color: #d0d0d0;
+}
+
+
+.data-source-toggle button:disabled {
+  background-color: #f0f0f0;
+  border-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .movie-info {
@@ -186,6 +195,14 @@
 .toggle-source-btn:hover {
   background-color: #f0f0f0;
   border-color: #aaa;
+}
+
+
+.toggle-source-btn:disabled {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 .movie-details-table {
